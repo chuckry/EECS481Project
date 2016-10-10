@@ -77,15 +77,47 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            // Print JSON response, which contains Latitude/Longitude data of location
+            // Extract Latitude/Longitude from JSON
             do {
-                let json = try JSONSerialization.jsonObject(with: data!)
-                print(json)
+                if let json = try JSONSerialization.jsonObject(with: data!) as? [String:AnyObject] {
+                    if let results = json["results"] {
+                        if let actualResults = results[0] {
+                            if let res = actualResults as? [String:AnyObject] {
+                                
+                                // Save the formatted address for later
+                                self.address = String(describing: res["formatted_address"])
+                                
+                                if let geometry = res["geometry"] {
+                                    if let geometryJson = geometry as? [String:AnyObject] {
+                                        if let location = geometryJson["location"] {
+                                            if let locationJson = location as? [String:AnyObject] {
+                                                if let lat = locationJson["lat"] , let long = locationJson["lng"] {
+                                                    self.getMapFromLocation(lat: lat as! Float, long: long as! Float, address: self.address)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             } catch {
                 print("Error with JSON: \(error)")
             }
         }
         task.resume()
+    }
+    
+    /* TODO:
+     *  Implement this method to call the Google Maps API and display a map of the given location.
+     *
+     *  There should be a text field in the top showing the formatted address of the location for re-querying.
+     */
+    func getMapFromLocation(lat: Float, long: Float, address: String) {
+        print(lat)
+        print(long)
+        print(address)
     }
 }
 
