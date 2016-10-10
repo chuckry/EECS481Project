@@ -15,6 +15,7 @@
 		41952C511DA81D56001B237A /* AOSGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C501DA81D56001B237A /* AOSGTests.swift */; };
 		41952C5C1DA81D56001B237A /* AOSGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C5B1DA81D56001B237A /* AOSGUITests.swift */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
+		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		41952C5B1DA81D56001B237A /* AOSGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSGUITests.swift; sourceTree = "<group>"; };
 		41952C5D1DA81D56001B237A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
+		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.release.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 			children = (
 				41952C3B1DA81D56001B237A /* AppDelegate.swift */,
 				41952C3D1DA81D56001B237A /* ViewController.swift */,
+				BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */,
 				41952C3F1DA81D56001B237A /* Main.storyboard */,
 				41952C421DA81D56001B237A /* Assets.xcassets */,
 				41952C441DA81D56001B237A /* LaunchScreen.storyboard */,
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
 				41952C3E1DA81D56001B237A /* ViewController.swift in Sources */,
 				41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */,
 			);
