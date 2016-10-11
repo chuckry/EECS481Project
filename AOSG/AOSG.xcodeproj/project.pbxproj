@@ -223,6 +223,7 @@
 				TargetAttributes = {
 					41952C371DA81D56001B237A = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3ZFLAR9B98;
 						ProvisioningStyle = Automatic;
 					};
 					41952C4B1DA81D56001B237A = {
@@ -490,6 +491,7 @@
 			baseConfigurationReference = 54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
@@ -503,6 +505,7 @@
 			baseConfigurationReference = D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;

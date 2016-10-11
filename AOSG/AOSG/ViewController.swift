@@ -9,13 +9,21 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import CoreMotion
+
+
+public typealias CMPedometerHandler = (CMPedometerData?, NSError?) -> Void
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Properties
     weak var destTextField: UITextField!
     var address: String! = ""
-
+	/* Step Stuff*/
+	let activityManager = CMMotionActivityManager()
+	let pedometer = CMPedometer()
+	var stepSize: Float = 0
+	
 	override func loadView() {
         self.view = UIView()
         self.view.backgroundColor = .blue
@@ -24,16 +32,42 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
-        
+	
         destTextField = createTextField(placeholder: "Enter travel destination")
         self.view.addSubview(destTextField)
+		
+		let endDate = Date()
+		let cal = NSCalendar.current
+		let startDate = cal.date(byAdding: .day, value: -8, to: Date())
+		
+		//this iwill only run if there is dat available
+		pedometer.queryPedometerData(from: startDate!, to: endDate) { (data: CMPedometerData?, error: Error?) -> Void in
+			if let data = data {
+				let numSteps = data.numberOfSteps as Float
+				let distance = data.distance as! Float // in meters
+				self.stepSize = numSteps / distance as Float
+				print(numSteps)
+				print(distance)
+				print(self.stepSize)
+				
+				let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
+				label.center = CGPoint(x: 160, y: 284)
+				label.textAlignment = .center
+				label.numberOfLines = 0
+				let text = "Number of steps: \(numSteps) \r Distance: \(distance) meters \r Average Step Size: \(self.stepSize) meters"
+				label.text = text
+				self.view.addSubview(label)
+			}
+		}
+		
 	}
 
 //	override func didReceiveMemoryWarning() {
 //		super.didReceiveMemoryWarning()
 //		// Dispose of any resources that can be recreated.
 //	}
-    
+	
+	
     func createTextField(placeholder: String) -> UITextField {
         let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 370, height: 100))
         textField.placeholder = placeholder
