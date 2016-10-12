@@ -14,42 +14,57 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Properties
     weak var destTextField: UITextField!
+    weak var locationEnableButton: UIButton!
     var address: String! = ""
-
+    let locationService = LocationService()
+    
 	override func loadView() {
         self.view = UIView()
         self.view.backgroundColor = .blue
+        locationService.delegateView = self
+        if !locationService.startUpdatingLocation() {
+            locationService.requestAccess()
+        }
+        // create the text field and paint it
+        destTextField = buildSearchBar(placeholder: "Enter travel destination")
+        self.view.addSubview(destTextField)
+        // use userLocation to create a pin. First check it tho
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
-        
-        destTextField = createTextField(placeholder: "Enter travel destination")
-        self.view.addSubview(destTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.viewDidAppear(_:)), name:
+            NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !locationService.startUpdatingLocation() {
+            locationService.requestAccess()
+        }
+    }
 
 //	override func didReceiveMemoryWarning() {
 //		super.didReceiveMemoryWarning()
 //		// Dispose of any resources that can be recreated.
 //	}
     
-    func createTextField(placeholder: String) -> UITextField {
-        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 370, height: 100))
+    func buildSearchBar(placeholder: String) -> UITextField {
+        let screenSize: CGRect = UIScreen.main.bounds
+        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: screenSize.width - 40, height: 80))
         textField.placeholder = placeholder
         textField.backgroundColor = .white
         textField.borderStyle = UITextBorderStyle.roundedRect
         textField.textAlignment = .center
         textField.returnKeyType = .search
         textField.delegate = self
-        textField.addTarget(self, action: #selector(ViewController.textFieldShouldReturn(_:)), for: .editingDidEnd)
+        textField.addTarget(self, action: #selector(ViewController.searchBarShouldReturn(_:)), for: .editingDidEnd)
         return textField
     }
-    
     /*
      *  Extracts text when return key is pressed
      */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func searchBarShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         address = textField.text?.replacingOccurrences(of: " ", with: "+")
         queryLocationFromAddress(address: address)
