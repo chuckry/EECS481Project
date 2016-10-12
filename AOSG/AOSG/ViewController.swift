@@ -20,15 +20,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
 	override func loadView() {
         self.view = UIView()
-        self.view.backgroundColor = .blue
+        //self.view.backgroundColor = .blue
         locationService.delegateView = self
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
         }
-        // create the text field and paint it
-        destTextField = buildSearchBar(placeholder: "Enter travel destination")
-        self.view.addSubview(destTextField)
-        // use userLocation to create a pin. First check it tho
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.viewDidAppear(_:)), name:
+            NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+
+        
 	}
 
 	override func viewDidLoad() {
@@ -41,7 +41,47 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
+        } else {
+            locationService.waitForLocationToBeAvailable(callback: self.loadGoogleMapDisplay)
         }
+    }
+    
+    func loadGoogleMapDisplay() -> Void {
+        // Create a GMSCameraPosition that tells the map to display the
+        // coordinate -33.86,151.20 at zoom level 6.
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        mapView.isMyLocationEnabled = true
+//        self.view.addSubview(mapView)
+//        
+//        // Creates a marker in the center of the map.
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
+//
+        
+        
+        // use userLocation to create a pin. First check it tho
+        let coord = locationService.user_location!.coordinate
+        print("I'm at coordinates:", coord.latitude, coord.longitude)
+        let camera = GMSCameraPosition.camera(
+            withLatitude: coord.latitude,
+            longitude: coord.longitude,
+            zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        mapView.isMyLocationEnabled = true
+        view = mapView
+            
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude)
+        marker.map = mapView
+        
+        // create the text field and paint it
+        destTextField = buildSearchBar(placeholder: "Enter travel destination")
+        self.view.addSubview(destTextField)
+
     }
 
 //	override func didReceiveMemoryWarning() {

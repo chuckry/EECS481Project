@@ -21,8 +21,9 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     var timestamp: NSDate?
     var isUpdating: Bool = false
     var locationManager: CLLocationManager!
-    var delegateView: UIViewController?
-    
+    var delegateView: ViewController?
+    var waitingForLocation: Bool = false
+    lazy var notifyLocationAvailable: ()->Void = {arg in}
     // MARK: Delegate Functions
     
     // Receieves a location update from the OS and handles updating the user_location
@@ -32,6 +33,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         // synchronize access to user_location
         user_location = mostRecentLocation
         timestamp = mostRecentLocation!.timestamp as NSDate?
+        if waitingForLocation {
+            print("someone is waiting for this location")
+            waitingForLocation = false
+            notifyLocationAvailable()
+        }
     }
     
     // If location updates fail, print to let us know (add a signal here?)
@@ -77,6 +83,14 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         isUpdating = false
     }
     
+    func waitForLocationToBeAvailable(callback: @escaping () -> () ) {
+        // using a busy wait move here.
+        // semaphores are causing application to block...
+        notifyLocationAvailable = callback
+        waitingForLocation = true
+        print("set a handler for when location is updated")
+    }
+    
     func requestAccess() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse: break
@@ -108,6 +122,9 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    private func doNoHarm() {
+        
+    }
     
     // MARK: Initialization
     override init() {

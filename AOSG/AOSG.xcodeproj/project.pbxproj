@@ -18,7 +18,6 @@
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
 		BA2277891DAD95C5003DC27F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2277881DAD95C5003DC27F /* MapKit.framework */; };
-		BAE5F04C1DADDF84009DCA26 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41952C471DA81D56001B237A /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,6 +232,9 @@
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -275,7 +277,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAE5F04C1DADDF84009DCA26 /* Info.plist in Resources */,
 				41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */,
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
