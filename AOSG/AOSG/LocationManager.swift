@@ -14,7 +14,7 @@ import UIKit
 class LocationService: NSObject, CLLocationManagerDelegate {
     
     // singleton pattern
-   // static let locationService = LocationService()
+   static let sharedInstance = LocationService()
     
     // MARK: Properties
     var user_location: CLLocation?
@@ -127,7 +127,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     // MARK: Initialization
-    override init() {
+    private override init() {
         locationManager = CLLocationManager()
         super.init()
         locationManager.delegate = self
