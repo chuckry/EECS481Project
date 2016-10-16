@@ -28,13 +28,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     // Receieves a location update from the OS and handles updating the user_location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("updating location!")
         let mostRecentLocation = locations.last
         // synchronize access to user_location
         user_location = mostRecentLocation
         timestamp = mostRecentLocation!.timestamp as NSDate?
         if waitingForLocation {
-            print("someone is waiting for this location")
             waitingForLocation = false
             notifyLocationAvailable()
         }
@@ -42,12 +40,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     // If location updates fail, print to let us know (add a signal here?)
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("failed location update!")
+        print("failed location update: \(error)")
        user_location = nil
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("Changed authorization status!!")
         // try to start updating location now
         if !self.startUpdatingLocation() {
             self.stopUpdatingLocation()
@@ -68,12 +65,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     func startUpdatingLocation() -> Bool {
         if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            print("starting location updates")
             locationManager.startUpdatingLocation()
             isUpdating = true
             return true
         } else {
-            print("Need to request access!")
             return false
         }
     }
@@ -88,7 +83,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         // semaphores are causing application to block...
         notifyLocationAvailable = callback
         waitingForLocation = true
-        print("set a handler for when location is updated")
     }
     
     func requestAccess() {
@@ -97,7 +91,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            print("attempting to request access again!")
             if delegateView == nil {
                 print("ERROR: Need to set up a delegateView for this locationManager instance!")
                 return
@@ -122,18 +115,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    private func doNoHarm() {
-        
-    }
-    
     // MARK: Initialization
     private override init() {
         locationManager = CLLocationManager()
         super.init()
         locationManager.delegate = self
-        // immediately start updating our location
-        print("initialized location manager")
-        // This is supposed to be default:
-        // locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 }
