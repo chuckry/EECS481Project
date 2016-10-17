@@ -16,9 +16,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var currentLocationLabel: UILabel!
-    @IBOutlet weak var nextWaypointLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+	@IBOutlet weak var directionList:UITextView!
+
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
     
@@ -33,14 +34,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
         }
+		directionList.text = "--";
 	}
-    
+	
     // MARK: UITextFieldDelegate Handlers
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Implement anything that should be done when the textField begins editing
     }
-    
+		
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // if you hit the search button, then hide the keyboard
         textField.resignFirstResponder()

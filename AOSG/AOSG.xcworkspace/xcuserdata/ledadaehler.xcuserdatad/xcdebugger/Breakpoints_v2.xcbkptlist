@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/ViewController.swift"
@@ -15,8 +15,55 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
             endingLineNumber = "17"
-            landmarkName = "loadView()"
-            landmarkType = "7">
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.ViewController.destinationTextField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/ViewController.swift"
+                  timestampString = "498368264.337125"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.ViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AOSG.ViewController"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/ViewController.swift"
+                  timestampString = "498368264.339986"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.ViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AOSG.ViewController&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/ViewController.swift"
+                  timestampString = "498368264.342832"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
