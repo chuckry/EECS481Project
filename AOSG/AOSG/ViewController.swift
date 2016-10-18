@@ -139,9 +139,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // TODO: insert the list of directions into a UI list
             // use route.getDirectionsAsStringArray
             
-            for str in self.route.getDirectionsAsStringArray() {
-                print(str)
-            }
+            let directions = self.route.getDirectionsAsStringArray()
+            self.directionList.text = directions.joined(separator: "\n\n")
             
             // Hide the spinner
             self.spinner.stopAnimating()
@@ -155,8 +154,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // does the route management
         }
     }
-    
-    // TODO: Create a function that can populate a UI list using an array of strings
+
 }
 
 

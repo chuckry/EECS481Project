@@ -33,7 +33,11 @@ class NavigationPath {
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
-            directions.append(step.description)
+            if step.formattedNote != nil {
+                directions.append(step.formattedDescription + "\nNote: " + step.formattedNote!)
+            } else {
+                directions.append(step.formattedDescription)
+            }
         }
         return directions
     }
@@ -83,7 +87,11 @@ struct NavigationStep {
      elevation.
      */
     var totalDuration: Double
-    var description: String
+    // What should be printed on the string
+    var formattedDescription: String
+    // Optional note (default is empty)
+    var formattedNote: String?
+    var rawDescription: String
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
     
@@ -92,7 +100,16 @@ struct NavigationStep {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
         totalDistance = dist
         totalDuration = dur
-        description = desc.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        rawDescription = desc
+
+        formattedDescription = desc.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        let openBracketIndex = formattedDescription.range(of: "<div");
+        let closedBracketDiv = formattedDescription.range(of: ">");
+        let openBracketIndex2 = formattedDescription.range(of: "</div>")
+        if openBracketIndex != nil && closedBracketDiv != nil && openBracketIndex2 != nil {
+            formattedNote = formattedDescription.substring(with: (closedBracketDiv?.upperBound)!..<(openBracketIndex2?.lowerBound)!)
+            formattedDescription.removeSubrange((openBracketIndex?.lowerBound)!..<(openBracketIndex2?.upperBound)!)
+        }
     }
     
     /*
@@ -161,7 +178,7 @@ struct GeocodingResponse {
 
     // Sends back a formatted String
     func formatForDisplay() -> String {
-        return "\(address)\n\(self.locationDescription())"
+        return address
     }
 }
 
