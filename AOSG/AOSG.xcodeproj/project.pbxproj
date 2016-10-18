@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136AE4D1DB5B5B800EF7443 /* Steps.swift */; };
 		41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3B1DA81D56001B237A /* AppDelegate.swift */; };
 		41952C3E1DA81D56001B237A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3D1DA81D56001B237A /* ViewController.swift */; };
 		41952C411DA81D56001B237A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41952C3F1DA81D56001B237A /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AOSG.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4136AE4D1DB5B5B800EF7443 /* Steps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Steps.swift; sourceTree = "<group>"; };
 		41952C381DA81D56001B237A /* AOSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AOSG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41952C3B1DA81D56001B237A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41952C3D1DA81D56001B237A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				41952C421DA81D56001B237A /* Assets.xcassets */,
 				41952C441DA81D56001B237A /* LaunchScreen.storyboard */,
 				41952C471DA81D56001B237A /* Info.plist */,
+				4136AE4D1DB5B5B800EF7443 /* Steps.swift */,
 			);
 			path = AOSG;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				TargetAttributes = {
 					41952C371DA81D56001B237A = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3ZFLAR9B98;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -357,6 +361,7 @@
 			files = (
 				BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */,
 				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
+				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,
 				41952C3E1DA81D56001B237A /* ViewController.swift in Sources */,
 				BAE5F0501DB00152009DCA26 /* GoogleAPI.swift in Sources */,
 				41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */,
@@ -510,6 +515,7 @@
 			baseConfigurationReference = 54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
@@ -523,6 +529,7 @@
 			baseConfigurationReference = D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;

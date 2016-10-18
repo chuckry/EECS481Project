@@ -19,7 +19,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList:UITextView!
-
+	var stepData = Steps()
+	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
     
@@ -41,8 +42,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Implement anything that should be done when the textField begins editing
-    }
 		
+	}
+	
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // if you hit the search button, then hide the keyboard
         textField.resignFirstResponder()
