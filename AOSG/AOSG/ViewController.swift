@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Dispatch
 import GoogleMaps
 import GooglePlaces
 
@@ -23,8 +24,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
-    
     let googleAPI = GoogleAPI.sharedInstance
+    
+    // navigation state properties
+    var route: NavigationPath!
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -32,6 +35,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         locationService.delegateView = self
         destinationTextField.delegate = self
         
+        // Start up location services, or ask user for these permissions as soon as
+        // possible to ensure the device has enough time to actually determine location
+        // using GPS
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
         }
@@ -40,43 +46,117 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
     // MARK: UITextFieldDelegate Handlers
     
+    // Executes when user taps the input to start entering a destination
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Implement anything that should be done when the textField begins editing
-		
-	}
-	
+
+        // May implement a "cancel route guidance" feature here at some point...
+    }
+
+    // Executes when user hits the return key
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // if you hit the search button, then hide the keyboard
+        // when user hits the search button, hide the keyboard
         textField.resignFirstResponder()
         return true
     }
     
+    // Executes when keyboard is hidden and textfield value is constant
+    // This triggers the routeGuidance workflow
     func textFieldDidEndEditing(_ textField: UITextField) {
         // if the textField is non-empty, start a navigation
         if !textField.text!.isEmpty {
-            // get current location then update the UI
-            let currentLocation = locationService.user_location!
-            googleAPI.reverseGeocode(location: currentLocation, callback: self.updateCurrentLocationLabel)
-            // find the target location, then update the UI
-            googleAPI.geocode(address: textField.text!, callback: self.updateDestinationLocationLabel)
+            
+            // don't let the user modify location while we are working... (need constant)
+            // this prevents entering an unexpected user state
+            destinationTextField.isUserInteractionEnabled = false
             
             // show a spinner to show user we are searching...
             spinner.startAnimating()
-            // make a Directions API call to get a list of legs/steps to reach a destination.
-            // On return, start a route guidance.
+            
+            // wait for a location to be available
+            locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
     
-    // MARK: UILabel Actuators
-    func updateCurrentLocationLabel(withData: GeocodingResponse) -> Void {
-        currentLocationLabel.text = withData.formatForDisplay()
+
+    
+    // Should execute as a handler for when location services is able
+    // to return a known address
+    func initialLocationKnown(location: CLLocation) {
+        
+        // retrieve the destination as an address
+        guard let destinationAddress = destinationTextField.text else {
+            print("ERROR: destinationTextField value is unavailable")
+            // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
+            return
+        }
+        
+        // ask the google API to compute a route. handle response in a callback
+        googleAPI.directions(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
-    func updateDestinationLocationLabel(withData: GeocodingResponse) -> Void {
-        destinationLocationLabel.text = withData.formatForDisplay()
-        spinner.stopAnimating()
+    // Should execute as a handler when the Google API responds with a route
+    // to a user-entered destination.
+    func initializeRouteGuidance(withPath: NavigationPath?) -> Void {
+        
+        // if navigation path was not found, deal with it first
+        guard withPath != nil else {
+            
+            // UIKit is NOT thread safe. Therefore, the UI can't
+            // be updated from anything else besides the main thread.
+            // see: http://stackoverflow.com/questions/27841228/ios-label-does-not-update-text-with-function-in-swift
+            // start a dispatch to the main thread to update UI
+            DispatchQueue.main.async {
+                // deal with the fact that this route was not found.
+                // TODO: Implement an error enum pattern that can be used to
+                // provide feedback to the user
+                
+                // Clean up
+                // Hide the spinner
+                self.spinner.stopAnimating()
+                
+                // Clear the destinationTextField
+                self.destinationTextField.text = ""
+                
+                // Re-enable the text field for editing
+                self.destinationTextField.isUserInteractionEnabled = true
+            }
+            return
+        }
+        
+        // save the Navigation Path returned as an internal state
+        route = withPath!
+        
+        // Start a dispatch to the main thread (see link above)
+        DispatchQueue.main.async {
+            // update the UI with the current address:
+            self.currentLocationLabel.text = self.route.startLocation.formatForDisplay()
+            
+            // update the UI with the destination address:
+            self.destinationLocationLabel.text = self.route.endLocation.formatForDisplay()
+            
+            // TODO: insert the list of directions into a UI list
+            // use route.getDirectionsAsStringArray
+            
+            for str in self.route.getDirectionsAsStringArray() {
+                print(str)
+            }
+            
+            // Hide the spinner
+            self.spinner.stopAnimating()
+            
+            // Re-enable the destinationTextField
+            // MARK: Do we really want to do this?
+            self.destinationTextField.isUserInteractionEnabled = true
+            
+            // TODO: notify the location manager that we want updates on
+            // significant changes now, and provide a driver callback that
+            // does the route management
+        }
     }
     
+    // TODO: Create a function that can populate a UI list using an array of strings
 }
 
 
