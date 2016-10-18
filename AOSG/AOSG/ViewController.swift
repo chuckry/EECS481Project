@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
         destTextField = createTextField(placeholder: "Enter travel destination")
         self.view.addSubview(destTextField)
+		stepData.beginCollectingStepData()
 		print(stepData.stepSize)
 		
 	}
