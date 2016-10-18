@@ -62,7 +62,8 @@ class Steps {
 						self.currentStepCount = (data.numberOfSteps as Int) - self.historicalStepCount
 						self.currentStepDistance = (data.distance as! Float) - self.historicalStepDistance
 						
-						self.stepSize = (self.currentStepDistance + self.historicalStepDistance) / Float(self.currentStepCount + self.historicalStepCount) as Float
+						//weighting current steps by a factor of 10 for now
+						self.stepSize = (self.currentStepDistance*10 + self.historicalStepDistance) / Float(self.currentStepCount*10 + self.historicalStepCount) as Float
 						
 						let text = "Current Data: Number of steps: \(self.currentStepCount) \r Distance: \(self.currentStepDistance) meters \r Average Step Size: \(self.stepSize) meters"
 						print(text)
