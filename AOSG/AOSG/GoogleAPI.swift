@@ -85,7 +85,7 @@ struct NavigationStep {
     var totalDuration: Double
     var description: String
     // radius of "error" considered to be within the goal location
-    static let GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
+    static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
     
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {

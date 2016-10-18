@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var nextWaypointLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
+    @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     // shared instances for interfaces
@@ -37,9 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Start up location services, or ask user for these permissions as soon as
         // possible to ensure the device has enough time to actually determine location
         // using GPS
-        print("Attempting to start location services...")
         if !locationService.startUpdatingLocation() {
-            print("Location services disabled, requesting access...")
             locationService.requestAccess()
         }
 	}
@@ -74,18 +73,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             // wait for a location to be available
             locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            // could also use the heading data: (must use iOS)
+            locationService.waitForHeadingToBeAvailable(callback: self.initialHeadingKnown)
+        }
+    }
+    
+    // Should execute as a handler when the OS provides a heading
+    // update
+    func initialHeadingKnown(heading: CLHeading) {
+        // update the UI in the main thread
+        DispatchQueue.main.async {
+            // Directions
+            let cardinalDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+            
+            // update a UI element for debugging purposes
+            self.headingLabel.text = "\(heading.trueHeading)\u{00B0} (\(cardinalDirections[Int(heading.trueHeading+22.5)%360 / 45]))"
         }
     }
     
     // Should execute as a handler for when location services is able
     // to return a known address
-    func initialLocationKnown() {
-        // retrieve the location since it is guaranteed to be known now
-        guard let initialLocation = locationService.user_location else {
-            print("ERROR: initial location is unavailable through locationService")
-            // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
-            return
-        }
+    func initialLocationKnown(location: CLLocation) {
         
         // retrieve the destination as an address
         guard let destinationAddress = destinationTextField.text else {
@@ -95,7 +103,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
         // ask the google API to compute a route. handle response in a callback
-        googleAPI.directions(from: "\(initialLocation.coordinate.latitude),\(initialLocation.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        googleAPI.directions(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
@@ -140,6 +148,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             // TODO: insert the list of directions into a UI list
             // use route.getDirectionsAsStringArray
+            
+            for str in self.route.getDirectionsAsStringArray() {
+                print(str)
+            }
             
             // Hide the spinner
             self.spinner.stopAnimating()

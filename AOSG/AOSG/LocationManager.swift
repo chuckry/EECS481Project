@@ -17,33 +17,63 @@ class LocationService: NSObject, CLLocationManagerDelegate {
    static let sharedInstance = LocationService()
     
     // MARK: Properties
-    var user_location: CLLocation?
-    var timestamp: NSDate?
-    var isUpdating: Bool = false
-    var locationManager: CLLocationManager!
+    // these public filters can be overriden with more suitable values...
+    public var headingFilter: CLLocationDegrees = 5.0
+    public var distanceFilter: CLLocationDistance = 5.0
+    
+    
+    private var lastLocation: CLLocation?
+    private var lastHeading: CLHeading?
+    
+    private var locationManager: CLLocationManager!
+    
     var delegateView: ViewController?
-    var waitingForLocation: Bool = false
-    lazy var notifyLocationAvailable: ()->Void = {arg in}
+    
+    private var isUpdating: Bool = false
+    private var waitingForLocation: Bool = false
+    private var waitingForHeading: Bool = false
+    private var waitingForSignificantLocation: Bool = false
+    
+    lazy var notifyLocationAvailable: (CLLocation) -> Void = {arg in}
+    lazy var notifyHeadingAvailable: (CLHeading) -> Void = {arg in}
+    lazy var notifySignificantLocationChange: (CLLocation?, CLHeading?) -> Void = {arg in}
+    
     // MARK: Delegate Functions
     
-    // Receieves a location update from the OS and handles updating the user_location
+    // Executes when OS provides new location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let mostRecentLocation = locations.last
-        // synchronize access to user_location
-        user_location = mostRecentLocation
-        timestamp = mostRecentLocation!.timestamp as NSDate?
-        if waitingForLocation {
+        if waitingForLocation && locations.last != nil {
+            lastLocation = locations.last!
             waitingForLocation = false
-            notifyLocationAvailable()
+            notifyLocationAvailable(lastLocation!)
+        }
+        if waitingForSignificantLocation && locations.last != nil {
+            lastLocation = locations.last!
+            notifySignificantLocationChange(lastLocation, lastHeading)
+        }
+    }
+    
+    // Executes when OS provides new heading
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if waitingForHeading {
+            lastHeading = newHeading
+            waitingForHeading = false
+            notifyHeadingAvailable(lastHeading!)
+        }
+        if waitingForSignificantLocation {
+            lastHeading = newHeading
+            notifySignificantLocationChange(lastLocation, lastHeading)
         }
     }
     
     // If location updates fail, print to let us know (add a signal here?)
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed location update: \(error)")
-       user_location = nil
+        lastLocation = nil
+        lastHeading = nil
     }
     
+    // Executes when OS notifies us of a change in user permissions
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         // try to start updating location now
         if !self.startUpdatingLocation() {
@@ -64,8 +94,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     // MARK: Interface Functions
     
     func startUpdatingLocation() -> Bool {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways
+            || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
             isUpdating = true
             return true
         } else {
@@ -75,14 +107,34 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     func stopUpdatingLocation() {
         locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
         isUpdating = false
     }
     
-    func waitForLocationToBeAvailable(callback: @escaping () -> () ) {
-        // using a busy wait move here.
-        // semaphores are causing application to block...
+    func waitForLocationToBeAvailable(callback: @escaping (CLLocation) -> Void) {
         notifyLocationAvailable = callback
         waitingForLocation = true
+    }
+    
+    func waitForHeadingToBeAvailable(callback: @escaping (CLHeading) -> Void) {
+        if CLLocationManager.headingAvailable() {
+            notifyHeadingAvailable = callback
+            waitingForHeading = true
+        }
+        print("Heading services not available!")
+    }
+    
+    func waitForSignificantLocationChanges(callback: @escaping (CLLocation?, CLHeading?) -> Void) {
+        locationManager.distanceFilter = self.distanceFilter
+        locationManager.headingFilter = self.headingFilter
+        notifySignificantLocationChange = callback
+        waitingForSignificantLocation = true
+    }
+    
+    func stopWaitingForSignificantLocationChanges() {
+        waitingForSignificantLocation = false
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.headingFilter = kCLHeadingFilterNone
     }
     
     func requestAccess() {
