@@ -19,6 +19,7 @@ class NavigationPath {
     var totalPathDuration: Double
     private var path: [NavigationStep] = []
     private var step: Int = 0
+    let pedometer = Steps()
     
     // initialization
     init (startAt: GeocodingResponse, endAt: GeocodingResponse, dist: Double, dur: Double, steps: [NavigationStep]) {
@@ -28,15 +29,16 @@ class NavigationPath {
         totalPathDuration = dur
         path = steps
         step = 0
+        pedometer.beginCollectingStepData()
     }
     
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
             if step.formattedNote != nil {
-                directions.append(step.formattedDescription + "\nNote: " + step.formattedNote!)
+                directions.append(step.formattedDescription + " Steps:\(step.totalDistance / Double(pedometer.stepSize))" + "\nNote: " + step.formattedNote!)
             } else {
-                directions.append(step.formattedDescription)
+                directions.append(step.formattedDescription + " Steps:\(step.totalDistance / Double(pedometer.stepSize))")
             }
         }
         return directions
@@ -66,6 +68,7 @@ class NavigationPath {
 struct NavigationStep {
     // MARK: Properties
     var goal: CLLocation
+    var totalHumanSteps: Int
     var totalDistance: Double
     /*
      DISCUSSION ON DURATION TIMES:
@@ -110,6 +113,8 @@ struct NavigationStep {
             formattedNote = formattedDescription.substring(with: (closedBracketDiv?.upperBound)!..<(openBracketIndex2?.lowerBound)!)
             formattedDescription.removeSubrange((openBracketIndex?.lowerBound)!..<(openBracketIndex2?.upperBound)!)
         }
+        formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
+        totalHumanSteps = 0
     }
     
     /*
@@ -137,6 +142,10 @@ struct NavigationStep {
      */
     func estimatedDistanceRemaining(from: CLLocation) -> Double {
         return goal.distance(from: from)
+    }
+    
+    func estimatedDistanceRemaining(traveled: Double) -> Double {
+        return abs(totalDistance - traveled)
     }
     
     /*
