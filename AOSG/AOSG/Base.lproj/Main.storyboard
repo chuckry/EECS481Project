@@ -27,58 +27,38 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="route"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-l0-qop">
-                                <frame key="frameInset" minX="46" minY="279" width="283" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4K-l0-qop">
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkm-Im-azY">
-                                <frame key="frameInset" minX="56" minY="472" width="263" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkm-Im-azY">
+                                <frame key="frameInset" minX="56" minY="370" width="263" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="y5B-7W-j2F"/>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDL-xa-7xX">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyI-89-DPk">
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7iv-bC-Gjx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="0DB-Ez-mgs"/>
                             <constraint firstItem="n4K-l0-qop" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="9wZ-at-kRc"/>
-                            <constraint firstItem="Dkm-Im-azY" firstAttribute="top" secondItem="xyI-89-DPk" secondAttribute="bottom" constant="60" id="ABL-1V-viu"/>
                             <constraint firstItem="y5B-7W-j2F" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="141" id="Awe-CI-kIQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="n4K-l0-qop" secondAttribute="trailing" constant="30" id="FkG-fe-eDq"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xyI-89-DPk" secondAttribute="trailing" constant="40" id="PJ1-z3-XGR"/>
-                            <constraint firstItem="VDL-xa-7xX" firstAttribute="top" secondItem="y5B-7W-j2F" secondAttribute="bottom" constant="50" id="SSn-kb-I09"/>
-                            <constraint firstItem="xyI-89-DPk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="TEg-MK-VvI"/>
                             <constraint firstItem="7iv-bC-Gjx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="ZPr-gh-5fx"/>
                             <constraint firstAttribute="trailing" secondItem="7iv-bC-Gjx" secondAttribute="trailing" constant="20" id="cN0-gR-Mvd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VDL-xa-7xX" secondAttribute="trailing" constant="40" id="geW-A5-c0i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y5B-7W-j2F" secondAttribute="trailing" constant="142" id="gvb-99-ASb"/>
                             <constraint firstItem="y5B-7W-j2F" firstAttribute="top" secondItem="7iv-bC-Gjx" secondAttribute="bottom" constant="8" id="gwn-AA-cAS"/>
-                            <constraint firstItem="VDL-xa-7xX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="hQE-x2-adH"/>
                             <constraint firstItem="n4K-l0-qop" firstAttribute="top" secondItem="7iv-bC-Gjx" secondAttribute="bottom" constant="60" id="hXQ-MR-z4I"/>
                             <constraint firstItem="Dkm-Im-azY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="o6Z-Ka-vAG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dkm-Im-azY" secondAttribute="trailing" constant="40" id="uAX-Ec-cJW"/>
-                            <constraint firstItem="xyI-89-DPk" firstAttribute="top" secondItem="n4K-l0-qop" secondAttribute="bottom" constant="60" id="zmg-GH-8iG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="currentLocationLabel" destination="n4K-l0-qop" id="Hmq-St-VFi"/>
                         <outlet property="destinationLocationLabel" destination="Dkm-Im-azY" id="YAN-s8-LUQ"/>
                         <outlet property="destinationTextField" destination="7iv-bC-Gjx" id="SbP-Lm-E9H"/>
-                        <outlet property="headingLabel" destination="VDL-xa-7xX" id="Xl7-qe-DAH"/>
-                        <outlet property="nextWaypointLabel" destination="xyI-89-DPk" id="hyH-lK-32N"/>
                         <outlet property="spinner" destination="y5B-7W-j2F" id="rB9-de-wJd"/>
                     </connections>
                 </viewController>

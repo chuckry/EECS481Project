@@ -17,9 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var currentLocationLabel: UILabel!
-    @IBOutlet weak var nextWaypointLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
-    @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     // shared instances for interfaces
@@ -73,23 +71,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             // wait for a location to be available
             locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
-            // could also use the heading data: (must use iOS)
-            locationService.waitForHeadingToBeAvailable(callback: self.initialHeadingKnown)
         }
     }
     
-    // Should execute as a handler when the OS provides a heading
-    // update
-    func initialHeadingKnown(heading: CLHeading) {
-        // update the UI in the main thread
-        DispatchQueue.main.async {
-            // Directions
-            let cardinalDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
-            
-            // update a UI element for debugging purposes
-            self.headingLabel.text = "\(heading.trueHeading)\u{00B0} (\(cardinalDirections[Int(heading.trueHeading+22.5)%360 / 45]))"
-        }
-    }
+
     
     // Should execute as a handler for when location services is able
     // to return a known address
