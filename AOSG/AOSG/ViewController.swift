@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
+	@IBOutlet weak var directionList:UITextView!
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
     let googleAPI = GoogleAPI.sharedInstance
@@ -39,8 +39,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
         }
+		directionList.text = "--";
 	}
-    
+	
     // MARK: UITextFieldDelegate Handlers
     
     // Executes when user taps the input to start entering a destination
@@ -48,8 +49,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Implement anything that should be done when the textField begins editing
         // May implement a "cancel route guidance" feature here at some point...
     }
-    
+
     // Executes when user hits the return key
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // when user hits the search button, hide the keyboard
         textField.resignFirstResponder()
