@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList:UITextView!
+	@IBOutlet weak var currentStepLabel: UILabel!
 	var stepData = Steps()
 	
     // shared instances for interfaces
