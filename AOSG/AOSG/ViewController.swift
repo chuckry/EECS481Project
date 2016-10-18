@@ -9,20 +9,13 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
-import CoreMotion
-
-
-public typealias CMPedometerHandler = (CMPedometerData?, NSError?) -> Void
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Properties
     weak var destTextField: UITextField!
     var address: String! = ""
-	/* Step Stuff*/
-	let activityManager = CMMotionActivityManager()
-	let pedometer = CMPedometer()
-	var stepSize: Float = 0
+	var stepData = Steps()
 	
 	override func loadView() {
         self.view = UIView()
@@ -35,30 +28,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
         destTextField = createTextField(placeholder: "Enter travel destination")
         self.view.addSubview(destTextField)
-		
-		let endDate = Date()
-		let cal = NSCalendar.current
-		let startDate = cal.date(byAdding: .day, value: -8, to: Date())
-		
-		//this iwill only run if there is dat available
-		pedometer.queryPedometerData(from: startDate!, to: endDate) { (data: CMPedometerData?, error: Error?) -> Void in
-			if let data = data {
-				let numSteps = data.numberOfSteps as Float
-				let distance = data.distance as! Float // in meters
-				self.stepSize = numSteps / distance as Float
-				print(numSteps)
-				print(distance)
-				print(self.stepSize)
-				
-				let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 300))
-				label.center = CGPoint(x: 160, y: 284)
-				label.textAlignment = .center
-				label.numberOfLines = 0
-				let text = "Number of steps: \(numSteps) \r Distance: \(distance) meters \r Average Step Size: \(self.stepSize) meters"
-				label.text = text
-				self.view.addSubview(label)
-			}
-		}
+		print(stepData.stepSize)
+		stepData.beginCollectingStepData()
 		
 	}
 
