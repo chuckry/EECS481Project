@@ -215,7 +215,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func playFeedback (balance : Float, volume : Float, numLoops: Int) {
         //leftRightBalance = balance
         //volumeLevel = volume
-        let path = Bundle.main.path(forResource: "alert.mp3", ofType:nil)!
+        let path = Bundle.main.path(forResource: "alert", ofType: "mp3")!
+        print("PATH: \(path)")
         let url = URL(fileURLWithPath: path)
         
         do {
@@ -241,9 +242,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
-            
-            print("LOCATION: \(loc)")
-            print("HEADING: \(heading)")
             
             self.locationService.stopWaitingForSignificantLocationChanges()
             

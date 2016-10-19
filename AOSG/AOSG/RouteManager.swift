@@ -24,12 +24,10 @@ class RouteManager {
     }
     
     func calculateSoundRatio(userHeading: Double) -> Float {
-        print("CALCULATING")
         return Float(getSoundScore(angle: getAngle(userHeading: userHeading)))
     }
     
     func getAngle(userHeading: Double) -> Double {
-        print("GETTING ANGLE")
         let userVector = Vector2(cos(Float(userHeading)), sin(Float(userHeading)))
         
         let directionVector = getVectorFromPoint(start: startPoint, end: nextPoint)
@@ -37,7 +35,6 @@ class RouteManager {
     }
     
     func getSoundScore(angle: Double) -> Double {
-        print("GETTING SOUND SCORE")
         let directionVector = getVectorFromPoint(start: startPoint, end: nextPoint)
         let sigma = directionVector.x * Float(sin(angle)) - directionVector.y * Float(cos(angle))
         
@@ -47,9 +44,9 @@ class RouteManager {
         print("G: \(g)")
         
         if (g > 0) {
-            return min(1.0, Double(g) / 90)
+            return min(1.0, Double(angle) / 90)
         } else {
-            return max(-1.0, Double(g) / 90)
+            return max(-1.0, Double(angle) / 90)
         }
     }
     
