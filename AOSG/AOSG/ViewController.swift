@@ -35,6 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		// Do any additional setup after loading the view, typically from a nib.
         locationService.delegateView = self
         destinationTextField.delegate = self
+        locationService.waitForHeadingToBeAvailable(callback: { _ in } )
         
         // Start up location services, or ask user for these permissions as soon as
         // possible to ensure the device has enough time to actually determine location
@@ -151,6 +152,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // MARK: Do we really want to do this?
             self.destinationTextField.isUserInteractionEnabled = true
             
+            
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
             let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().description
@@ -213,7 +215,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func playFeedback (balance : Float, volume : Float, numLoops: Int) {
         //leftRightBalance = balance
         //volumeLevel = volume
-        let path = Bundle.main.path(forResource: "beep.mp3", ofType:nil)!
+        let path = Bundle.main.path(forResource: "alert.mp3", ofType:nil)!
         let url = URL(fileURLWithPath: path)
         
         do {
@@ -240,46 +242,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
             
-            //print("in driver fn")
+            print("LOCATION: \(loc)")
+            print("HEADING: \(heading)")
             
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             if (self.route.arrivedAtDestination()) {
                 self.readText(text : "You have arrived at destination")
                 print ("You have arrived at destination")
-                
                 return;
             }
+            
+            let routeManager = RouteManager(path: self.route)
             
             // if finished step / almost finished step (within 2 meters)
             if ((self.route.currentStep().achievedGoal(location: loc!)) ||
                 (self.route.currentStep().estimatedDistanceRemaining(from: loc!) < 2)) {
                 
-                
-                self.route.nextStep()
-                self.readText(text : self.route.currentStep().description)
-                print (self.route.currentStep().description)
-                
-                
-                
-                //            // to do - integrate w desired orientation stuff
-                //            let desired_angle = Double(100)
-                //            var ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
-                //            print ("My orientation", heading?.trueHeading)
-                //
-                //            print ("Start Ratio = " + String(ratio))
-                //            while (ratio != 0) {
-                //                ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
-                //                print ("Ratio = " + String(ratio))
-                //
-                //                self.playFeedback(balance : ratio, volume : 1, numLoops : 2)
-                //            }
+                self.readText(text: self.route.currentStep().description)
+                print(self.route.currentStep().description)
+                routeManager.moveToNextStep()
+            } else {
+                if heading?.trueHeading != nil {
+                    self.playFeedback(balance: routeManager.calculateSoundRatio(userHeading: (heading?.trueHeading)!), volume: 1, numLoops: 1)
+                }
             }
-                
-            else { //play sound
-                //self.playFeedback(balance: 0, volume: 1, numLoops: 1)
-            }
-            
             
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
