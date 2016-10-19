@@ -11,6 +11,7 @@ import CoreLocation
 import Dispatch
 import GoogleMaps
 import GooglePlaces
+import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -150,15 +151,139 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // MARK: Do we really want to do this?
             self.destinationTextField.isUserInteractionEnabled = true
             
-            // TODO: notify the location manager that we want updates on
-            // significant changes now, and provide a driver callback that
-            // does the route management
+            // Beging naviation and read first direction outloud
+            // TODO: give capability to change rate in settings
+            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().description
+            self.readText(text: start_text)
+            
+            
+            // FOR TESTING ONLY
+            self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
     }
     
     // TODO: Create a function that can populate a UI list using an array of strings
+
+
+    func readText(text : String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        
+        // Will be able to change rate in settings in beta releasse
+        utterance.rate = 0.5
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+    }
+
+    // takes in your current heading (from north) and desired heading
+    // returns val [-1, 1] to direct movement left vs. right
+    func moveInCorrectDirection(current : Double, desired : Double) -> Float {
+        if ((current == desired) ||
+            (current <= (desired + 25)) ||
+            (current >= (desired - 25))) {
+            return 0
+        }
+        
+        let dif = desired - current
+        print ("difference between angles = " + String(dif))
+        var to_return = Float(0)
+        
+        if ((dif > 0) && (abs(dif) > 180)) {
+            //go left
+            to_return = -1
+        }
+        else if ((dif > 0) && (abs(dif) < 180)) {
+            //go right
+            to_return = 1
+        }
+            
+        else if ((dif < 0) && (abs(dif) > 180)) {
+            //go left
+            to_return = -1
+        }
+        else if ((dif < 0) && (abs(dif) > 180)) {
+            //go right
+            to_return = 1
+        }
+        print ("LR sound ratio = " + String(to_return))
+        return to_return
+    }
+
+    func playFeedback (balance : Float, volume : Float, numLoops: Int) {
+        //leftRightBalance = balance
+        //volumeLevel = volume
+        let path = Bundle.main.path(forResource: "beep.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOf: url)
+            sound.pan = balance
+            sound.volume = volume
+            sound.numberOfLoops = numLoops
+            sound.play()
+            print("playing sound")
+            //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        }
+            
+        catch {
+            //fail
+            print("sound failed")
+        }
+        
+    }
+
+
+
+    // Reads direction and announcing upcoming direction
+
+    func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
+        DispatchQueue.main.async {
+            
+            //print("in driver fn")
+            
+            self.locationService.stopWaitingForSignificantLocationChanges()
+            
+            if (self.route.arrivedAtDestination()) {
+                self.readText(text : "You have arrived at destination")
+                print ("You have arrived at destination")
+                
+                return;
+            }
+            
+            // if finished step / almost finished step (within 2 meters)
+            if ((self.route.currentStep().achievedGoal(location: loc!)) ||
+                (self.route.currentStep().estimatedDistanceRemaining(from: loc!) < 2)) {
+                
+                
+                self.route.nextStep()
+                self.readText(text : self.route.currentStep().description)
+                print (self.route.currentStep().description)
+                
+                
+                
+                //            // to do - integrate w desired orientation stuff
+                //            let desired_angle = Double(100)
+                //            var ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
+                //            print ("My orientation", heading?.trueHeading)
+                //
+                //            print ("Start Ratio = " + String(ratio))
+                //            while (ratio != 0) {
+                //                ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
+                //                print ("Ratio = " + String(ratio))
+                //
+                //                self.playFeedback(balance : ratio, volume : 1, numLoops : 2)
+                //            }
+            }
+                
+            else { //play sound
+                //self.playFeedback(balance: 0, volume: 1, numLoops: 1)
+            }
+            
+            
+            self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
+        }
+    }
 }
-
-
 
 
