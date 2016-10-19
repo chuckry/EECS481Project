@@ -22,7 +22,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     public var distanceFilter: CLLocationDistance = 5.0
     
     
-    private var lastLocation: CLLocation?
+	var lastLocation: CLLocation?
     private var lastHeading: CLHeading?
     
     private var locationManager: CLLocationManager!

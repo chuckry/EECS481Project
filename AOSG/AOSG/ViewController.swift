@@ -21,7 +21,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList:UITextView!
-	var stepData = Steps()
+	@IBOutlet weak var currentStepLabel: UILabel!
+	//var stepData = Steps() //now a member of GoogleAPI
 	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
@@ -140,9 +141,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // TODO: insert the list of directions into a UI list
             // use route.getDirectionsAsStringArray
             
-            for str in self.route.getDirectionsAsStringArray() {
-                print(str)
-            }
+            let directions = self.route.getDirectionsAsStringArray()
+            self.directionList.text = directions.joined(separator: "\n\n")
             
             // Hide the spinner
             self.spinner.stopAnimating()
@@ -153,7 +153,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
-            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().description
+            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().formattedDescription
             self.readText(text: start_text)
             
             
@@ -161,9 +161,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
     }
-    
-    // TODO: Create a function that can populate a UI list using an array of strings
 
+    // TODO: Create a function that can populate a UI list using an array of strings
 
     func readText(text : String) {
         let utterance = AVSpeechUtterance(string: text)
@@ -236,17 +235,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
     // Reads direction and announcing upcoming direction
-
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
             
             //print("in driver fn")
             
             self.locationService.stopWaitingForSignificantLocationChanges()
-            
+			
+		//	self.currentStepLabel.text = self.route.currentStep().formattedDescription  + " in \(self.route.currentStep().estimatedDistanceRemaining(from: self.locationService.lastLocation!))"
+			
+			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
+			
             if (self.route.arrivedAtDestination()) {
-                self.readText(text : "You have arrived at destination")
-                print ("You have arrived at destination")
+                self.readText(text : "You have arrived at your destination")
+                print ("You have arrived at your destination")
                 
                 return;
             }
@@ -257,8 +259,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 
                 
                 self.route.nextStep()
-                self.readText(text : self.route.currentStep().description)
-                print (self.route.currentStep().description)
+                self.readText(text : self.currentStepLabel.text!)
+                print (self.route.currentStep().formattedDescription)
                 
                 
                 

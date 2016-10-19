@@ -19,25 +19,40 @@ class NavigationPath {
     var totalPathDuration: Double
     private var path: [NavigationStep] = []
     private var step: Int = 0
-    
+	var pedometer:Steps
+	
     // initialization
     init (startAt: GeocodingResponse, endAt: GeocodingResponse, dist: Double, dur: Double, steps: [NavigationStep]) {
+		pedometer = Steps() //NOTE: this isn't running until after the entire initialization finishes, because threads.
         startLocation = startAt
         endLocation = endAt
         totalPathDistance = dist
         totalPathDuration = dur
         path = steps
         step = 0
+        pedometer.beginCollectingStepData()//NOTE: this isn't running until after the entire initialization finishes, because threads.
+		if pedometer.stepSize == 0.0{
+			pedometer.stepSize = 0.6; //2 feet
+		}
+		print("PEDO:\(pedometer.stepSize)")
     }
     
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
-            directions.append(step.description)
+            if step.formattedNote != nil {
+				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
+                directions.append(text)
+				print(text)
+			} else {
+				let text = step.formattedDescription + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
+				directions.append(text)
+				print(text)
+            }
         }
         return directions
     }
-    
+	
     // navigation complete?
     func arrivedAtDestination() -> Bool {
         return step >= path.count
@@ -62,6 +77,7 @@ class NavigationPath {
 struct NavigationStep {
     // MARK: Properties
     var goal: CLLocation
+    var totalHumanSteps: Int
     var totalDistance: Double
     /*
      DISCUSSION ON DURATION TIMES:
@@ -83,17 +99,42 @@ struct NavigationStep {
      elevation.
      */
     var totalDuration: Double
-    var description: String
+    // What should be printed on the string
+    var formattedDescription: String
+    // Optional note (default is empty)
+    var formattedNote: String?
+    var rawDescription: String
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
-    
+	var currentFormattedDescription: String? //for current location label and read aloud
+	
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
         totalDistance = dist
         totalDuration = dur
-        description = desc.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        rawDescription = desc
+
+        formattedDescription = desc.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        let openBracketIndex = formattedDescription.range(of: "<div");
+        let closedBracketDiv = formattedDescription.range(of: ">");
+        let openBracketIndex2 = formattedDescription.range(of: "</div>")
+        if openBracketIndex != nil && closedBracketDiv != nil && openBracketIndex2 != nil {
+            formattedNote = formattedDescription.substring(with: (closedBracketDiv?.upperBound)!..<(openBracketIndex2?.lowerBound)!)
+            formattedDescription.removeSubrange((openBracketIndex?.lowerBound)!..<(openBracketIndex2?.upperBound)!)
+        }
+        //formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
+        totalHumanSteps = 0
     }
+	
+	func createCurrentFormattedString(currentLocation: CLLocation, stepSizeEst: Double) -> String{
+		var dist = estimatedDistanceRemaining(from: currentLocation)
+		var stepEst = dist/stepSizeEst
+		dist = Double(round(100*dist)/100)
+		stepEst = Double(round(100*stepEst)/100)
+		let text:String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		return text
+	}
     
     /*
      returns if the passed location is permissibly within a radius
@@ -120,6 +161,10 @@ struct NavigationStep {
      */
     func estimatedDistanceRemaining(from: CLLocation) -> Double {
         return goal.distance(from: from)
+    }
+    
+    func estimatedDistanceRemaining(traveled: Double) -> Double {
+        return abs(totalDistance - traveled)
     }
     
     /*
@@ -161,7 +206,7 @@ struct GeocodingResponse {
 
     // Sends back a formatted String
     func formatForDisplay() -> String {
-        return "\(address)\n\(self.locationDescription())"
+        return address
     }
 }
 
