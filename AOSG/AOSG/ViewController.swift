@@ -246,7 +246,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
 			
+            if loc == nil || heading == nil {
+                // We don't have enough information yet!! SKIP this update
+                return
+            }
+            // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
+            
             
             if (self.route.arrivedAtDestination()) {
                 self.readText(text : "You have arrived at destination")
@@ -254,18 +260,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 return;
             }
             
+            // TODO: Change so that routeManager owns the memory associated with the path
+            // right now, ViewController and RouteManager are both maintaining it.
+            // Could we just put the navigationDriver under the RouteManager?
 			
-            // if finished step / almost finished step (within 2 meters)
-            if ((self.route.currentStep().achievedGoal(location: loc!)) ||
-                (self.route.currentStep().estimatedDistanceRemaining(from: loc!) < 2)) {
+            // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
+            // to actually determine a radius region around the goal coordinates
+            // If NavigationStep.GOAL_ACHIEVED_DISTANCE is set to 10.0, 
+            // achievedGoal() will return true when passed a location at most 10 meters
+            // from the goal location.
+            if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 
+                // TODO: if achieved goal read the current step? isn't this this incorrect?
                 self.readText(text: self.route.currentStep().description)
                 print(self.route.currentStep().description)
                 self.routeManager.moveToNextStep()
             } else {
-                if heading?.trueHeading != nil {
-                    self.playFeedback(balance: self.routeManager.calculateSoundRatio(userHeading: (heading?.trueHeading)!), volume: 1, numLoops: 1)
-                }
+                
+                self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
+                
             }
             
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
