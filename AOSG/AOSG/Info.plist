@@ -2,11 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQuerySchemes</key>
-	<array>
-		<string>comgooglemaps</string>
-		<string>googlechromes</string>
-	</array>
+	<key>CFBundleDisplayName</key>
+	<string>AOSG</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -32,6 +29,11 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQuerySchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>googlechromes</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MKDirectionsApplicationSupportedModes</key>
@@ -53,6 +55,8 @@
 	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>YES</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -65,8 +69,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSMotionUsageDescription</key>
-	<string>YES</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

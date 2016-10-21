@@ -30,12 +30,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // navigation state properties
     var route: NavigationPath!
-    
+	var routeManager: RouteManager!
+
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
         locationService.delegateView = self
         destinationTextField.delegate = self
+        locationService.waitForHeadingToBeAvailable(callback: { _ in } )
         
         // Start up location services, or ask user for these permissions as soon as
         // possible to ensure the device has enough time to actually determine location
@@ -94,6 +97,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        print("ASKING GOOGLE API")
+        
         // ask the google API to compute a route. handle response in a callback
         googleAPI.directions(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
@@ -129,6 +134,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         route = withPath!
+		routeManager = RouteManager(path: self.route)
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -151,6 +157,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // MARK: Do we really want to do this?
             self.destinationTextField.isUserInteractionEnabled = true
             
+            
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
             let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().formattedDescription
@@ -163,7 +170,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     // TODO: Create a function that can populate a UI list using an array of strings
-
     func readText(text : String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
@@ -175,44 +181,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         synthesizer.speak(utterance)
     }
 
-    // takes in your current heading (from north) and desired heading
-    // returns val [-1, 1] to direct movement left vs. right
-    func moveInCorrectDirection(current : Double, desired : Double) -> Float {
-        if ((current == desired) ||
-            (current <= (desired + 25)) ||
-            (current >= (desired - 25))) {
-            return 0
-        }
-        
-        let dif = desired - current
-        print ("difference between angles = " + String(dif))
-        var to_return = Float(0)
-        
-        if ((dif > 0) && (abs(dif) > 180)) {
-            //go left
-            to_return = -1
-        }
-        else if ((dif > 0) && (abs(dif) < 180)) {
-            //go right
-            to_return = 1
-        }
-            
-        else if ((dif < 0) && (abs(dif) > 180)) {
-            //go left
-            to_return = -1
-        }
-        else if ((dif < 0) && (abs(dif) > 180)) {
-            //go right
-            to_return = 1
-        }
-        print ("LR sound ratio = " + String(to_return))
-        return to_return
-    }
-
     func playFeedback (balance : Float, volume : Float, numLoops: Int) {
         //leftRightBalance = balance
         //volumeLevel = volume
-        let path = Bundle.main.path(forResource: "beep.mp3", ofType:nil)!
+        let path = Bundle.main.path(forResource: "alert", ofType: "mp3")!
+        print("PATH: \(path)")
         let url = URL(fileURLWithPath: path)
         
         do {
@@ -229,59 +202,43 @@ class ViewController: UIViewController, UITextFieldDelegate {
             //fail
             print("sound failed")
         }
-        
     }
-
-
 
     // Reads direction and announcing upcoming direction
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
-            
-            //print("in driver fn")
-            
+			
+            if loc == nil || heading == nil {
+                // We don't have enough information yet!! SKIP this update
+                return
+            }
+            // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
 			
-		//	self.currentStepLabel.text = self.route.currentStep().formattedDescription  + " in \(self.route.currentStep().estimatedDistanceRemaining(from: self.locationService.lastLocation!))"
-			
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
-			
+            
             if (self.route.arrivedAtDestination()) {
-                self.readText(text : "You have arrived at your destination")
-                print ("You have arrived at your destination")
-                
+                self.readText(text : "You have arrived at destination")
+                print ("You have arrived at destination")
                 return;
             }
             
-            // if finished step / almost finished step (within 2 meters)
-            if ((self.route.currentStep().achievedGoal(location: loc!)) ||
-                (self.route.currentStep().estimatedDistanceRemaining(from: loc!) < 2)) {
-                
-                
-                self.route.nextStep()
-                self.readText(text : self.currentStepLabel.text!)
-                print (self.route.currentStep().formattedDescription)
-                
-                
-                
-                //            // to do - integrate w desired orientation stuff
-                //            let desired_angle = Double(100)
-                //            var ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
-                //            print ("My orientation", heading?.trueHeading)
-                //
-                //            print ("Start Ratio = " + String(ratio))
-                //            while (ratio != 0) {
-                //                ratio = self.moveInCorrectDirection(current : (heading?.trueHeading)!, desired : desired_angle)
-                //                print ("Ratio = " + String(ratio))
-                //
-                //                self.playFeedback(balance : ratio, volume : 1, numLoops : 2)
-                //            }
+            // TODO: Change so that routeManager owns the memory associated with the path
+            // right now, ViewController and RouteManager are both maintaining it.
+            // Could we just put the navigationDriver under the RouteManager?
+			
+            // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
+            // to actually determine a radius region around the goal coordinates
+            // If NavigationStep.GOAL_ACHIEVED_DISTANCE is set to 10.0, 
+            // achievedGoal() will return true when passed a location at most 10 meters
+            // from the goal location.
+            if ((self.route.currentStep().achievedGoal(location: loc!))) {
+                self.routeManager.moveToNextStep()
+                self.readText(text: self.route.currentStep().currentFormattedDescription!)
+                print(self.route.currentStep().currentFormattedDescription!)
+            } else {
+                self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
             }
-                
-            else { //play sound
-                //self.playFeedback(balance: 0, volume: 1, numLoops: 1)
-            }
-            
             
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
