@@ -29,7 +29,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // navigation state properties
     var route: NavigationPath!
-    
+	var routeManager: RouteManager!
+
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
@@ -129,6 +131,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         route = withPath!
+		routeManager = RouteManager(path: self.route)
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -242,7 +245,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
-            
+			
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             if (self.route.arrivedAtDestination()) {
@@ -251,18 +254,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 return;
             }
             
-            let routeManager = RouteManager(path: self.route)
-            
+			
             // if finished step / almost finished step (within 2 meters)
             if ((self.route.currentStep().achievedGoal(location: loc!)) ||
                 (self.route.currentStep().estimatedDistanceRemaining(from: loc!) < 2)) {
                 
                 self.readText(text: self.route.currentStep().description)
                 print(self.route.currentStep().description)
-                routeManager.moveToNextStep()
+                self.routeManager.moveToNextStep()
             } else {
                 if heading?.trueHeading != nil {
-                    self.playFeedback(balance: routeManager.calculateSoundRatio(userHeading: (heading?.trueHeading)!), volume: 1, numLoops: 1)
+                    self.playFeedback(balance: self.routeManager.calculateSoundRatio(userHeading: (heading?.trueHeading)!), volume: 1, numLoops: 1)
                 }
             }
             
