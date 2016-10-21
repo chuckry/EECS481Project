@@ -271,10 +271,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 
-                // TODO: if achieved goal read the current step? isn't this this incorrect?
+                self.routeManager.moveToNextStep()
                 self.readText(text: self.route.currentStep().description)
                 print(self.route.currentStep().description)
-                self.routeManager.moveToNextStep()
+                
             } else {
                 
                 self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
