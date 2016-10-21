@@ -42,14 +42,23 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     // Executes when OS provides new location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if waitingForLocation && locations.last != nil {
+        if waitingForLocation && locations.count > 0 {
             lastLocation = locations.last!
             waitingForLocation = false
             notifyLocationAvailable(lastLocation!)
         }
-        if waitingForSignificantLocation && locations.last != nil {
-            lastLocation = locations.last!
-            notifySignificantLocationChange(lastLocation, lastHeading)
+        if waitingForSignificantLocation && locations.count > 0 {
+            if lastLocation == nil {
+                lastLocation = locations.last!
+                DispatchQueue.main.async{
+                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
+                }
+            } else if lastLocation!.distance(from: locations.last!) > distanceFilter {
+                lastLocation = locations.last!
+                DispatchQueue.main.async{
+                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
+                }
+            }
         }
     }
     
@@ -61,8 +70,17 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             notifyHeadingAvailable(lastHeading!)
         }
         if waitingForSignificantLocation {
-            lastHeading = newHeading
-            notifySignificantLocationChange(lastLocation, lastHeading)
+            if lastHeading == nil {
+                lastHeading = newHeading
+                DispatchQueue.main.async{
+                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
+                }
+            } else if abs(lastHeading!.trueHeading - newHeading.trueHeading) > headingFilter  {
+                lastHeading = newHeading
+                DispatchQueue.main.async{
+                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
+                }
+            }
         }
     }
     
@@ -125,16 +143,12 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func waitForSignificantLocationChanges(callback: @escaping (CLLocation?, CLHeading?) -> Void) {
-        locationManager.distanceFilter = self.distanceFilter
-        locationManager.headingFilter = self.headingFilter
         notifySignificantLocationChange = callback
         waitingForSignificantLocation = true
     }
     
     func stopWaitingForSignificantLocationChanges() {
         waitingForSignificantLocation = false
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.headingFilter = kCLHeadingFilterNone
     }
     
     func requestAccess() {
