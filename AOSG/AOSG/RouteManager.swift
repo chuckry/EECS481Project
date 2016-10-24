@@ -26,10 +26,10 @@ class RouteManager {
     
     func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
         let trig = getTrig(userLocation, userHeading)
-        return Float(getSoundScore(angle: trig.0, directionVector: trig.1))
+        return Float(getSoundScore(angle: trig.0, directionVector: trig.1, userVector: trig.2))
     }
     
-    func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2) {
+    func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2) {
         
         // Unit vector that India is facing
         let userVector = Vector2(cos(Float(userHeading)), sin(Float(userHeading)))
@@ -38,22 +38,44 @@ class RouteManager {
         let directionVector = getVectorFromPoint(start: userLocation, end: nextPoint)
         
         // returns angle alpha and direction vector
-        return (Double(acos(userVector.dot(directionVector) / (directionVector.length)) * Scalar.degreesPerRadian), directionVector)
+        return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
     }
     
-    func getSoundScore(angle: Double, directionVector: Vector2) -> Double {
+    func getSoundScore(angle: Double, directionVector: Vector2, userVector: Vector2) -> Double {
        // let directionVector = getVectorFromPoint(start: startPoint, end: nextPoint)
-        let sigma = directionVector.x * Float(sin(angle)) - directionVector.y * Float(cos(angle))
         
-        let score = Float(angle) * (sigma < 0 ? -1 : 1)
+        /*
+         The following link describes a solution to determine if a vector A is to the right or to the
+         left of a vector B in a 2D space.
+         http://stackoverflow.com/questions/13221873/determining-if-one-2d-vector-is-to-the-right-or-left-of-another
+         
+         According to the solution, sigma can be calculated as follows:
+         
+         sigma = -DOT(A, ROT90CCW(B))
+         signOfSigma = (sigma < 0 ? -1.0 : 1.0)
+         
+         score = angle * signOfSigma
+         
+         For our use, we will substitute A for directionVector and B for userVector
+         
+        */
+        let rotatedUserVector = Vector2(-userVector.y, userVector.x)
+        
+        let sigma = directionVector.dot(rotatedUserVector) * -1.0
+        let signOfSigma = (sigma < 0 ? -1.0 : 1.0)
+        
+        //let sigma = directionVector.x * Float(sin(angle)) - directionVector.y * Float(cos(angle))
+        
+        let score = (angle * signOfSigma) / 90.0
         
         print("ANGLE: \(angle)")
+        print("SIGN: \(signOfSigma)")
         print("SCORE: \(score)")
         
         if (score > 0) {
-            return min(1.0, Double(angle) / 90)
+            return min(1.0, score)
         } else {
-            return max(-1.0, Double(angle) / 90)
+            return max(-1.0, score)
         }
     }
     

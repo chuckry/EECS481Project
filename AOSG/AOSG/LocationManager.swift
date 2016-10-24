@@ -50,14 +50,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         if waitingForSignificantLocation && locations.count > 0 {
             if lastLocation == nil {
                 lastLocation = locations.last!
-                DispatchQueue.main.async{
-                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
-                }
+                self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
             } else if lastLocation!.distance(from: locations.last!) > distanceFilter {
                 lastLocation = locations.last!
-                DispatchQueue.main.async{
-                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
-                }
+                self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
             }
         }
     }
@@ -72,14 +68,10 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         if waitingForSignificantLocation {
             if lastHeading == nil {
                 lastHeading = newHeading
-                DispatchQueue.main.async{
-                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
-                }
+                self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
             } else if abs(lastHeading!.trueHeading - newHeading.trueHeading) > headingFilter  {
                 lastHeading = newHeading
-                DispatchQueue.main.async{
-                    self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
-                }
+                self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
             }
         }
     }

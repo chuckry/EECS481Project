@@ -144,9 +144,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // update the UI with the destination address:
             self.destinationLocationLabel.text = self.route.endLocation.formatForDisplay()
             
-            // TODO: insert the list of directions into a UI list
-            // use route.getDirectionsAsStringArray
-            
             let directions = self.route.getDirectionsAsStringArray()
             self.directionList.text = directions.joined(separator: "\n\n")
             
@@ -169,7 +166,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    // TODO: Create a function that can populate a UI list using an array of strings
+    
     func readText(text : String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
@@ -220,7 +217,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if (self.route.arrivedAtDestination()) {
                 self.readText(text : "You have arrived at destination")
                 print ("You have arrived at destination")
-                return;
+                return; // Returning here permanently stops loaction change updates
             }
             
             // TODO: Change so that routeManager owns the memory associated with the path
