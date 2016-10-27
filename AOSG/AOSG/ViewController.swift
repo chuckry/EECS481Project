@@ -13,6 +13,7 @@ import GoogleMaps
 import GooglePlaces
 import AVFoundation
 
+
 class ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
@@ -22,7 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList:UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
-	//var stepData = Steps() //now a member of GoogleAPI
+	var sound: AVAudioPlayer!
 	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
@@ -173,32 +174,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Will be able to change rate in settings in beta releasse
         utterance.rate = 0.5
-        
+		
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
     }
 
     func playFeedback (balance : Float, volume : Float, numLoops: Int) {
-        //leftRightBalance = balance
-        //volumeLevel = volume
-        let path = Bundle.main.path(forResource: "alert", ofType: "mp3")!
-        print("PATH: \(path)")
-        let url = URL(fileURLWithPath: path)
-        
+
+		let soundURL: NSURL = Bundle.main.url(forResource: "alert", withExtension: "mp3")! as NSURL
+		
+		//needs to be played less frequently and/or with shorter sound.
         do {
-            let sound = try AVAudioPlayer(contentsOf: url)
-            sound.pan = balance
-            sound.volume = volume
-            sound.numberOfLoops = numLoops
-            sound.play()
-            print("playing sound")
-            //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-        }
-            
-        catch {
-            //fail
-            print("sound failed")
-        }
+			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
+			if sound != nil {
+				sound.pan = balance
+				sound.volume = volume
+				sound.numberOfLoops = numLoops
+				sound.play()
+				print("playing sound")
+				//AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+			}
+		}
     }
 
     // Reads direction and announcing upcoming direction

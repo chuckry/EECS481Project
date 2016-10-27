@@ -25,6 +25,7 @@ class RouteManager {
     }
     
     func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
+		print ("\(userHeading)")
         let trig = getTrig(userLocation, userHeading)
         return Float(getSoundScore(angle: trig.0, directionVector: trig.1, userVector: trig.2))
     }
@@ -32,7 +33,7 @@ class RouteManager {
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2) {
         
         // Unit vector that India is facing
-        let userVector = Vector2(cos(Float(userHeading)), sin(Float(userHeading)))
+        let userVector = Vector2(cos(Float(userHeading)*Scalar.radiansPerDegree), sin(Float(userHeading)*Scalar.radiansPerDegree))
         
         // Direction from passed userLocation to known nextPoint
         let directionVector = getVectorFromPoint(start: userLocation, end: nextPoint)
@@ -86,6 +87,6 @@ class RouteManager {
     }
     
     func getVectorFromPoint(start: CLLocation, end: CLLocation) -> Vector2 {
-        return Vector2(Float(end.coordinate.latitude) - Float(start.coordinate.latitude), Float(end.coordinate.longitude) - Float(start.coordinate.longitude))
+        return Vector2(Float(end.coordinate.longitude) - Float(start.coordinate.longitude), Float(end.coordinate.latitude) - Float(start.coordinate.latitude))
     }
 }
