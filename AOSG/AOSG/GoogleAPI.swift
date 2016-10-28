@@ -19,7 +19,7 @@ class NavigationPath {
     var totalPathDuration: Double
     private var path: [NavigationStep] = []
     private var step: Int = 0
-	var pedometer:Steps
+	var pedometer: Steps
 	
     // initialization
     init (startAt: GeocodingResponse, endAt: GeocodingResponse, dist: Double, dur: Double, steps: [NavigationStep]) {
@@ -132,7 +132,7 @@ struct NavigationStep {
 		var stepEst = dist/stepSizeEst
 		dist = Double(round(100*dist)/100)
 		stepEst = Double(round(100*stepEst)/100)
-		let text:String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		let text: String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
 		return text
 	}
     

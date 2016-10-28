@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-	@IBOutlet weak var directionList:UITextView!
+	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
 	var sound: AVAudioPlayer!
 	
@@ -116,7 +116,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // see: http://stackoverflow.com/questions/27841228/ios-label-does-not-update-text-with-function-in-swift
             // start a dispatch to the main thread to update UI
             DispatchQueue.main.async {
-                // deal with the fact that this route was not found.
                 // TODO: Implement an error enum pattern that can be used to
                 // provide feedback to the user
                 
@@ -135,7 +134,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         route = withPath!
-		routeManager = RouteManager(path: self.route)
+        routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
+        routeManager.getSnapPoints()
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -168,7 +168,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     
-    func readText(text : String) {
+    func readText(text: String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         
@@ -179,11 +179,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         synthesizer.speak(utterance)
     }
 
-    func playFeedback (balance : Float, volume : Float, numLoops: Int) {
+    func playFeedback(balance: Float, volume: Float, numLoops: Int) {
 
 		let soundURL: NSURL = Bundle.main.url(forResource: "alert", withExtension: "mp3")! as NSURL
 		
-		//needs to be played less frequently and/or with shorter sound.
+		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
 			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
 			if sound != nil {
@@ -192,7 +192,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 				sound.numberOfLoops = numLoops
 				sound.play()
 				print("playing sound")
-				//AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
 			}
 		}
     }
@@ -202,7 +201,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
 			
             if loc == nil || heading == nil {
-                // We don't have enough information yet!! SKIP this update
                 return
             }
             // Pause significant location changes while we compute/send user output
@@ -211,14 +209,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
             
             if (self.route.arrivedAtDestination()) {
-                self.readText(text : "You have arrived at destination")
+                self.readText(text: "You have arrived at destination")
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
             
-            // TODO: Change so that routeManager owns the memory associated with the path
-            // right now, ViewController and RouteManager are both maintaining it.
-            // Could we just put the navigationDriver under the RouteManager?
+            // TODO: Move navigationDriver to RouteManager
 			
             // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
             // to actually determine a radius region around the goal coordinates
