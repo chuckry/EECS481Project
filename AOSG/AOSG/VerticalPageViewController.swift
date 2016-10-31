@@ -24,7 +24,7 @@ class VerticalPageViewController: UIPageViewController {
     }
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController"), UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController"),UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PromptViewController")]
+        return [UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PromptViewController"), UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController"),UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController")]
     }()
     
     /*

@@ -52,13 +52,18 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 	
     // MARK: UITextFieldDelegate Handlers
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
     // Executes when user taps the input to start entering a destination
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Implement anything that should be done when the textField begins editing
 
         // May implement a "cancel route guidance" feature here at some point...
     }
-
+    
     // Executes when user hits the return key
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
