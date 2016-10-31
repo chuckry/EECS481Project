@@ -69,10 +69,6 @@ class RouteManager {
             }
             
             let json = JSON(data: data!)
-//            guard let warningMessage = json["warningMessage"].string else {
-//                print("No snap point warning.")
-//            }
-            
             guard let snappedPoints = json["snappedPoints"].array else {
                 print("Could not get Snapped Points.")
                 return
