@@ -14,7 +14,7 @@ import GooglePlaces
 import AVFoundation
 
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet weak var destinationTextField: UITextField!
