@@ -10,9 +10,13 @@ import UIKit
 
 class PromptViewController: UIViewController {
 
+	public var message:String!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		//if message != nil{
+		print(Stuff.things.message);
+		//}
+		//message = "I was here";
         // Do any additional setup after loading the view.
     }
 

@@ -18,6 +18,7 @@
 		41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41952C441DA81D56001B237A /* LaunchScreen.storyboard */; };
 		41952C511DA81D56001B237A /* AOSGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C501DA81D56001B237A /* AOSGTests.swift */; };
 		41952C5C1DA81D56001B237A /* AOSGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C5B1DA81D56001B237A /* AOSGUITests.swift */; };
+		41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B25CFC1DCA582C004D9FC0 /* Stuff.swift */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
@@ -67,6 +68,7 @@
 		41952C571DA81D56001B237A /* AOSGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AOSGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41952C5B1DA81D56001B237A /* AOSGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSGUITests.swift; sourceTree = "<group>"; };
 		41952C5D1DA81D56001B237A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41B25CFC1DCA582C004D9FC0 /* Stuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stuff.swift; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				41952C441DA81D56001B237A /* LaunchScreen.storyboard */,
 				41952C471DA81D56001B237A /* Info.plist */,
 				4136AE4D1DB5B5B800EF7443 /* Steps.swift */,
+				41B25CFC1DCA582C004D9FC0 /* Stuff.swift */,
 			);
 			path = AOSG;
 			sourceTree = "<group>";
@@ -258,7 +261,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = EECS481;
 				TargetAttributes = {
 					41952C371DA81D56001B237A = {
@@ -393,6 +396,7 @@
 				BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */,
 				BA7753F01DC782C00051EE3B /* PromptViewController.swift in Sources */,
 				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
+				41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */,
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,
 				BA7753EC1DC776C90051EE3B /* FavoritesViewController.swift in Sources */,
 				BA7753F21DC783470051EE3B /* VerticalPageViewController.swift in Sources */,
@@ -473,6 +477,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -522,6 +527,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

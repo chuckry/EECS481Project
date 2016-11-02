@@ -40,6 +40,8 @@ class VerticalPageViewController: UIPageViewController {
 }
 
 extension VerticalPageViewController: UIPageViewControllerDataSource {
+	
+	//Settings
     func pageViewController(
         _ pageViewController: UIPageViewController,
         viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -47,18 +49,20 @@ extension VerticalPageViewController: UIPageViewControllerDataSource {
         guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
             return nil
         }
-        
+		
         let previousIndex = viewControllerIndex - 1
         guard previousIndex >= 0 && orderedViewControllers.count > previousIndex else {
             return nil
         }
-        
-        // Pass any data back and forth here!!
-        
-        
+		
+		Stuff.things.message = "this is your passing string!";
+		// Pass any data back and forth here!!
+		
+
         return orderedViewControllers[previousIndex]
     }
-    
+	
+	//
     func pageViewController(
         _ pageViewController: UIPageViewController,
         viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -72,8 +76,8 @@ extension VerticalPageViewController: UIPageViewControllerDataSource {
             return nil
         }
         
-        // Pass any data back and forth here!!
-        
+		// Pass any data back and forth here!!
+		
         return orderedViewControllers[nextIndex]
     }
 }
