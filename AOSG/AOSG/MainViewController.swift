@@ -50,6 +50,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		directionList.text = "--";
 	}
 	
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Speech.shared.immediatelySay(utterance: "Navigation")
+    }
+    
     // MARK: UITextFieldDelegate Handlers
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

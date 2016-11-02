@@ -23,6 +23,7 @@
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
 		BA2277891DAD95C5003DC27F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2277881DAD95C5003DC27F /* MapKit.framework */; };
+		BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54197C1DCA8F0F00FDAB24 /* Speech.swift */; };
 		BA7753E81DC7757B0051EE3B /* HorizontalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */; };
 		BA7753EA1DC7766B0051EE3B /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E91DC7766B0051EE3B /* InputViewController.swift */; };
 		BA7753EC1DC776C90051EE3B /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753EB1DC776C90051EE3B /* FavoritesViewController.swift */; };
@@ -73,6 +74,7 @@
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BA2277881DAD95C5003DC27F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BA54197C1DCA8F0F00FDAB24 /* Speech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageViewController.swift; sourceTree = "<group>"; };
 		BA7753E91DC7766B0051EE3B /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		BA7753EB1DC776C90051EE3B /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				BA7753EB1DC776C90051EE3B /* FavoritesViewController.swift */,
 				BA7753ED1DC782A60051EE3B /* SettingsViewController.swift */,
 				BA7753EF1DC782C00051EE3B /* PromptViewController.swift */,
+				BA54197C1DCA8F0F00FDAB24 /* Speech.swift */,
 				BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */,
 				BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */,
 				BA2277861DAD8D70003DC27F /* LocationManager.swift */,
@@ -395,6 +398,7 @@
 				414FA2431DBA69490032397E /* VectorMath.swift in Sources */,
 				BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */,
 				BA7753F01DC782C00051EE3B /* PromptViewController.swift in Sources */,
+				BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */,
 				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
 				41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */,
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,

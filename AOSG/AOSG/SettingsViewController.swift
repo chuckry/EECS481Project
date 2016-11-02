@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SettingsViewController: UIViewController {
 
@@ -21,6 +22,10 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Speech.shared.immediatelySay(utterance: "Settings")
+    }
 
     /*
     // MARK: - Navigation
