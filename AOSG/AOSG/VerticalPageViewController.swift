@@ -9,12 +9,17 @@
 import UIKit
 
 class VerticalPageViewController: UIPageViewController {
+    
+    public var currentPage = 1
+    public var nextPage = 0
+    public var horizontalPageVC: HorizontalPageViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
         // Do any additional setup after loading the view.
         dataSource = self
+        delegate = self
         setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
     }
 
@@ -37,6 +42,26 @@ class VerticalPageViewController: UIPageViewController {
     }
     */
 
+}
+
+extension VerticalPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let index = orderedViewControllers.index(of: pendingViewControllers.first!) else {
+            return
+        }
+        nextPage = index
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            currentPage = nextPage
+            if currentPage != 1 {
+                horizontalPageVC.disableScrolling()
+            } else {
+                horizontalPageVC.enableScrolling()
+            }
+        }
+    }
 }
 
 extension VerticalPageViewController: UIPageViewControllerDataSource {
