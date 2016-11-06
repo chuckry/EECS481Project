@@ -225,7 +225,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
-            
+			if (self.route.cancelledNavigation()) {
+				self.readText(text : "You have canceled navigation")
+				print ("You have canceled navigation ")
+				return; // Returning here permanently stops loaction change updates
+			}
+			
             // TODO: Change so that routeManager owns the memory associated with the path
             // right now, ViewController and RouteManager are both maintaining it.
             // Could we just put the navigationDriver under the RouteManager?

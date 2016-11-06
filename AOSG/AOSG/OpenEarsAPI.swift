@@ -43,12 +43,19 @@ class openEarsManager: NSObject,OEEventsObserverDelegate{
 		catch{
 			print ("fail")
 		}
+		print("Starting listening")
 		OEPocketsphinxController.sharedInstance().startListeningWithLanguageModel(atPath: lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"), languageModelIsJSGF: false)
 	}
 
 	
 	func stopListening() {
-		OEPocketsphinxController.sharedInstance().stopListening()
+		print("Stopping listening")
+		if(OEPocketsphinxController.sharedInstance().isListening){
+			let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
+			if(stopListeningError != nil) {
+				print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
+			}
+		}
 	}
 	
 	
@@ -61,11 +68,13 @@ class openEarsManager: NSObject,OEEventsObserverDelegate{
 
 
 		if (wordGuess == "HELP" && wordList.contains("HELP")){
+			print("Calling help function")
 			PromptViewController.shared.helpFunction()
 		}
 		
 		if (wordGuess == "CANCEL" && wordList.contains("CANCEL")){
-
+			print("Calling cancel function")
+			PromptViewController.shared.cancelFunction()
 		}
 		
 		

@@ -14,9 +14,10 @@ class Stuff{
 	static let things = Stuff();
 	//add your stuff here!
 	public var message:String!;
+	public var cancelled:Bool; //true if route has been cancelled
 
 	private init(){
-		
+		cancelled = false
 	}
 
 	

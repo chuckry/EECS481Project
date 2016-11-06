@@ -30,6 +30,7 @@ class NavigationPath {
         totalPathDuration = dur
         path = steps
         step = 0
+		Stuff.things.cancelled = false;
         pedometer.beginCollectingStepData()//NOTE: this isn't running until after the entire initialization finishes, because threads.
 		if pedometer.stepSize == 0.0{
 			pedometer.stepSize = 0.6; //2 feet
@@ -57,7 +58,13 @@ class NavigationPath {
     func arrivedAtDestination() -> Bool {
         return step >= path.count
     }
-    
+	
+	// navigation cancelled?
+	func cancelledNavigation() -> Bool {
+		print(Stuff.things.cancelled)
+		return Stuff.things.cancelled
+	}
+	
     // get current step
     func currentStep() -> NavigationStep {
         if step >= path.count {

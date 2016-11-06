@@ -14,8 +14,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	static let shared = PromptViewController()
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	//var functionArray<(()->())> = []
-	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,list, to read all available prompts. Swipe up to cancel. "
-	let helpStatement:String = "Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to dfinal destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
+	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
+	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
 	
 	var player: AVAudioPlayer?
 	var listener:openEarsManager!
@@ -65,6 +65,12 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	}
 	
 	func cancelFunction(){
+		print("ASKING GOOGLE API if cancelled")
+		
+		// ask the google API to compute a route. handle response in a callback
+		listener.stopListening()
+		Stuff.things.cancelled = true;
+		
 		
 	}
 	

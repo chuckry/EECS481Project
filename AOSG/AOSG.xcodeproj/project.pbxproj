@@ -609,6 +609,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
@@ -629,6 +630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_STYLE = all;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
