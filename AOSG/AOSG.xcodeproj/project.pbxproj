@@ -23,6 +23,7 @@
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
 		BA2277891DAD95C5003DC27F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2277881DAD95C5003DC27F /* MapKit.framework */; };
+		BA35D99A1DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */; };
 		BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54197C1DCA8F0F00FDAB24 /* Speech.swift */; };
 		BA7753E81DC7757B0051EE3B /* HorizontalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */; };
 		BA7753EA1DC7766B0051EE3B /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E91DC7766B0051EE3B /* InputViewController.swift */; };
@@ -74,6 +75,7 @@
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BA2277881DAD95C5003DC27F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteLocationTableViewCell.swift; sourceTree = "<group>"; };
 		BA54197C1DCA8F0F00FDAB24 /* Speech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageViewController.swift; sourceTree = "<group>"; };
 		BA7753E91DC7766B0051EE3B /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		41952C3A1DA81D56001B237A /* AOSG */ = {
 			isa = PBXGroup;
 			children = (
+				BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
 				414FA2401DBA69490032397E /* VectorMath.swift */,
 				414FA2411DBA69490032397E /* alert.mp3 */,
@@ -399,6 +402,7 @@
 				BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */,
 				BA7753F01DC782C00051EE3B /* PromptViewController.swift in Sources */,
 				BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */,
+				BA35D99A1DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift in Sources */,
 				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
 				41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */,
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,

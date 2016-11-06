@@ -11,6 +11,8 @@ import AVFoundation
 
 class FavoritesViewController: UIViewController {
 
+    // MARK: Properties
+    @IBOutlet weak var favorites: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
