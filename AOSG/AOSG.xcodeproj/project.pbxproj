@@ -19,6 +19,13 @@
 		41952C511DA81D56001B237A /* AOSGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C501DA81D56001B237A /* AOSGTests.swift */; };
 		41952C5C1DA81D56001B237A /* AOSGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C5B1DA81D56001B237A /* AOSGUITests.swift */; };
 		41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B25CFC1DCA582C004D9FC0 /* Stuff.swift */; };
+		41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41B25CFF1DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle */; };
+		41B25D031DCD6ACB004D9FC0 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D001DCD6ACB004D9FC0 /* OpenEars.framework */; };
+		41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D011DCD6ACB004D9FC0 /* Slt.framework */; };
+		41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */; };
+		41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */; };
+		41B25D0B1DCDA467004D9FC0 /* OpenEarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */; };
+		41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DB5DA31DCE943B00AA19C6 /* beep.wav */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
@@ -70,6 +77,14 @@
 		41952C5B1DA81D56001B237A /* AOSGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AOSGUITests.swift; sourceTree = "<group>"; };
 		41952C5D1DA81D56001B237A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41B25CFC1DCA582C004D9FC0 /* Stuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stuff.swift; sourceTree = "<group>"; };
+		41B25CFF1DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		41B25D001DCD6ACB004D9FC0 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		41B25D011DCD6ACB004D9FC0 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEarsHeader.h; sourceTree = "<group>"; };
+		41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenEarsAPI.swift; sourceTree = "<group>"; };
+		41DB5DA31DCE943B00AA19C6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beep.wav; path = ../../../../../../Downloads/beep.wav; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -90,8 +105,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */,
+				41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */,
+				41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */,
 				BA2277891DAD95C5003DC27F /* MapKit.framework in Frameworks */,
 				71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */,
+				41B25D031DCD6ACB004D9FC0 /* OpenEars.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +143,8 @@
 		41952C2F1DA81D56001B237A = {
 			isa = PBXGroup;
 			children = (
+				41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */,
+				41B25CFE1DCD6ACB004D9FC0 /* Framework */,
 				41952C3A1DA81D56001B237A /* AOSG */,
 				41952C4F1DA81D56001B237A /* AOSGTests */,
 				41952C5A1DA81D56001B237A /* AOSGUITests */,
@@ -146,6 +167,7 @@
 		41952C3A1DA81D56001B237A /* AOSG */ = {
 			isa = PBXGroup;
 			children = (
+				41DB5DA31DCE943B00AA19C6 /* beep.wav */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
 				414FA2401DBA69490032397E /* VectorMath.swift */,
 				414FA2411DBA69490032397E /* alert.mp3 */,
@@ -167,6 +189,7 @@
 				41952C471DA81D56001B237A /* Info.plist */,
 				4136AE4D1DB5B5B800EF7443 /* Steps.swift */,
 				41B25CFC1DCA582C004D9FC0 /* Stuff.swift */,
+				41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */,
 			);
 			path = AOSG;
 			sourceTree = "<group>";
@@ -189,9 +212,21 @@
 			path = AOSGUITests;
 			sourceTree = "<group>";
 		};
+		41B25CFE1DCD6ACB004D9FC0 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				41B25CFF1DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle */,
+				41B25D001DCD6ACB004D9FC0 /* OpenEars.framework */,
+				41B25D011DCD6ACB004D9FC0 /* Slt.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
 		424F5D2F340413FE31AE4784 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */,
+				41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */,
 				BA2277881DAD95C5003DC27F /* MapKit.framework */,
 				05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */,
 			);
@@ -318,8 +353,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */,
+				41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */,
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
+				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
 				414FA2441DBA69490032397E /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,6 +441,7 @@
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,
 				BA7753EC1DC776C90051EE3B /* FavoritesViewController.swift in Sources */,
 				BA7753F21DC783470051EE3B /* VerticalPageViewController.swift in Sources */,
+				41B25D0B1DCDA467004D9FC0 /* OpenEarsAPI.swift in Sources */,
 				41952C3E1DA81D56001B237A /* MainViewController.swift in Sources */,
 				BAE5F0501DB00152009DCA26 /* GoogleAPI.swift in Sources */,
 				414FA2421DBA69490032397E /* RouteManager.swift in Sources */,
@@ -561,11 +599,17 @@
 			baseConfigurationReference = 54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = 3ZFLAR9B98;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -575,7 +619,12 @@
 			baseConfigurationReference = D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = 3ZFLAR9B98;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;

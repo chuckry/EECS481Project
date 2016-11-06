@@ -24,7 +24,7 @@ class Speech: NSObject {
     
     func immediatelySay(utterance text: String) {
         let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.5
+        utterance.rate = 0.6
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         synthesizer.speak(utterance)
