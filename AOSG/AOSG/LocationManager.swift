@@ -61,7 +61,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         }
         if waitingForAddress && locations.count > 0 {
             waitingForAddress = false
-            print("Reverse geocoding address")
             CLGeocoder().reverseGeocodeLocation(locations.first!, completionHandler: {
                 (placemarks, error) -> Void in
                 if error != nil {
@@ -153,13 +152,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             notifyHeadingAvailable = callback
             waitingForHeading = true
         }
-        print("Heading services not available!")
     }
     
     func waitForAddressToBeAvailable(callback: @escaping (String?) -> Void) {
         notifyAddressAvailable = callback
         waitingForAddress = true
-        print("registered a callback with location manager")
     }
     
     func waitForSignificantLocationChanges(callback: @escaping (CLLocation?, CLHeading?) -> Void) {

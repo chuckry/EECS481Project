@@ -53,6 +53,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "Navigation")
+        
+        if Stuff.things.favoriteSelected {
+            Stuff.things.favoriteSelected = false
+            destinationTextField.text = Stuff.things.favoriteAddress
+            locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+        }
     }
     
     // MARK: UITextFieldDelegate Handlers

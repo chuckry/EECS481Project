@@ -23,16 +23,17 @@ class FavoritesViewController: UIViewController {
             favorites.insertRows(at: [newIndexPath], with: .bottom)
         }
     }
-    
     var favs = [Favorite]()
+    public var horizontalPageVC: HorizontalPageViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         // populate favs here from persistent storage
-        favs.append(Favorite(withName:"Home", withAddress: "2818 Long Meadow Lane, Rochester Hills MI"))
+        favs.append(Favorite(withName:"College Apartment", withAddress: "1320 South University Ave, Ann Arbor MI 48104"))
         favorites.dataSource = self
+        favorites.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,5 +75,18 @@ extension FavoritesViewController: UITableViewDataSource {
     // returns how many cells there are
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favs.count
+    }
+}
+
+extension FavoritesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! FavoriteLocationTableViewCell
+        
+        Stuff.things.favoriteSelected = true
+        Stuff.things.favoriteAddress = cell.addressLabel.text!
+        
+        horizontalPageVC.returnToMainScreen()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

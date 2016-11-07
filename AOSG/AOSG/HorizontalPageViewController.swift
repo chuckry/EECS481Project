@@ -19,6 +19,8 @@ class HorizontalPageViewController: UIPageViewController {
         setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
         let vertical = orderedViewControllers[1] as! VerticalPageViewController
         vertical.horizontalPageVC = self
+        let favorites = orderedViewControllers[2] as! FavoritesViewController
+        favorites.horizontalPageVC = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +38,10 @@ class HorizontalPageViewController: UIPageViewController {
     
     public func enableScrolling() {
         dataSource = self
+        setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
+    }
+    
+    public func returnToMainScreen() {
         setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
     }
     
