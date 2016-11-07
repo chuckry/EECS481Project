@@ -23,17 +23,16 @@ import UIKit
  *
  *  CODE TO CHANGE:
  *
- *  Handle how to increment to next snap point upon reaching
  *  Create SoundManager class
  */
 class RouteManager {
     let route: NavigationPath
-    var currentLocation: CLLocation
+    var lastPoint: CLLocation
     var nextPoint = 0
-    var snappedPoints: [JSON]
+    var snappedPoints: [CLLocation]
     
     init(currentLocation: CLLocation, path: NavigationPath) {
-        self.currentLocation = currentLocation
+        self.lastPoint = currentLocation
         self.route = path
         self.route.nextStep()
         self.snappedPoints = []
@@ -45,8 +44,8 @@ class RouteManager {
      *  complex movement.
      */
     func getSnapPoints() {
-        let currLat = self.currentLocation.coordinate.latitude
-        let currLong = self.currentLocation.coordinate.longitude
+        let currLat = self.lastPoint.coordinate.latitude
+        let currLong = self.lastPoint.coordinate.longitude
         let lat = self.route.currentStep().goal.coordinate.latitude
         let long = self.route.currentStep().goal.coordinate.longitude
         
@@ -58,8 +57,6 @@ class RouteManager {
         let requestURL = URL(string: URLString)
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"
-        
-        print(request)
         
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
@@ -76,13 +73,14 @@ class RouteManager {
             
             // Extract location data from snap point. Corrects for identical adjacent snap points.
             self.snappedPoints = []
-            print(snappedPoints)
             for point in snappedPoints {
-                if point["location"] != self.snappedPoints.last {
-                    self.snappedPoints.append(point["location"])
+                let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
+                if loc != self.snappedPoints.last {
+                    self.snappedPoints.append(loc)
                 }
             }
             print(self.snappedPoints)
+            self.nextPoint += 1
         }
         task.resume()
     }
@@ -105,7 +103,6 @@ class RouteManager {
      */
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2) {
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
-        print(self.snappedPoints)
         let directionVector = getVectorFromPoints(start: userLocation, end: self.snappedPoints[nextPoint])
         return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
     }
@@ -119,7 +116,7 @@ class RouteManager {
         let sigma = directionVector.dot(rotatedUserVector) * -1.0
         let signOfSigma = (sigma < 0 ? -1.0 : 1.0)
         
-        let score = (angle * signOfSigma) / 90.0
+        let score = (angle * signOfSigma) / (-90.0)
         
         print("ANGLE: \(angle)")
         print("SIGN: \(signOfSigma)")
@@ -133,14 +130,12 @@ class RouteManager {
     }
     
     /*
-     *  Set user's current location to the end of the last step
-     *  Increment to next step
-     *  Gather new snap points
+     *  Check whether you've moved within a 2 meter radius of the next point
      */
-    func moveToNextStep() {
-        self.currentLocation = self.route.currentStep().goal
-        self.route.nextStep()
-        self.getSnapPoints()
+    func pointHasChanged(location: CLLocation) {
+        if self.snappedPoints[self.nextPoint].distance(from: location) <= 2 {
+            self.moveToNextSnapPoint()
+        }
     }
     
     /*
@@ -148,12 +143,34 @@ class RouteManager {
      */
     func moveToNextSnapPoint() {
         self.nextPoint += 1
+        if self.nextPoint > self.snappedPoints.count {
+            self.moveToNextStep()
+            return
+        }
+    }
+
+    /*
+     *  Set user's current location to the end of the last step
+     *  Increment to next step
+     *  Gather new snap points
+     */
+    func moveToNextStep() {
+        self.lastPoint = self.route.currentStep().goal
+        self.nextPoint = 0
+        self.route.nextStep()
+        self.getSnapPoints()
     }
     
     /*
      *  Takes user's start point and end point and converts it into a vector.
      */
-    func getVectorFromPoints(start: CLLocation, end: JSON) -> Vector2 {
-        return Vector2(end["longitude"].floatValue - Float(start.coordinate.longitude), end["latitude"].floatValue - Float(start.coordinate.latitude))
+    func getVectorFromPoints(start: CLLocation, end: CLLocation) -> Vector2 {
+        return Vector2(Float(end.coordinate.longitude) - Float(start.coordinate.longitude), Float(end.coordinate.latitude) - Float(start.coordinate.latitude))
+    }
+    
+    func getLocationFromJSON(lat: JSON, long: JSON) -> CLLocation {
+        let newLat = CLLocationDegrees(Double(String(describing: lat))!)
+        let newLong = CLLocationDegrees(Double(String(describing: long))!)
+        return CLLocation(latitude: newLat, longitude: newLong)
     }
 }

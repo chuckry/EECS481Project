@@ -135,7 +135,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // save the Navigation Path returned as an internal state
         route = withPath!
         routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
-        routeManager.getSnapPoints()
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -205,6 +204,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
+            
+            // If moved  has changed
+            self.routeManager.pointHasChanged(location: self.locationService.lastLocation!)
 			
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
             
