@@ -32,6 +32,7 @@ class NewFavoriteViewController: UIViewController {
         useCurrentLocationSwitch.addTarget(self, action: #selector(NewFavoriteViewController.useCurrentLocationSwitchToggled), for: UIControlEvents.allTouchEvents)
         nameTextField.delegate = self
         addressTextField.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

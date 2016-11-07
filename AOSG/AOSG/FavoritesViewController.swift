@@ -21,6 +21,8 @@ class FavoritesViewController: UIViewController {
             }
             favs.append(f)
             favorites.insertRows(at: [newIndexPath], with: .bottom)
+            
+            saveFavorites()
         }
     }
     var favs = [Favorite]()
@@ -31,9 +33,12 @@ class FavoritesViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // populate favs here from persistent storage
-        favs.append(Favorite(withName:"College Apartment", withAddress: "1320 South University Ave, Ann Arbor MI 48104"))
+        //favs.append(Favorite(withName:"College Apartment", withAddress: "1320 South University Ave, Ann Arbor MI 48104"))
         favorites.dataSource = self
         favorites.delegate = self
+        if let savedFavorites = loadFavorites() {
+            favs += savedFavorites
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +61,17 @@ class FavoritesViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func saveFavorites() {
+        let isSucessfulSave = NSKeyedArchiver.archiveRootObject(favs, toFile: Favorite.archiveURL.path)
+        if !isSucessfulSave {
+            print("Error Saving!!")
+        }
+    }
+    
+    func loadFavorites() -> [Favorite]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Favorite.archiveURL.path) as? [Favorite]
+    }
 }
 
 extension FavoritesViewController: UITableViewDataSource {
