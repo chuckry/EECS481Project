@@ -215,8 +215,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
-            // If moved  has changed
-            self.routeManager.pointHasChanged(location: self.locationService.lastLocation!)
+            // Handle relation to next snap point
+            self.routeManager.checkLocToSnapPoint(location: loc!)
 			
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
             
@@ -234,7 +234,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // achievedGoal() will return true when passed a location at most 10 meters
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
-                self.routeManager.moveToNextStep()
                 self.readText(text: self.route.currentStep().currentFormattedDescription!)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {

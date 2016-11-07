@@ -84,6 +84,52 @@ class RouteManager {
         }
         task.resume()
     }
+    
+    /*
+     *  Check whether you've moved within a 2 meter radius of the next point
+     */
+    func checkLocToSnapPoint(location: CLLocation) {
+        if self.outsideSnapPointBounds() {
+            print("Outside Bounds!")
+            return
+        }
+        if self.snappedPoints[self.nextPoint].distance(from: location) <= 2 {
+            self.moveToNextSnapPoint(loc: loc)
+        }
+    }
+    
+    /*
+     *  Increment to next snap point in the array.
+     */
+    func moveToNextSnapPoint(loc: CLLocation) {
+        self.nextPoint += 1
+        if self.route.currentStep().achievedGoal(location: loc) {
+            self.moveToNextStep()
+        }
+        if self.outsideSnapPointBounds() {
+            print("Outside Bounds!")
+            return
+        }
+    }
+    
+    /*
+     *  Set user's current location to the end of the last step
+     *  Increment to next step
+     *  Gather new snap points
+     */
+    func moveToNextStep() {
+        self.lastPoint = self.route.currentStep().goal
+        self.nextPoint = 0
+        self.route.nextStep()
+        self.getSnapPoints()
+    }
+    
+    /*
+     *  Checks whether we're at the last point
+     */
+    func outsideSnapPointBounds() -> Bool {
+        return self.nextPoint >= self.snappedPoints.count
+    }
 
     /*
      *  Use the user's location and heading to get sound balance ratio.
@@ -127,38 +173,6 @@ class RouteManager {
         } else {
             return max(-1.0, score)
         }
-    }
-    
-    /*
-     *  Check whether you've moved within a 2 meter radius of the next point
-     */
-    func pointHasChanged(location: CLLocation) {
-        if self.snappedPoints[self.nextPoint].distance(from: location) <= 2 {
-            self.moveToNextSnapPoint()
-        }
-    }
-    
-    /*
-     *  Increment to next snap point in the array.
-     */
-    func moveToNextSnapPoint() {
-        self.nextPoint += 1
-        if self.nextPoint > self.snappedPoints.count {
-            self.moveToNextStep()
-            return
-        }
-    }
-
-    /*
-     *  Set user's current location to the end of the last step
-     *  Increment to next step
-     *  Gather new snap points
-     */
-    func moveToNextStep() {
-        self.lastPoint = self.route.currentStep().goal
-        self.nextPoint = 0
-        self.route.nextStep()
-        self.getSnapPoints()
     }
     
     /*
