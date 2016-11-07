@@ -18,7 +18,14 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
 	
 	var player: AVAudioPlayer?
-	var listener:openEarsManager!
+	//var listener:openEarsManager!
+	var wordGuess:String = ""
+	var openEarsEventsObserver = OEEventsObserver()
+	var startFailedDueToLackOfPermissions = Bool()
+	var lmPath: String!
+	var dicPath: String!
+	
+	
 	
 	public var message:String!
     override func viewDidLoad() {
@@ -26,72 +33,189 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		
 		print(Stuff.things.message)
 
-		listener = openEarsManager(wordListIn:words)
-		listener.loadOpenEars()
+		//listener = openEarsManager(wordListIn:words)
+		loadOpenEars()
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		openingSpeech()
+		runSpeech()
 	}
 	
-	func openingSpeech(){
-		Speech.shared.immediatelySay(utterance: openingStatement)
+	
+	
+	
+	func runSpeech(){
+		print("running speech")
+		Speech.shared.immediatelySay(utterance: self.openingStatement)
+		Speech.shared.waitToFinishSpeaking(callback: self.speechFinished)
 		
-		while(Speech.shared.synthesizer.isSpeaking){
-		}
-		
+	}
+	
+	func speechFinished(){
 		//play a system sound -- cleaner if you can find a sound you like
 		//AudioServicesPlaySystemSound (1070)
 		
 		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
-		
+		print("here")
+
 		do {
-			player = try AVAudioPlayer(contentsOf: url)
-			guard let player = player else { return }
+			self.player = try AVAudioPlayer(contentsOf: url)
+			guard let player = self.player else { return }
 			player.prepareToPlay()
 			player.play()
 		} catch let error as Error {
 			print(error.localizedDescription)
 		}
-		listener.wordGuess = ""
-		listener.startListening()
-	}
-	
-	func helpFunction(){
-		listener.stopListening()
-		Speech.shared.immediatelySay(utterance: helpStatement)
-		self.openingSpeech()
-	}
-	
-	func cancelFunction(){
-		print("ASKING GOOGLE API if cancelled")
-		
-		// ask the google API to compute a route. handle response in a callback
-		listener.stopListening()
-		Stuff.things.cancelled = true;
-		
+		self.wordGuess = ""
+		self.startListening()
 		
 	}
-	
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	
+	func loadOpenEars() {
+		openEarsEventsObserver = OEEventsObserver()
+		openEarsEventsObserver.delegate = self;
+		
+		let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
+		
+		let name = "LanguageModelFileStarSaver"
+		lmGenerator.generateLanguageModel(from: words, withFilesNamed: name, forAcousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"))
+		
+		lmPath = lmGenerator.pathToSuccessfullyGeneratedLanguageModel(withRequestedName: name)
+		dicPath = lmGenerator.pathToSuccessfullyGeneratedDictionary(withRequestedName: name)
+  
+	}
+	
+	func startListening() {
+		do {
+			try	OEPocketsphinxController.sharedInstance().setActive(true)
+		}
+		catch{
+			print ("fail")
+		}
+		print("Starting listening")
+		OEPocketsphinxController.sharedInstance().startListeningWithLanguageModel(atPath: lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"), languageModelIsJSGF: false)
+	}
 	
 	
+	func stopListening() {
+		print("Stopping listening")
+		if(OEPocketsphinxController.sharedInstance().isListening){
+			let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
+			if(stopListeningError != nil) {
+				print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
+			}
+		}
+		
+	}
+
+///////////////////////Copied openears inteface functions///////////////////////
+	
+	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
+		
+		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
+		wordGuess=hypothesis
+		if (wordGuess == "HELP"){
+			wordGuess = ""
+			print("HEARD HELP")
+			self.stopListening()
+			wordGuess = ""
+			Speech.shared.say(utterance: self.helpStatement)
+			while(Speech.shared.synthesizer.isSpeaking){
+				print("speakingHelp")
+			}
+			Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+			runSpeech()
+		}
+		
+		
+		if (self.wordGuess == "CANCEL"){
+			print("HEARD CANCEL")
+			self.stopListening()
+			wordGuess = ""
+			Stuff.things.cancelled = true
+			runSpeech()
+		}
+		
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that the Pocketsphinx recognition loop has entered its actual loop.
+	// This might be useful in debugging a conflict between another sound class and Pocketsphinx.
+	func pocketsphinxRecognitionLoopDidStart() {
+		print("Local callback: Pocketsphinx started.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx is now listening for speech.
+	func pocketsphinxDidStartListening() {
+		print("Local callback: Pocketsphinx is now listening.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx detected speech and is starting to process it.
+	func pocketsphinxDidDetectSpeech() {
+		print("Local callback: Pocketsphinx has detected speech.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx detected a second of silence, indicating the end of an utterance.
+	func pocketsphinxDidDetectFinishedSpeech() {
+		print("Local callback: Pocketsphinx has detected a second of silence, concluding an utterance.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx has exited its recognition loop, most
+	// likely in response to the OEPocketsphinxController being told to stop listening via the stopListening method.
+	func pocketsphinxDidStopListening() {
+		print("Local callback: Pocketsphinx has stopped listening.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx is still in its listening loop but it is not
+	// Going to react to speech until listening is resumed.  This can happen as a result of Flite speech being
+	// in progress on an audio route that doesn't support simultaneous Flite speech and Pocketsphinx recognition,
+	// or as a result of the OEPocketsphinxController being told to suspend recognition via the suspendRecognition method.
+	func pocketsphinxDidSuspendRecognition() {
+		print("Local callback: Pocketsphinx has suspended recognition.") // Log it.
+	}
+	
+	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx is still in its listening loop and after recognition
+	// having been suspended it is now resuming.  This can happen as a result of Flite speech completing
+	// on an audio route that doesn't support simultaneous Flite speech and Pocketsphinx recognition,
+	// or as a result of the OEPocketsphinxController being told to resume recognition via the resumeRecognition method.
+	func pocketsphinxDidResumeRecognition() {
+		print("Local callback: Pocketsphinx has resumed recognition.") // Log it.
+	}
+	
+	// An optional delegate method which informs that Pocketsphinx switched over to a new language model at the given URL in the course of
+	// recognition. This does not imply that it is a valid file or that recognition will be successful using the file.
+	func pocketsphinxDidChangeLanguageModel(toFile newLanguageModelPathAsString: String!, andDictionary newDictionaryPathAsString: String!) {
+		
+		print("Local callback: Pocketsphinx is now using the following language model: \n\(newLanguageModelPathAsString!) and the following dictionary: \(newDictionaryPathAsString!)")
+	}
+	
+	
+	func pocketSphinxContinuousSetupDidFail(withReason reasonForFailure: String!) { // This can let you know that something went wrong with the recognition loop startup. Turn on [OELogging startOpenEarsLogging] to learn why.
+		print("Local callback: Setting up the continuous recognition loop has failed for the reason \(reasonForFailure), please turn on OELogging.startOpenEarsLogging() to learn more.") // Log it.
+	}
+	
+	func pocketSphinxContinuousTeardownDidFail(withReason reasonForFailure: String!) { // This can let you know that something went wrong with the recognition loop startup. Turn on OELogging.startOpenEarsLogging() to learn why.
+		print("Local callback: Tearing down the continuous recognition loop has failed for the reason \(reasonForFailure)") // Log it.
+	}
+	
+	/** Pocketsphinx couldn't start because it has no mic permissions (will only be returned on iOS7 or later).*/
+	func pocketsphinxFailedNoMicPermissions() {
+		print("Local callback: The user has never set mic permissions or denied permission to this app's mic, so listening will not start.")
+	}
+	
+	/** The user prompt to get mic permissions, or a check of the mic permissions, has completed with a true or a false result  (will only be returned on iOS7 or later).*/
+	
+	func micPermissionCheckCompleted(withResult: Bool) {
+		print("Local callback: mic check completed.")
+	}
+	
+	
+
 
 
 }

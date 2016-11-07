@@ -599,7 +599,7 @@
 			baseConfigurationReference = 54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -620,7 +620,7 @@
 			baseConfigurationReference = D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEPLOYMENT_POSTPROCESSING = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = 3ZFLAR9B98;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

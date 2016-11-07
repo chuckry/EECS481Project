@@ -63,22 +63,13 @@ class openEarsManager: NSObject,OEEventsObserverDelegate{
 	
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
 
-		self.wordGuess = hypothesis
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
 
-
-		if (wordGuess == "HELP" && wordList.contains("HELP")){
-			print("Calling help function")
-			PromptViewController.shared.helpFunction()
+		if (wordList.contains(hypothesis)){
+			self.wordGuess = hypothesis
+			stopListening()
 		}
 		
-		if (wordGuess == "CANCEL" && wordList.contains("CANCEL")){
-			print("Calling cancel function")
-			PromptViewController.shared.cancelFunction()
-		}
-		
-		
-
 	}
 	
 	// An optional delegate method of OEEventsObserver which informs that the Pocketsphinx recognition loop has entered its actual loop.
@@ -131,18 +122,7 @@ class openEarsManager: NSObject,OEEventsObserverDelegate{
 		print("Local callback: Pocketsphinx is now using the following language model: \n\(newLanguageModelPathAsString!) and the following dictionary: \(newDictionaryPathAsString!)")
 	}
 	
-	// An optional delegate method of OEEventsObserver which informs that Flite is speaking, most likely to be useful if debugging a
-	// complex interaction between sound classes. You don't have to do anything yourself in order to prevent Pocketsphinx from listening to Flite talk and trying to recognize the speech.
-	func fliteDidStartSpeaking() {
-		print("Local callback: Flite has started speaking") // Log it.
-	}
-	
-	// An optional delegate method of OEEventsObserver which informs that Flite is finished speaking, most likely to be useful if debugging a
-	// complex interaction between sound classes.
-	func fliteDidFinishSpeaking() {
-		print("Local callback: Flite has finished speaking") // Log it.
-	}
-	
+
 	func pocketSphinxContinuousSetupDidFail(withReason reasonForFailure: String!) { // This can let you know that something went wrong with the recognition loop startup. Turn on [OELogging startOpenEarsLogging] to learn why.
 		print("Local callback: Setting up the continuous recognition loop has failed for the reason \(reasonForFailure), please turn on OELogging.startOpenEarsLogging() to learn more.") // Log it.
 	}
