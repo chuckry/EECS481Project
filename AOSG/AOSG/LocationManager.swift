@@ -27,7 +27,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     private var locationManager: CLLocationManager!
     
-    var delegateView: ViewController?
+    var delegateView: UIViewController?
     
     private var isUpdating: Bool = false
     private var waitingForLocation: Bool = false

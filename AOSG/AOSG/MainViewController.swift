@@ -14,7 +14,7 @@ import GooglePlaces
 import AVFoundation
 
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet weak var destinationTextField: UITextField!
@@ -50,7 +50,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		directionList.text = "--";
 	}
 	
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Speech.shared.immediatelySay(utterance: "Navigation")
+    }
+    
     // MARK: UITextFieldDelegate Handlers
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
     
     // Executes when user taps the input to start entering a destination
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -58,7 +68,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         // May implement a "cancel route guidance" feature here at some point...
     }
-
+    
     // Executes when user hits the return key
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
