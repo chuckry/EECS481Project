@@ -173,10 +173,10 @@
             </objects>
             <point key="canvasLocation" x="702" y="843"/>
         </scene>
-        <!--New-->
+        <!--New Favorite-->
         <scene sceneID="mcb-bh-nHL">
             <objects>
-                <viewController id="DtU-LW-9oz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewFavoritesViewController" title="New Favorite" id="DtU-LW-9oz" customClass="NewFavoriteViewController" customModule="AOSG" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l6W-0h-TuI"/>
                         <viewControllerLayoutGuide type="bottom" id="HaD-N3-s7I"/>
@@ -185,27 +185,100 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CL4-rb-NzN">
-                                <frame key="frameInset" minY="28" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CL4-rb-NzN">
                                 <items>
-                                    <navigationItem title="New" id="50L-tO-mhC">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="h3j-GS-Oh5"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FmD-LP-2gW"/>
+                                    <navigationItem title="New Favorite" id="50L-tO-mhC">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="h3j-GS-Oh5">
+                                            <connections>
+                                                <action selector="cancelButton:" destination="DtU-LW-9oz" id="6Sr-R9-fbu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="FmD-LP-2gW">
+                                            <connections>
+                                                <segue destination="OBT-bP-Yvj" kind="unwind" unwindAction="unwindToFavoritesListWithSender:" id="IB3-sG-aOM"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Nick Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wn2-gM-2A3">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KKd-SL-cch">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use My Current Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96U-n5-K8Q">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28B-Zm-ypR"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXX-Gr-1Eh">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JLV-QU-juj">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Search Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rq3-rD-JdH">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.44037402849740936" green="0.44037402849740936" blue="0.44037402849740936" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KKd-SL-cch" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="0vr-HN-gow"/>
+                            <constraint firstItem="wn2-gM-2A3" firstAttribute="top" secondItem="CL4-rb-NzN" secondAttribute="bottom" constant="8" id="9pq-SC-FgW"/>
+                            <constraint firstItem="28B-Zm-ypR" firstAttribute="trailing" secondItem="V0M-ur-mul" secondAttribute="trailingMargin" id="AMC-pN-uzT"/>
+                            <constraint firstItem="28B-Zm-ypR" firstAttribute="top" secondItem="KKd-SL-cch" secondAttribute="bottom" constant="10" id="DXS-up-2Pm"/>
+                            <constraint firstItem="JLV-QU-juj" firstAttribute="top" secondItem="oXX-Gr-1Eh" secondAttribute="bottom" constant="8" id="Dh6-OT-Xd3"/>
+                            <constraint firstItem="rq3-rD-JdH" firstAttribute="top" secondItem="KKd-SL-cch" secondAttribute="bottom" constant="40" id="FeK-nW-vbI"/>
+                            <constraint firstItem="oXX-Gr-1Eh" firstAttribute="trailing" secondItem="V0M-ur-mul" secondAttribute="trailingMargin" id="GJE-yg-j9z"/>
+                            <constraint firstItem="JLV-QU-juj" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="I4L-hg-rHH"/>
+                            <constraint firstItem="28B-Zm-ypR" firstAttribute="leading" secondItem="rq3-rD-JdH" secondAttribute="trailing" constant="8" id="Jh2-p6-mfU"/>
+                            <constraint firstItem="rq3-rD-JdH" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="K63-EW-Cxp"/>
+                            <constraint firstItem="oXX-Gr-1Eh" firstAttribute="top" secondItem="96U-n5-K8Q" secondAttribute="bottom" constant="8" symbolic="YES" id="O77-QT-TRL"/>
+                            <constraint firstItem="wn2-gM-2A3" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="Q17-t3-3am"/>
+                            <constraint firstItem="KKd-SL-cch" firstAttribute="trailing" secondItem="V0M-ur-mul" secondAttribute="trailingMargin" id="ULk-nn-3uk"/>
+                            <constraint firstItem="oXX-Gr-1Eh" firstAttribute="top" secondItem="28B-Zm-ypR" secondAttribute="bottom" constant="24" id="coQ-kx-0I1"/>
+                            <constraint firstItem="CL4-rb-NzN" firstAttribute="top" secondItem="l6W-0h-TuI" secondAttribute="bottom" constant="8" id="dkg-V6-Jqc"/>
+                            <constraint firstItem="96U-n5-K8Q" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="fiU-UA-iSX"/>
+                            <constraint firstItem="28B-Zm-ypR" firstAttribute="leading" secondItem="96U-n5-K8Q" secondAttribute="trailing" id="hGr-eG-HsS"/>
+                            <constraint firstItem="JLV-QU-juj" firstAttribute="trailing" secondItem="V0M-ur-mul" secondAttribute="trailingMargin" id="iA3-sZ-Mxn"/>
+                            <constraint firstItem="oXX-Gr-1Eh" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="pxd-yY-ymu"/>
+                            <constraint firstItem="wn2-gM-2A3" firstAttribute="trailing" secondItem="V0M-ur-mul" secondAttribute="trailingMargin" id="sO3-RM-kyD"/>
+                            <constraint firstItem="CL4-rb-NzN" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leading" id="sWt-Jm-UfH"/>
+                            <constraint firstItem="96U-n5-K8Q" firstAttribute="centerY" secondItem="28B-Zm-ypR" secondAttribute="centerY" id="u7x-jk-mbC"/>
+                            <constraint firstItem="CL4-rb-NzN" firstAttribute="centerX" secondItem="wn2-gM-2A3" secondAttribute="centerX" id="yPC-OB-gIv"/>
+                            <constraint firstItem="96U-n5-K8Q" firstAttribute="leading" secondItem="oXX-Gr-1Eh" secondAttribute="leading" id="yoS-oi-HaW"/>
+                            <constraint firstItem="KKd-SL-cch" firstAttribute="top" secondItem="wn2-gM-2A3" secondAttribute="bottom" constant="8" id="z0Z-Wn-QR3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New" id="aMq-h6-smm">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="eiY-Ru-5gn"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Rcq-eI-xAd"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addressTextField" destination="JLV-QU-juj" id="7Jp-n4-diK"/>
+                        <outlet property="locationAddressLabel" destination="oXX-Gr-1Eh" id="dcc-rc-8f5"/>
+                        <outlet property="locationSearchStatusLabel" destination="rq3-rD-JdH" id="IJB-LL-MFl"/>
+                        <outlet property="nameTextField" destination="KKd-SL-cch" id="Osz-iM-e6A"/>
+                        <outlet property="saveButton" destination="FmD-LP-2gW" id="gxV-t6-kIZ"/>
+                        <outlet property="useCurrentLocationSwitch" destination="28B-Zm-ypR" id="8aJ-gG-nKg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKZ-8K-Ig5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OBT-bP-Yvj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-82" y="1571"/>
+            <point key="canvasLocation" x="-82.400000000000006" y="1570.1649175412294"/>
         </scene>
         <!--Prompt View Controller-->
         <scene sceneID="ikM-lt-9Jt">
