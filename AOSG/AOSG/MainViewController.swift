@@ -144,7 +144,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         route = withPath!
-        routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
+        routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route, label: self.currentStepLabel)
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {

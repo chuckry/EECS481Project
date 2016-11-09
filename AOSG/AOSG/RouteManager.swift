@@ -11,19 +11,11 @@ import CoreLocation
 import UIKit
 
 /*
- *  PROPERTIES TO ADD FROM navigationDriver():
- *
- *  currentStepLabel    : UILabel
- *  locationService     : LocationService.sharedInstance
- *  pedometer           : Steps
- *
- *  readText            : (String) -> (Void)
- *  playFeedback        : (Float, Float, Int) -> (Void)
+ *  For Speech class:
+ *      - readText            : (String) -> (Void)
+ *      - playFeedback        : (Float, Float, Int) -> (Void)
  *
  *
- *  CODE TO CHANGE:
- *
- *  Create SoundManager class
  */
 class RouteManager {
     let route: NavigationPath
@@ -31,9 +23,13 @@ class RouteManager {
     var nextPoint = 0
     var snappedPoints: [CLLocation]
     
-    init(currentLocation: CLLocation, path: NavigationPath) {
+    // CurrentStepLabel should be returned
+    var currentStepLabel: UILabel
+    
+    init(currentLocation: CLLocation, path: NavigationPath, label: UILabel) {
         self.lastPoint = currentLocation
         self.route = path
+        self.currentStepLabel = label
         self.route.nextStep()
         self.snappedPoints = []
         self.getSnapPoints()
@@ -94,7 +90,7 @@ class RouteManager {
             return
         }
         if self.snappedPoints[self.nextPoint].distance(from: location) <= 2 {
-            self.moveToNextSnapPoint(loc: loc)
+            self.moveToNextSnapPoint(loc: location)
         }
     }
     
@@ -182,6 +178,9 @@ class RouteManager {
         return Vector2(Float(end.coordinate.longitude) - Float(start.coordinate.longitude), Float(end.coordinate.latitude) - Float(start.coordinate.latitude))
     }
     
+    /*
+     *  Forms a CLLocation instance using extracted longitude and latitude JSON values
+     */
     func getLocationFromJSON(lat: JSON, long: JSON) -> CLLocation {
         let newLat = CLLocationDegrees(Double(String(describing: lat))!)
         let newLong = CLLocationDegrees(Double(String(describing: long))!)
