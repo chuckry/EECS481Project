@@ -20,7 +20,6 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var howFarStatement: String = ""
 	
 	var player: AVAudioPlayer?
-	var wordGuess:String = ""
 	var openEarsEventsObserver = OEEventsObserver()
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
