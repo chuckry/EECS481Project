@@ -13,8 +13,11 @@ class Stuff{
 	
 	static let things = Stuff();
 	//add your stuff here!
-	public var message:String!;
-
+	public var message:String!
+    
+    public var favoriteSelected: Bool = false
+    public var favoriteAddress: String = ""
+    
 	private init(){
 		
 	}

@@ -222,8 +222,7 @@ class GoogleAPI: NSObject {
     let geocodeEnpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let reverseGeocodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let directionsEndpoint = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&"
-    
-    
+
     // Querys the Google directions API to extract direction from an origin to a destination
     func directions(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
         // call the directions API, and create a Navigation path to send back.
