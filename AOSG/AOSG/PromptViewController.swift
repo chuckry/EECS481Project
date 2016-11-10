@@ -69,7 +69,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 			guard let player = self.player else { return }
 			player.prepareToPlay()
 			player.play()
-		} catch let error as Error {
+		} catch let error {
 			print(error.localizedDescription)
 		}
 		self.startListening()
@@ -109,7 +109,6 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
      *  Upon entering a location, we tell the user what the nearest location is
      */
     func whereAmI() -> String? {
-        var intersection = ""
         if Stuff.things.routeManager.route != nil {
             if let currentLocation = locationManager.lastLocation {
                 return Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
