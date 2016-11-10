@@ -9,19 +9,17 @@
 
 import Foundation
 
-class Stuff{
+class Stuff {
 	
 	static let things = Stuff();
 	//add your stuff here!
-	public var message:String!
+	public var message: String!
     
+    public var routeManager: RouteManager = RouteManager()
     public var favoriteSelected: Bool = false
     public var favoriteAddress: String = ""
     
-	private init(){
+	private init() {
 		
 	}
-
-	
-	
 }

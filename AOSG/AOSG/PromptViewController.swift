@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Foundation
+import CoreLocation
 import AVFoundation
 
 class PromptViewController: UIViewController {
 
-	public var message:String!
+	public var message: String!
+    let locationManager = LocationService.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		//if message != nil{
@@ -31,6 +35,22 @@ class PromptViewController: UIViewController {
         Speech.shared.immediatelySay(utterance: "Commands")
     }
 
+    /*
+     *  Upon entering a location, we tell the user what the nearest location is
+     */
+    func whereAmI() {
+        if Stuff.things.routeManager.route != nil {
+            if let currentLocation = locationManager.lastLocation {
+                let intersection = Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
+                Speech.shared.immediatelySay(utterance: intersection!)
+            } else {
+                print("Couldn't get current location!")
+            }
+        } else {
+            print("Route not initialized!")
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
