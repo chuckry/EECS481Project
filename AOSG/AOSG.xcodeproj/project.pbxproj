@@ -24,7 +24,7 @@
 		41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D011DCD6ACB004D9FC0 /* Slt.framework */; };
 		41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */; };
 		41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */; };
-		41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DB5DA31DCE943B00AA19C6 /* beep.wav */; };
+		41DC98B41DD429D5004D47D6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DC98B31DD429D5004D47D6 /* beep.wav */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
@@ -85,7 +85,7 @@
 		41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEarsHeader.h; sourceTree = "<group>"; };
-		41DB5DA31DCE943B00AA19C6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beep.wav; path = ../../../../../../Downloads/beep.wav; sourceTree = "<group>"; };
+		41DC98B31DD429D5004D47D6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		41952C3A1DA81D56001B237A /* AOSG */ = {
 			isa = PBXGroup;
 			children = (
-				41DB5DA31DCE943B00AA19C6 /* beep.wav */,
+				41DC98B31DD429D5004D47D6 /* beep.wav */,
 				BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */,
 				BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
@@ -359,9 +359,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */,
-				41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */,
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
+				41DC98B41DD429D5004D47D6 /* beep.wav in Resources */,
 				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
 				414FA2441DBA69490032397E /* alert.mp3 in Resources */,
 			);
