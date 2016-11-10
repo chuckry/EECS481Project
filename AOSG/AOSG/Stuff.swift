@@ -10,16 +10,18 @@
 import Foundation
 
 class Stuff {
-	
-	static let things = Stuff();
+	static let things = Stuff()
 	//add your stuff here!
 	public var message: String!
-    
-    public var routeManager: RouteManager = RouteManager()
+	public var cancelled: Bool //true if route has been cancelled
+	public var currentStepDescription: String //current navigation step
+	
+	public var routeManager: RouteManager = RouteManager()
     public var favoriteSelected: Bool = false
     public var favoriteAddress: String = ""
     
-	private init() {
-		
+	private init(){
+		cancelled = false
+		currentStepDescription = ""
 	}
 }

@@ -26,4 +26,7 @@ class InputViewController: UIViewController {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "New Destination")
     }
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
 }

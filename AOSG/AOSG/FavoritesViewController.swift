@@ -66,6 +66,10 @@ class FavoritesViewController: UIViewController {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "Favorites")
     }
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
     
 
     /*
