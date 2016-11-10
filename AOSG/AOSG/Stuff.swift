@@ -18,6 +18,13 @@ class Stuff{
     public var favoriteSelected: Bool = false
     public var favoriteAddress: String = ""
     
+    // for settings
+    public var volume:Double = 1
+    public var voiceOn:Bool = true
+    public var voiceSpeed:Double = 0.5
+    public var vibrationOn:Bool = true
+    public var beepFrequency:Double = 1
+    
 	private init(){
 		
 	}
