@@ -24,7 +24,6 @@
 		41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D011DCD6ACB004D9FC0 /* Slt.framework */; };
 		41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */; };
 		41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */; };
-		41B25D0B1DCDA467004D9FC0 /* OpenEarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */; };
 		41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DB5DA31DCE943B00AA19C6 /* beep.wav */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
@@ -83,7 +82,6 @@
 		41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEarsHeader.h; sourceTree = "<group>"; };
-		41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenEarsAPI.swift; sourceTree = "<group>"; };
 		41DB5DA31DCE943B00AA19C6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beep.wav; path = ../../../../../../Downloads/beep.wav; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				41952C471DA81D56001B237A /* Info.plist */,
 				4136AE4D1DB5B5B800EF7443 /* Steps.swift */,
 				41B25CFC1DCA582C004D9FC0 /* Stuff.swift */,
-				41B25D0A1DCDA467004D9FC0 /* OpenEarsAPI.swift */,
 			);
 			path = AOSG;
 			sourceTree = "<group>";
@@ -441,7 +438,6 @@
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,
 				BA7753EC1DC776C90051EE3B /* FavoritesViewController.swift in Sources */,
 				BA7753F21DC783470051EE3B /* VerticalPageViewController.swift in Sources */,
-				41B25D0B1DCDA467004D9FC0 /* OpenEarsAPI.swift in Sources */,
 				41952C3E1DA81D56001B237A /* MainViewController.swift in Sources */,
 				BAE5F0501DB00152009DCA26 /* GoogleAPI.swift in Sources */,
 				414FA2421DBA69490032397E /* RouteManager.swift in Sources */,

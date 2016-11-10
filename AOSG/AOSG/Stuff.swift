@@ -11,13 +11,15 @@ import Foundation
 
 class Stuff{
 	
-	static let things = Stuff();
+	static let things = Stuff()
 	//add your stuff here!
-	public var message:String!;
-	public var cancelled:Bool; //true if route has been cancelled
-
+	public var message:String!
+	public var cancelled:Bool //true if route has been cancelled
+	public var currentStepDescription: String //current navigation step
+	
 	private init(){
 		cancelled = false
+		currentStepDescription = ""
 	}
 
 	

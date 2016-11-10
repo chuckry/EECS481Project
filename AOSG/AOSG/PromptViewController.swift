@@ -13,49 +13,44 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	static let shared = PromptViewController()
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
-	//var functionArray<(()->())> = []
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
+	let repeatErrorStatement: String = "Navigation has not yet begun. "
 	
 	var player: AVAudioPlayer?
-	//var listener:openEarsManager!
 	var wordGuess:String = ""
 	var openEarsEventsObserver = OEEventsObserver()
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
 	
-	
-	
-	public var message:String!
-    override func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
-		
-		print(Stuff.things.message)
-
-		//listener = openEarsManager(wordListIn:words)
 		loadOpenEars()
     }
 	
+	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		runSpeech()
 	}
 	
-	
-	
+	//stop listening and cancel callback when we leave the view
+	override func viewDidDisappear(_ animated: Bool) {
+		Speech.shared.waitingForDoneSpeaking = false
+		self.stopListening()
+	}
 	
 	func runSpeech(){
 		print("running speech")
 		Speech.shared.immediatelySay(utterance: self.openingStatement)
 		Speech.shared.waitToFinishSpeaking(callback: self.speechFinished)
-		
 	}
 	
+	//runs when initial speech is finished
 	func speechFinished(){
-		//play a system sound -- cleaner if you can find a sound you like
-		//AudioServicesPlaySystemSound (1070)
-		
+
+		//plap beep
 		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
 		print("here")
 
@@ -67,9 +62,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		} catch let error as Error {
 			print(error.localizedDescription)
 		}
-		self.wordGuess = ""
 		self.startListening()
-		
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -116,32 +109,40 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 
 ///////////////////////Copied openears inteface functions///////////////////////
 	
+	//what happens when each phrase is heard
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
 		
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
-		wordGuess=hypothesis
-		if (wordGuess == "HELP"){
-			wordGuess = ""
+		
+		//read help text then say opening speech
+		if (hypothesis == "HELP"){
 			print("HEARD HELP")
 			self.stopListening()
-			wordGuess = ""
-			Speech.shared.say(utterance: self.helpStatement)
-			while(Speech.shared.synthesizer.isSpeaking){
-				print("speakingHelp")
-			}
-			Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-			runSpeech()
+			Speech.shared.immediatelySay(utterance: self.helpStatement)
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
 		
-		
-		if (self.wordGuess == "CANCEL"){
+		//
+		else if (hypothesis == "CANCEL"){
 			print("HEARD CANCEL")
 			self.stopListening()
-			wordGuess = ""
-			Stuff.things.cancelled = true
+			//TODO: THis			
 			runSpeech()
 		}
-		
+		else if (hypothesis == "REPEAT"){
+			print("HEARD REPEAT")
+			self.stopListening()
+			if (Stuff.things.currentStepDescription == ""){
+				Speech.shared.immediatelySay(utterance: self.repeatErrorStatement)
+			}
+			else{
+				//TODO: this description should be updated to use current distance to goal
+				Speech.shared.immediatelySay(utterance: Stuff.things.currentStepDescription)
+			}
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+				
+		}
+		//keep adding prompts
 	}
 	
 	// An optional delegate method of OEEventsObserver which informs that the Pocketsphinx recognition loop has entered its actual loop.

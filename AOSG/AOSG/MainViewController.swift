@@ -226,7 +226,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 return; // Returning here permanently stops loaction change updates
             }
 			if (self.route.cancelledNavigation()) {
-				self.readText(text : "You have canceled navigation")
+				self.readText(text : "You have cancelled navigation")
 				print ("You have canceled navigation ")
 				return; // Returning here permanently stops loaction change updates
 			}
@@ -242,6 +242,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 self.routeManager.moveToNextStep()
+				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
                 self.readText(text: self.route.currentStep().currentFormattedDescription!)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {

@@ -44,21 +44,13 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	func waitToFinishSpeaking(callback: @escaping () -> Void){
 		notifyDoneSpeaking = callback
 		waitingForDoneSpeaking = true
-		
-		/*if (Speech.shared.synthesizer.isSpeaking == true){
-			isSpeaking = true
-			print("speaking")
-		}
-		else{
-			isSpeaking = false
-			print("not speaking")
-			notifyDoneSpeaking = callback
-		}*/
+		print("done speaking 3")
 	}
 	
 	func speechSynthesizer(_ synth: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-		print("all done")
+		print("done speaking 1")
 		if (Speech.shared.waitingForDoneSpeaking == true){
+			print("done speaking 2")
 			Speech.shared.waitingForDoneSpeaking = false
 			notifyDoneSpeaking()
 		}
