@@ -21,7 +21,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-	@IBOutlet weak var directionList:UITextView!
+	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
 	var sound: AVAudioPlayer!
 	
@@ -53,8 +53,18 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "Navigation")
+        
+        if Stuff.things.favoriteSelected {
+            Stuff.things.favoriteSelected = false
+            destinationTextField.text = Stuff.things.favoriteAddress
+            locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+        }
     }
-    
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
+	
     // MARK: UITextFieldDelegate Handlers
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -126,7 +136,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // see: http://stackoverflow.com/questions/27841228/ios-label-does-not-update-text-with-function-in-swift
             // start a dispatch to the main thread to update UI
             DispatchQueue.main.async {
-                // deal with the fact that this route was not found.
                 // TODO: Implement an error enum pattern that can be used to
                 // provide feedback to the user
                 
@@ -145,7 +154,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         route = withPath!
-		routeManager = RouteManager(path: self.route)
+        routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route, label: self.currentStepLabel)
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -169,7 +178,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
             let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().formattedDescription
-            self.readText(text: start_text)
+            Speech.shared.say(utterance: start_text)
             
             
             // FOR TESTING ONLY
@@ -177,23 +186,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    
-    func readText(text : String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        
-        // Will be able to change rate in settings in beta releasse
-        utterance.rate = 0.5
-		
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
-    }
-
-    func playFeedback (balance : Float, volume : Float, numLoops: Int) {
+    func playFeedback(balance: Float, volume: Float, numLoops: Int) {
 
 		let soundURL: NSURL = Bundle.main.url(forResource: "alert", withExtension: "mp3")! as NSURL
 		
-		//needs to be played less frequently and/or with shorter sound.
+		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
 			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
 			if sound != nil {
@@ -202,7 +199,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 				sound.numberOfLoops = numLoops
 				sound.play()
 				print("playing sound")
-				//AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
 			}
 		}
     }
@@ -212,28 +208,32 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
 			
             if loc == nil || heading == nil {
-                // We don't have enough information yet!! SKIP this update
                 return
             }
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
+            
+            // Handle relation to next snap point
+            self.routeManager.checkLocToSnapPoint(location: loc!)
 			
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
             
             if (self.route.arrivedAtDestination()) {
-                self.readText(text : "You have arrived at destination")
+                Speech.shared.say(utterance: "You have arrived at destination")
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
 			if (self.route.cancelledNavigation()) {
-				self.readText(text : "You have cancelled navigation")
-				print ("You have canceled navigation ")
-				return; // Returning here permanently stops loaction change updates
+				Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
+				print ("You have cancelled navigation ")
+				return; // Returning here permanently stops location change updates
 			}
 			
             // TODO: Change so that routeManager owns the memory associated with the path
             // right now, ViewController and RouteManager are both maintaining it.
             // Could we just put the navigationDriver under the RouteManager?
+			
+            // TODO: Move navigationDriver to RouteManager
 			
             // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
             // to actually determine a radius region around the goal coordinates
@@ -243,7 +243,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 self.routeManager.moveToNextStep()
 				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
-                self.readText(text: self.route.currentStep().currentFormattedDescription!)
+                Speech.shared.say(utterance: self.route.currentStep().currentFormattedDescription!)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {
                 self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)

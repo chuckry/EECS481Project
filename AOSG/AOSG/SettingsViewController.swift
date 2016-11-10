@@ -26,6 +26,10 @@ class SettingsViewController: UIViewController {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "Settings")
     }
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
 
     /*
     // MARK: - Navigation

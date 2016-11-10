@@ -17,6 +17,10 @@ class Stuff{
 	public var cancelled:Bool //true if route has been cancelled
 	public var currentStepDescription: String //current navigation step
 	
+	
+    public var favoriteSelected: Bool = false
+    public var favoriteAddress: String = ""
+    
 	private init(){
 		cancelled = false
 		currentStepDescription = ""

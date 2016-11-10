@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import Dispatch
 import UIKit
+import AddressBookUI
 
 class LocationService: NSObject, CLLocationManagerDelegate {
     
@@ -32,11 +33,13 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     private var isUpdating: Bool = false
     private var waitingForLocation: Bool = false
     private var waitingForHeading: Bool = false
+    private var waitingForAddress: Bool = false
     private var waitingForSignificantLocation: Bool = false
     
     lazy var notifyLocationAvailable: (CLLocation) -> Void = {arg in}
     lazy var notifyHeadingAvailable: (CLHeading) -> Void = {arg in}
     lazy var notifySignificantLocationChange: (CLLocation?, CLHeading?) -> Void = {arg in}
+    lazy var notifyAddressAvailable: (String?) -> Void = {arg in}
     
     // MARK: Delegate Functions
     
@@ -55,6 +58,24 @@ class LocationService: NSObject, CLLocationManagerDelegate {
                 lastLocation = locations.last!
                 self.notifySignificantLocationChange(self.lastLocation, self.lastHeading)
             }
+        }
+        if waitingForAddress && locations.count > 0 {
+            waitingForAddress = false
+            CLGeocoder().reverseGeocodeLocation(locations.first!, completionHandler: {
+                (placemarks, error) -> Void in
+                if error != nil {
+                    print("Reverse geocoder failed with error:" +  error!.localizedDescription)
+                    self.notifyAddressAvailable(nil)
+                    return
+                }
+                if placemarks != nil && placemarks!.count > 0 {
+                    let pm = placemarks!.first!
+                    let addressString = "\(pm.name!), \(pm.locality!) \(pm.administrativeArea!) \(pm.postalCode!)"
+                    self.notifyAddressAvailable(addressString)
+                } else {
+                    print("Error with data received from geocoder")
+                }
+            })
         }
     }
     
@@ -131,7 +152,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             notifyHeadingAvailable = callback
             waitingForHeading = true
         }
-        print("Heading services not available!")
+    }
+    
+    func waitForAddressToBeAvailable(callback: @escaping (String?) -> Void) {
+        notifyAddressAvailable = callback
+        waitingForAddress = true
     }
     
     func waitForSignificantLocationChanges(callback: @escaping (CLLocation?, CLHeading?) -> Void) {

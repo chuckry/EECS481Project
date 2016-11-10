@@ -19,7 +19,7 @@ class NavigationPath {
     var totalPathDuration: Double
     private var path: [NavigationStep] = []
     private var step: Int = 0
-	var pedometer:Steps
+	var pedometer: Steps
 	
     // initialization
     init (startAt: GeocodingResponse, endAt: GeocodingResponse, dist: Double, dur: Double, steps: [NavigationStep]) {
@@ -139,7 +139,7 @@ struct NavigationStep {
 		var stepEst = dist/stepSizeEst
 		dist = Double(round(100*dist)/100)
 		stepEst = Double(round(100*stepEst)/100)
-		let text:String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		let text: String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
 		return text
 	}
     
@@ -229,8 +229,7 @@ class GoogleAPI: NSObject {
     let geocodeEnpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let reverseGeocodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let directionsEndpoint = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&"
-    
-    
+
     // Querys the Google directions API to extract direction from an origin to a destination
     func directions(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
         // call the directions API, and create a Navigation path to send back.

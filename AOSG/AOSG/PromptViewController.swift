@@ -15,6 +15,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
+	
+	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? "
 	let repeatErrorStatement: String = "Navigation has not yet begun. "
 	
 	var player: AVAudioPlayer?
@@ -23,6 +25,9 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
+	var previouslyHeardCancel:Bool = false;
+	
+	public var verticalPageVC:VerticalPageViewController!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +42,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	//stop listening and cancel callback when we leave the view
 	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
 		Speech.shared.waitingForDoneSpeaking = false
 		self.stopListening()
 	}
@@ -98,6 +104,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	func stopListening() {
 		print("Stopping listening")
+		//Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
 		if(OEPocketsphinxController.sharedInstance().isListening){
 			let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
 			if(stopListeningError != nil) {
@@ -106,15 +113,23 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		}
 		
 	}
+	
+	func noop() {
+		print("noop")
+	}
 
-///////////////////////Copied openears inteface functions///////////////////////
+/////////////////////// openears inteface functions///////////////////////
 	
 	//what happens when each phrase is heard
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
 		
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
 		
-		//read help text then say opening speech
+		if (hypothesis != "CANCEL"){
+			self.previouslyHeardCancel = false;
+
+		}
+		
 		if (hypothesis == "HELP"){
 			print("HEARD HELP")
 			self.stopListening()
@@ -126,8 +141,19 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		else if (hypothesis == "CANCEL"){
 			print("HEARD CANCEL")
 			self.stopListening()
-			//TODO: THis			
-			runSpeech()
+			self.previouslyHeardCancel = true
+			//verify that the user wanted to cancel
+			Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
+			//Gesture recognizer
+			/*if (tapped){
+				Speech.shared.waitToFinishSpeaking(callback: self.noop)
+				Stuff.things.cancelled = true
+				verticalPageVC.returnToMainScreen()
+			}
+			else if (swiped){
+				Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			}*/
+			
 		}
 		else if (hypothesis == "REPEAT"){
 			print("HEARD REPEAT")
