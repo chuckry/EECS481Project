@@ -217,6 +217,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.routeManager.checkLocToSnapPoint(location: loc!)
 			
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
+			
+			
+			//Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
             
             if (self.route.arrivedAtDestination()) {
                 Speech.shared.say(utterance: "You have arrived at destination")
