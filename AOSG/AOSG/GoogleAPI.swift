@@ -108,13 +108,18 @@ struct NavigationStep {
     var totalDuration: Double
     // What should be printed on the string
     var formattedDescription: String
+    // What should be read aloud
+    var readingDescription: String
     // Optional note (default is empty)
     var formattedNote: String?
     var rawDescription: String
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
 	var currentFormattedDescription: String? //for current location label and read aloud
-	
+    var abbreviationsToText: [String : String] = ["St" : "Street", "Ave": "Avenue", "Dr" : "Drive", "Blvd" : "Boulevard", "Rd" : "Road", "Ln" : "Lane", "Mt" : "Mount" , "N" : "North", "S" : "South", "E" : "East", "W" : "West", "Rte" : "Route"]
+    
+    var setOfAbbreviations = ["St", "Ave", "Dr", "Blvd", "Rd", "Ln", "Mt",
+                                     "N", "S", "E", "W", "Rte"]
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
@@ -132,6 +137,16 @@ struct NavigationStep {
         }
         //formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
         totalHumanSteps = 0
+        
+        var myArray : [String] = formattedDescription.components(separatedBy:" ")
+        
+        for (index, word) in myArray.enumerated() {
+            if setOfAbbreviations.contains(word) {
+                myArray[index] = abbreviationsToText[word]!
+            }
+        }
+        
+        readingDescription = myArray.joined(separator: " ")
     }
 	
 	func createCurrentFormattedString(currentLocation: CLLocation, stepSizeEst: Double) -> String{

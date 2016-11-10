@@ -177,7 +177,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
-            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().formattedDescription
+            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)
             
             
@@ -246,7 +246,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 self.routeManager.moveToNextStep()
 				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
-                Speech.shared.say(utterance: self.route.currentStep().currentFormattedDescription!)
+                Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {
                 self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
