@@ -16,8 +16,6 @@ class SettingsViewController: UIViewController {
     
     var currentSettings: Settings = Settings(volumeIn: 1, voiceOnIn: true, voiceSpeedIn: 0.5, vibrationOnIn: true, beepFrequencyIn: 1)
     
-    
-    
     @IBOutlet weak var volumeChangeLabel: UITextField!
     @IBOutlet weak var volumeChange: UIStepper!
     
@@ -73,7 +71,7 @@ class SettingsViewController: UIViewController {
         
         Stuff.things.beepFrequency = currentSettings.beepFrequency
         beepChange.value = Double(currentSettings.beepFrequency)
-        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency))"
+        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -116,8 +114,10 @@ class SettingsViewController: UIViewController {
         } else {
             voiceSwitchLabel.text = "Voice OFF"
         }
+        
         currentSettings.voiceOn = voiceSwitch.isOn
         Speech.shared.voiceOn = voiceSwitch.isOn
+
         saveSettings()
     }
     
@@ -127,6 +127,7 @@ class SettingsViewController: UIViewController {
         voiceChangeLabel.text = "Voice Speed: \(currentSettings.voiceSpeed)"
         Speech.shared.speechRate = currentSettings.voiceSpeed
         saveSettings()
+
     }
     
     @IBAction func vibrationSwitchToggle(_ sender: AnyObject) {
@@ -142,6 +143,7 @@ class SettingsViewController: UIViewController {
         }
         currentSettings.vibrationOn = vibrationSwitch.isOn
         Stuff.things.vibrationOn = vibrationSwitch.isOn
+
         saveSettings()
     }
     
@@ -150,6 +152,7 @@ class SettingsViewController: UIViewController {
         Stuff.things.beepFrequency = Float(beepChange.value)
         currentSettings.beepFrequency = Float(beepChange.value)
         beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
+
         saveSettings()
     }
     
