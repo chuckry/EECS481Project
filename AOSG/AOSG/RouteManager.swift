@@ -24,6 +24,7 @@ class RouteManager {
     var lastPoint: CLLocation
     var nextPoint = 0
     var snappedPoints: [CLLocation]
+    var nearestIntersection: String = ""
     
     init() {
         self.lastPoint = CLLocation()
@@ -133,35 +134,36 @@ class RouteManager {
     /*
      *  Using the closest address to current location, return the nearest intersection
      */
-    func getNearestIntersection(loc: CLLocation?) -> String? {
-        var nearestIntersection = ""
+    func getNearestIntersection(loc: CLLocation?) -> String {
         if loc != nil {
             // Call Reverse Geocode API
-            let lat = String(describing: loc?.coordinate.latitude)
-            let long = String(describing: loc?.coordinate.longitude)
-            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat)&lng=\(long)&username=demo"
+            let lat = loc?.coordinate.latitude
+            let long = loc?.coordinate.longitude
+            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat!)&lng=\(long!)&username=chuckry"
             let requestURL = URL(string: url)
             var request = URLRequest(url: requestURL!)
             request.httpMethod = "GET"
+            
             let task = URLSession.shared.dataTask(with: request) {
                 (data, response, error) -> Void in
                 if error != nil {
                     print("ERROR: \(error)")
                     return
                 }
-                
                 let json = JSON(data: data!)
                 let intersection = json["intersection"]
-                nearestIntersection = "You are near \(intersection["street1"]) and \(intersection["street2"])"
-                
-                print("ADDRESS TO BE READ: \(nearestIntersection)")
+                if intersection != JSON.null {
+                    self.nearestIntersection = "You are near, \(intersection["street1"]), and, \(intersection["street2"])"
+                }
             }
             task.resume()
-            return nearestIntersection
         } else {
             print("Couldn't get nearest intersection!")
-            return nil
         }
+        
+        // Guard against returning value before its assigned
+        while self.nearestIntersection.isEmpty {}
+        return self.nearestIntersection
     }
 
     /*

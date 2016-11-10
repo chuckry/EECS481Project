@@ -16,7 +16,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
-	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
+	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "CROSSROADS", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
 	
@@ -111,7 +111,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
     func whereAmI() -> String? {
         if Stuff.things.routeManager.route != nil {
             if let currentLocation = locationManager.lastLocation {
-                return Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
+                let intersection = Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
+                return intersection
             } else {
                 print("Couldn't get current location!")
                 return nil
@@ -125,9 +126,9 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	func stopListening() {
 		print("Stopping listening")
 		//Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-		if(OEPocketsphinxController.sharedInstance().isListening){
+		if (OEPocketsphinxController.sharedInstance().isListening){
 			let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
-			if(stopListeningError != nil) {
+			if (stopListeningError != nil) {
 				print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
 			}
 		}
@@ -145,29 +146,27 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
 		
-		if (hypothesis != "CANCEL"){
+		if (hypothesis != "CANCEL") {
 			self.previouslyHeardCancel = false;
 		}
 		
-		if (hypothesis == "HELP"){
+		if (hypothesis == "HELP") {
 			print("HEARD HELP")
 			self.stopListening()
 			Speech.shared.immediatelySay(utterance: self.helpStatement)
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
             
-        if (hypothesis == "WHEREAMI") {
+        if (hypothesis == "CROSSROADS") {
+            print("HEARD CROSSROADS")
             self.stopListening()
-            if let intersection = self.whereAmI() {
-                Speech.shared.immediatelySay(utterance: intersection)
-                Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
-            } else {
-                Speech.shared.immediatelySay(utterance: "Sorry. Could not get intersection.")
-            }
+            let intersection = self.whereAmI()
+            Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
+            Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
         }
 		
 		//
-		else if (hypothesis == "CANCEL"){
+		else if (hypothesis == "CANCEL") {
 			print("HEARD CANCEL")
 			self.stopListening()
 			self.previouslyHeardCancel = true
