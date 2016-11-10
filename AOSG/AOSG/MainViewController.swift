@@ -210,16 +210,19 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             if loc == nil || heading == nil {
                 return
             }
+			
+			
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             // Handle relation to next snap point
             self.routeManager.checkLocToSnapPoint(location: loc!)
-			
+			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
 			
 			
-			//Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
+			Stuff.things.currentStepDescription = self.currentStepLabel.text!
+			Stuff.things.stepPace = self.route.pedometer.stepPaceEst
             
             if (self.route.arrivedAtDestination()) {
                 Speech.shared.say(utterance: "You have arrived at destination")
@@ -229,6 +232,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 			if (self.route.cancelledNavigation()) {
 				Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
 				print ("You have cancelled navigation ")
+				self.currentStepLabel.text = "--"
+				self.destinationTextField.text = ""
+				self.currentLocationLabel.text = "--"
+				self.destinationLocationLabel.text = "--"
+				self.directionList.text = ""
+				
 				return; // Returning here permanently stops location change updates
 			}
 			

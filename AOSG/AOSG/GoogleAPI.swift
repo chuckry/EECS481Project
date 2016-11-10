@@ -28,6 +28,7 @@ class NavigationPath {
         endLocation = endAt
         totalPathDistance = dist
         totalPathDuration = dur
+		Stuff.things.totalDistance = dist
         path = steps
         step = 0
 		Stuff.things.cancelled = false;
@@ -41,6 +42,7 @@ class NavigationPath {
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
+			Stuff.things.stepLengths.append(step.totalDistance)
             if step.formattedNote != nil {
 				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
                 directions.append(text)
@@ -61,7 +63,6 @@ class NavigationPath {
 	
 	// navigation cancelled?
 	func cancelledNavigation() -> Bool {
-		print(Stuff.things.cancelled)
 		return Stuff.things.cancelled
 	}
 	
@@ -76,7 +77,10 @@ class NavigationPath {
     // go to the next step
     func nextStep() {
         step += 1
+		Stuff.things.currentStepID = Stuff.things.currentStepID+1
     }
+	
+
 }
 
 
@@ -136,10 +140,10 @@ struct NavigationStep {
 	
 	func createCurrentFormattedString(currentLocation: CLLocation, stepSizeEst: Double) -> String{
 		var dist = estimatedDistanceRemaining(from: currentLocation)
-		var stepEst = dist/stepSizeEst
+		Stuff.things.currentStepDist = dist
+		let stepEst = Int(round(1*dist/stepSizeEst)/1)
 		dist = Double(round(100*dist)/100)
-		stepEst = Double(round(100*stepEst)/100)
-		let text: String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		let text: String = formattedDescription + " in \(stepEst) steps"// (\(dist) meters) "
 		return text
 	}
     

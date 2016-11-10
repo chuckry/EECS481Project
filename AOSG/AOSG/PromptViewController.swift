@@ -15,9 +15,9 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
-	
 	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? "
-	let repeatErrorStatement: String = "Navigation has not yet begun. "
+	let navErrorStatement: String = "Navigation has not yet begun. "
+	var howFarStatement: String = ""
 	
 	var player: AVAudioPlayer?
 	var wordGuess:String = ""
@@ -58,14 +58,13 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 
 		//plap beep
 		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
-		print("here")
 
 		do {
 			self.player = try AVAudioPlayer(contentsOf: url)
 			guard let player = self.player else { return }
 			player.prepareToPlay()
 			player.play()
-		} catch let error as Error {
+		} catch let error {
 			print(error.localizedDescription)
 		}
 		self.startListening()
@@ -118,7 +117,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		print("noop")
 	}
 
-/////////////////////// openears inteface functions///////////////////////
+/////////////////////// openears interface functions///////////////////////
 	
 	//what happens when each phrase is heard
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
@@ -145,28 +144,54 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 			//verify that the user wanted to cancel
 			Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
 			//Gesture recognizer
-			/*if (tapped){
+			///*if (tapped){
 				Speech.shared.waitToFinishSpeaking(callback: self.noop)
 				Stuff.things.cancelled = true
 				verticalPageVC.returnToMainScreen()
-			}
-			else if (swiped){
-				Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
-			}*/
+			//}
+			//else if (swiped){
+			//	Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			//}*/
 			
 		}
 		else if (hypothesis == "REPEAT"){
 			print("HEARD REPEAT")
 			self.stopListening()
 			if (Stuff.things.currentStepDescription == ""){
-				Speech.shared.immediatelySay(utterance: self.repeatErrorStatement)
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
 			}
 			else{
-				//TODO: this description should be updated to use current distance to goal
 				Speech.shared.immediatelySay(utterance: Stuff.things.currentStepDescription)
 			}
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+		}
+		else if (hypothesis == "HOWFAR"){
+			print("HEARD HOW FAR")
+			self.stopListening()
+			if (Stuff.things.currentStepDescription == ""){
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
+			}
+			else {
+				var dist = Stuff.things.sumDists() //m
+				let pace = Stuff.things.getPace() //s/m
+				var timeEst = dist*pace //s
+				dist = dist * 0.000621371 //miles
 				
+				var arrivalTime = Date()
+				let cal = NSCalendar.current
+				arrivalTime = cal.date(byAdding: .second, value:Int(timeEst), to: Date())!
+				let formatter = DateFormatter()
+				formatter.dateFormat = "h:mm a"
+				formatter.amSymbol = "AM"
+				formatter.pmSymbol = "PM"
+				
+				timeEst = timeEst/60 //minutes
+				self.howFarStatement = "You will arrive at your destination in \(Double(round(10*dist)/10)) miles at \(formatter.string(from: arrivalTime)) in \(Int(round(1*timeEst)/1)) minutes"
+				print(howFarStatement)
+				Speech.shared.immediatelySay(utterance: self.howFarStatement)
+			}
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			
 		}
 		//keep adding prompts
 	}
