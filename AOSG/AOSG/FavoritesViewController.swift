@@ -13,6 +13,7 @@ class FavoritesViewController: UIViewController {
 
     // MARK: Properties
     @IBOutlet weak var favorites: UITableView!
+    @IBOutlet weak var tableEditButton: UIBarButtonItem!
     @IBAction func unwindToFavoritesList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? NewFavoriteViewController {
             let newIndexPath = IndexPath(row: favs.count, section: 0)
@@ -25,6 +26,19 @@ class FavoritesViewController: UIViewController {
             saveFavorites()
         }
     }
+    @IBAction func editOptionPressed(_ sender: UIBarButtonItem) {
+        if tableEditButton == sender {
+            if favorites.isEditing {
+                favorites.setEditing(false, animated: true)
+                tableEditButton.title = "Edit"
+            } else {
+                favorites.setEditing(true, animated: true)
+                tableEditButton.title = "Done"
+            }
+        }
+    }
+    
+    
     var favs = [Favorite]()
     public var horizontalPageVC: HorizontalPageViewController!
     
@@ -39,6 +53,8 @@ class FavoritesViewController: UIViewController {
         if let savedFavorites = loadFavorites() {
             favs += savedFavorites
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,6 +106,19 @@ extension FavoritesViewController: UITableViewDataSource {
     // returns how many cells there are
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favs.count
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleting")
+            favs.remove(at: indexPath.row)
+            favorites.deleteRows(at: [indexPath], with: .fade)
+            saveFavorites()
+        }
     }
 }
 

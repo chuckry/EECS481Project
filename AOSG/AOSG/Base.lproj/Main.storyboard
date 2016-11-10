@@ -24,6 +24,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Favorites" id="mQb-0h-UAk">
+                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="Ell-Bx-MH7">
+                                            <connections>
+                                                <action selector="editOptionPressed:" destination="iut-zU-Gs2" id="VqO-ME-E7B"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="U0Q-Yf-21G">
                                             <connections>
                                                 <segue destination="DtU-LW-9oz" kind="presentation" id="GfX-id-m96"/>
@@ -75,6 +80,7 @@
                     </view>
                     <connections>
                         <outlet property="favorites" destination="FFi-nu-sZ2" id="XYE-bq-vi8"/>
+                        <outlet property="tableEditButton" destination="Ell-Bx-MH7" id="ll1-Gv-IPU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PK3-gd-Wkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
