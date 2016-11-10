@@ -375,6 +375,9 @@
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="10" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="oKu-qd-HYX">
                                         <rect key="frame" x="273" y="37" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="volumeChangeControl:" destination="lnx-WB-Ijr" eventType="valueChanged" id="WWZ-BF-HEl"/>
+                                        </connections>
                                     </stepper>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -398,6 +401,9 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Xi-Aw-Jbj">
                                         <rect key="frame" x="318" y="34" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="voiceSwitchToggle:" destination="lnx-WB-Ijr" eventType="valueChanged" id="4yd-9B-0kF"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -415,6 +421,9 @@
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minimumValue="0.10000000000000001" maximumValue="1" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="XFR-Hr-bFe">
                                         <rect key="frame" x="273" y="36" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="voiceChangeController:" destination="lnx-WB-Ijr" eventType="valueChanged" id="kD0-Pu-fiB"/>
+                                        </connections>
                                     </stepper>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Voice Speed" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mye-h9-geK">
                                         <rect key="frame" x="8" y="36" width="245" height="30"/>
@@ -445,6 +454,9 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F1B-XM-RdJ">
                                         <rect key="frame" x="318" y="35" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="vibrationSwitchToggle:" destination="lnx-WB-Ijr" eventType="valueChanged" id="kvp-eC-3kc"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -467,6 +479,9 @@
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="0.5" maximumValue="3" stepValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n6z-Ha-0NB">
                                         <rect key="frame" x="273" y="37" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="beepChangeControl:" destination="lnx-WB-Ijr" eventType="valueChanged" id="nGy-Fp-Cg3"/>
+                                        </connections>
                                     </stepper>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -487,6 +502,18 @@
                             <constraint firstItem="wpb-aJ-X7d" firstAttribute="height" secondItem="ade-A9-wAO" secondAttribute="height" id="xMu-Ia-6t2"/>
                         </constraints>
                     </stackView>
+                    <connections>
+                        <outlet property="beepChange" destination="n6z-Ha-0NB" id="H9x-nT-Zh2"/>
+                        <outlet property="beepChangeLabel" destination="unn-KS-0zh" id="M1d-hE-gLr"/>
+                        <outlet property="vibrationSwitch" destination="F1B-XM-RdJ" id="gPP-Ns-QIU"/>
+                        <outlet property="vibrationSwitchLabel" destination="OiG-wC-0L8" id="D9B-VC-qLQ"/>
+                        <outlet property="voiceChange" destination="XFR-Hr-bFe" id="7eY-1c-Uku"/>
+                        <outlet property="voiceChangeLabel" destination="Mye-h9-geK" id="z7P-0I-jti"/>
+                        <outlet property="voiceSwitch" destination="3Xi-Aw-Jbj" id="2nm-ZW-z9w"/>
+                        <outlet property="voiceSwitchLabel" destination="8eH-j5-Txw" id="P94-8h-ye1"/>
+                        <outlet property="volumeChange" destination="oKu-qd-HYX" id="ahv-0L-p5e"/>
+                        <outlet property="volumeChangeLabel" destination="Drm-I2-eqF" id="ZR9-fF-quW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7FP-xF-089" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

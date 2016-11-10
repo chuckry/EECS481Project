@@ -39,12 +39,12 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let savedSettings = loadSettings() {
+        /*if let savedSettings = loadSettings() {
             currentSettings = savedSettings
         }
         else {
             saveSettings()
-        }
+        }*/
         
         Speech.shared.speechRate = currentSettings.voiceSpeed
         Speech.shared.voiceOn = currentSettings.voiceOn
@@ -99,7 +99,7 @@ class SettingsViewController: UIViewController {
     }
     
     func loadSettings() -> Settings? {
-        return (NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as? Settings)
+        return (NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as! Settings)
     }
     
     
@@ -109,7 +109,7 @@ class SettingsViewController: UIViewController {
         currentSettings.volume = Float(volumeChange.value/10)
         volumeChangeLabel.text = "Volume: " + String(volumeChange.value)
         Speech.shared.volume = currentSettings.volume
-        saveSettings()
+        //saveSettings()
     }
     
     @IBAction func voiceSwitchToggle(_ sender: AnyObject) {
@@ -124,7 +124,7 @@ class SettingsViewController: UIViewController {
             voiceSwitchLabel.text = "Voice OFF"
         }
         Speech.shared.voiceOn = currentSettings.voiceOn
-        saveSettings()
+        //saveSettings()
     }
     
     
@@ -134,7 +134,7 @@ class SettingsViewController: UIViewController {
         //print ("Voice speed = ", voiceChange.value)
         voiceChangeLabel.text = "Voice Speed: " + String(voiceChange.value)
         Speech.shared.speechRate = currentSettings.voiceSpeed
-        saveSettings()
+        //saveSettings()
         
     }
     
@@ -149,7 +149,7 @@ class SettingsViewController: UIViewController {
             currentSettings.vibrationOn = false;
             vibrationSwitchLabel.text = "Vibration OFF"
         }
-        saveSettings()
+        //saveSettings()
     }
     
     
@@ -157,7 +157,7 @@ class SettingsViewController: UIViewController {
         Stuff.things.beepFrequency = beepChange.value
         currentSettings.beepFrequency = Float(beepChange.value)
         beepChangeLabel.text = "Beep Frequency: " + String(beepChange.value)
-        saveSettings()
+        //saveSettings()
     }
     
     
