@@ -19,11 +19,8 @@ class Stuff{
     public var favoriteAddress: String = ""
     
     // for settings
-    public var volume:Double = 1
-    public var voiceOn:Bool = true
-    public var voiceSpeed:Double = 0.5
     public var vibrationOn:Bool = true
-    public var beepFrequency:Double = 1
+    public var beepFrequency:Float = 1
     
 	private init(){
 		

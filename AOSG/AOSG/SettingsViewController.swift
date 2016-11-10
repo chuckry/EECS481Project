@@ -14,8 +14,7 @@ class SettingsViewController: UIViewController {
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
     
-    var currentSettings : Settings = Settings.init(volumeIn: 1.0, voiceOnIn: true, voiceSpeedIn: 0.5, vibrationOnIn: true, beepFrequencyIn: 1)
-    
+    var currentSettings: Settings = Settings(volumeIn: 1, voiceOnIn: true, voiceSpeedIn: 0.5, vibrationOnIn: true, beepFrequencyIn: 1)
     
     
     
@@ -39,44 +38,42 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*if let savedSettings = loadSettings() {
+        if let savedSettings = loadSettings() {
             currentSettings = savedSettings
         }
         else {
             saveSettings()
-        }*/
+        }
         
         Speech.shared.speechRate = currentSettings.voiceSpeed
         Speech.shared.voiceOn = currentSettings.voiceOn
         Speech.shared.volume = currentSettings.volume
+
         
+        volumeChange.value = Double((currentSettings.volume)*10.0)
+        volumeChangeLabel.text = "Volume: \(currentSettings.volume)"
         
-        volumeChange.value = (Stuff.things.volume)*10
-        volumeChangeLabel.text = "Volume: " + String(volumeChange.value)
-        
-        voiceSwitch.isOn = Stuff.things.voiceOn
+        voiceSwitch.isOn = currentSettings.voiceOn
         if voiceSwitch.isOn {
             voiceSwitchLabel.text = "Voice ON"
-        }
-        else {
+        } else {
             voiceSwitchLabel.text = "Voice OFF"
         }
         
-        voiceChange.value = Stuff.things.voiceSpeed
-        voiceChangeLabel.text = "Voice Speed: " + String(voiceChange.value)
+        voiceChange.value = Double(currentSettings.voiceSpeed)
+        voiceChangeLabel.text = "Voice Speed: \(currentSettings.voiceSpeed)"
         
-        vibrationSwitch.isOn = Stuff.things.vibrationOn
+        Stuff.things.vibrationOn = currentSettings.vibrationOn
+        vibrationSwitch.isOn = currentSettings.vibrationOn
         if vibrationSwitch.isOn {
             vibrationSwitchLabel.text = "Vibration ON"
-        }
-        else {
+        } else {
             vibrationSwitchLabel.text = "Vibration OFF"
         }
         
-        beepChange.value = Stuff.things.beepFrequency
-        beepChangeLabel.text = "Beep Frequency: " + String(beepChange.value)
-        
-        
+        Stuff.things.beepFrequency = currentSettings.beepFrequency
+        beepChange.value = Double(currentSettings.beepFrequency)
+        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency))"
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,48 +91,42 @@ class SettingsViewController: UIViewController {
         let isSucessfulSave = NSKeyedArchiver.archiveRootObject(currentSettings, toFile: Settings.archiveURL.path)
         if !isSucessfulSave {
             print ("Settings were not successfully saved")
+        } else {
+            print("Setting saved!")
         }
         
     }
     
     func loadSettings() -> Settings? {
-        return (NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as! Settings)
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as? Settings
     }
     
     
     
     @IBAction func volumeChangeControl(_ sender: AnyObject) {
-        Stuff.things.volume = volumeChange.value/10
         currentSettings.volume = Float(volumeChange.value/10)
-        volumeChangeLabel.text = "Volume: " + String(volumeChange.value)
+        volumeChangeLabel.text = "Volume: \(currentSettings.volume)"
         Speech.shared.volume = currentSettings.volume
-        //saveSettings()
+        saveSettings()
     }
     
     @IBAction func voiceSwitchToggle(_ sender: AnyObject) {
         if voiceSwitch.isOn {
-            Stuff.things.voiceOn = true;
-            currentSettings.voiceOn = true;
             voiceSwitchLabel.text = "Voice ON"
-        }
-        else {
-            Stuff.things.voiceOn = false;
-            currentSettings.voiceOn = false;
+        } else {
             voiceSwitchLabel.text = "Voice OFF"
         }
-        Speech.shared.voiceOn = currentSettings.voiceOn
-        //saveSettings()
+        currentSettings.voiceOn = voiceSwitch.isOn
+        Speech.shared.voiceOn = voiceSwitch.isOn
+        saveSettings()
     }
     
     
     @IBAction func voiceChangeController(_ sender: AnyObject) {
-        Stuff.things.voiceSpeed = voiceChange.value
         currentSettings.voiceSpeed = Float(voiceChange.value)
-        //print ("Voice speed = ", voiceChange.value)
-        voiceChangeLabel.text = "Voice Speed: " + String(voiceChange.value)
+        voiceChangeLabel.text = "Voice Speed: \(currentSettings.voiceSpeed)"
         Speech.shared.speechRate = currentSettings.voiceSpeed
-        //saveSettings()
-        
+        saveSettings()
     }
     
     @IBAction func vibrationSwitchToggle(_ sender: AnyObject) {
@@ -149,15 +140,17 @@ class SettingsViewController: UIViewController {
             currentSettings.vibrationOn = false;
             vibrationSwitchLabel.text = "Vibration OFF"
         }
-        //saveSettings()
+        currentSettings.vibrationOn = vibrationSwitch.isOn
+        Stuff.things.vibrationOn = vibrationSwitch.isOn
+        saveSettings()
     }
     
     
     @IBAction func beepChangeControl(_ sender: AnyObject) {
-        Stuff.things.beepFrequency = beepChange.value
+        Stuff.things.beepFrequency = Float(beepChange.value)
         currentSettings.beepFrequency = Float(beepChange.value)
-        beepChangeLabel.text = "Beep Frequency: " + String(beepChange.value)
-        //saveSettings()
+        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
+        saveSettings()
     }
     
     

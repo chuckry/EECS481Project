@@ -19,7 +19,7 @@ class Settings: NSObject, NSCoding {
     
     struct PropertyKey {
         static let volumeKey = "volume"
-        static let voiceOnKey = "voiceKey"
+        static let voiceOnKey = "voiceOn"
         static let voiceSpeedKey = "voiceSpeed"
         static let vibrationOnKey = "vibrationOn"
         static let beepFrequencyKey = "beepFrequency"
@@ -43,14 +43,15 @@ class Settings: NSObject, NSCoding {
         self.voiceSpeed = voiceSpeedIn
         self.vibrationOn = vibrationOnIn
         self.beepFrequency = beepFrequencyIn
+        super.init()
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let volume = aDecoder.decodeObject(forKey: PropertyKey.volumeKey) as! Float
-        let voiceOn = aDecoder.decodeObject(forKey: PropertyKey.voiceOnKey) as! Bool
-        let voiceSpeed = aDecoder.decodeObject(forKey: PropertyKey.voiceSpeedKey) as! Float
-        let vibrationOn = aDecoder.decodeObject(forKey: PropertyKey.vibrationOnKey) as! Bool
-        let beepFrequency = aDecoder.decodeObject(forKey: PropertyKey.beepFrequencyKey) as! Float
+        let volume = aDecoder.decodeFloat(forKey: PropertyKey.volumeKey)
+        let voiceOn = aDecoder.decodeBool(forKey: PropertyKey.voiceOnKey)
+        let voiceSpeed = aDecoder.decodeFloat(forKey: PropertyKey.voiceSpeedKey)
+        let vibrationOn = aDecoder.decodeBool(forKey: PropertyKey.vibrationOnKey)
+        let beepFrequency = aDecoder.decodeFloat(forKey: PropertyKey.beepFrequencyKey)
         self.init(volumeIn : volume, voiceOnIn: voiceOn, voiceSpeedIn : voiceSpeed, vibrationOnIn : vibrationOn, beepFrequencyIn : beepFrequency)
     }
     
