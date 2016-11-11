@@ -37,6 +37,7 @@ class RouteManager {
         self.route = path
         self.route?.nextStep()
         self.snappedPoints = []
+        self.getSnapPoints()
     }
 
     /*
@@ -86,6 +87,13 @@ class RouteManager {
     }
     
     /*
+     *  Checks whether we're at the last point
+     */
+    func outsideSnapPointBounds() -> Bool {
+        return self.nextPoint >= self.snappedPoints.count
+    }
+    
+    /*
      *  Check whether you've moved within a 2 meter radius of the next point
      */
     func checkLocToSnapPoint(location: CLLocation) {
@@ -125,13 +133,6 @@ class RouteManager {
     }
     
     /*
-     *  Checks whether we're at the last point
-     */
-    func outsideSnapPointBounds() -> Bool {
-        return self.nextPoint >= self.snappedPoints.count
-    }
-    
-    /*
      *  Using the closest address to current location, return the nearest intersection
      */
     func getNearestIntersection(loc: CLLocation?) -> String {
@@ -139,7 +140,7 @@ class RouteManager {
             // Call Reverse Geocode API
             let lat = loc?.coordinate.latitude
             let long = loc?.coordinate.longitude
-            let url = "http://api.geonames.org/findNearestIntersectionJSON?filter=S2000&lat=\(lat!)&lng=\(long!)&username=chuckry"
+            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat!)&lng=\(long!)&username=chuckry"
             let requestURL = URL(string: url)
             var request = URLRequest(url: requestURL!)
             request.httpMethod = "GET"
@@ -162,9 +163,7 @@ class RouteManager {
         }
         
         // Guard against returning value before its assigned
-        while self.nearestIntersection.isEmpty {
-            print("Waiting for another thread to store intersection")
-        }
+        while self.nearestIntersection.isEmpty {}
         return self.nearestIntersection
     }
 

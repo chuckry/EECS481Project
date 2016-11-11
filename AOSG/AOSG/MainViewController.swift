@@ -153,9 +153,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
         
         // save the Navigation Path returned as an internal state
-        route = withPath!
-        routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
-        Stuff.things.routeManager = routeManager
+        self.route = withPath!
+        self.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
+        Stuff.things.routeManager = self.routeManager
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -178,7 +178,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
-            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
+            let start_text = "All set with direction to " + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)
             
             
