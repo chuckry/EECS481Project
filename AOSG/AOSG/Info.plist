@@ -2,12 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string></string>
 	<key>CFBundleDisplayName</key>
-	<string>AOSG</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>YES</string>
+	<string>Steereo</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -56,11 +52,15 @@
 		<string>MKDirectionsModeTrain</string>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
+	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
+	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>YES</string>
 	<key>NSMotionUsageDescription</key>
 	<string>YES</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
