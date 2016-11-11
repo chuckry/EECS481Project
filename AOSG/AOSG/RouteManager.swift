@@ -37,6 +37,7 @@ class RouteManager {
         self.route = path
         self.route?.nextStep()
         self.snappedPoints = []
+        self.getSnapPoints()
     }
 
     /*
@@ -86,6 +87,13 @@ class RouteManager {
     }
     
     /*
+     *  Checks whether we're at the last point
+     */
+    func outsideSnapPointBounds() -> Bool {
+        return self.nextPoint >= self.snappedPoints.count
+    }
+    
+    /*
      *  Check whether you've moved within a 2 meter radius of the next point
      */
     func checkLocToSnapPoint(location: CLLocation) {
@@ -122,13 +130,6 @@ class RouteManager {
         self.nextPoint = 0
         self.route?.nextStep()
         self.getSnapPoints()
-    }
-    
-    /*
-     *  Checks whether we're at the last point
-     */
-    func outsideSnapPointBounds() -> Bool {
-        return self.nextPoint >= self.snappedPoints.count
     }
     
     /*
