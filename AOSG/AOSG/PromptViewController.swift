@@ -20,7 +20,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var howFarStatement: String = ""
 	
 	var player: AVAudioPlayer?
-	var openEarsEventsObserver = OEEventsObserver()
+	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
@@ -30,12 +30,12 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		loadOpenEars()
     }
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		loadOpenEars()
 		runSpeech()
 	}
 	
@@ -44,6 +44,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		super.viewDidDisappear(animated)
 		Speech.shared.waitingForDoneSpeaking = false
 		self.stopListening()
+		openEarsEventsObserver = nil
 	}
 	
 	func runSpeech(){
@@ -76,7 +77,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	func loadOpenEars() {
 		openEarsEventsObserver = OEEventsObserver()
-		openEarsEventsObserver.delegate = self;
+		openEarsEventsObserver?.delegate = self;
 		
 		let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
 		

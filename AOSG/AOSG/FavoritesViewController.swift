@@ -43,14 +43,12 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 	let openingStatement:String = "Favorites. At the tone, speak the name of your favorite destination. Say, list, to read saved favorite destinations. Or say, edit, to add or delete saved favorites. Swipe right to cancel. "
 	let listStatement:String = "You said list. Do something with this"
 	//keep adding prompts here
-	var openEarsEventsObserver = OEEventsObserver()
+	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
 	var player: AVAudioPlayer?
 
-	
-	
     var favs = [Favorite]()
     public var horizontalPageVC: HorizontalPageViewController!
     
@@ -65,8 +63,6 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
         if let savedFavorites = loadFavorites() {
             favs += savedFavorites
         }
-		loadOpenEars()
-		
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,6 +72,7 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+		loadOpenEars()
 		runOpeningSpeech() // what the page should repeatedly say at opening and after other events
     }
 	
@@ -83,6 +80,7 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 		super.viewDidDisappear(animated)
 		Speech.shared.waitingForDoneSpeaking = false
 		self.stopListening()
+		openEarsEventsObserver = nil
 	}
     
 
@@ -129,7 +127,7 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 	
 	func loadOpenEars() {
 		openEarsEventsObserver = OEEventsObserver()
-		openEarsEventsObserver.delegate = self;
+		openEarsEventsObserver?.delegate = self;
 		
 		let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
 		
