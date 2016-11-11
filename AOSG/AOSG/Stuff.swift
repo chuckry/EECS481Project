@@ -26,6 +26,10 @@ class Stuff {
 	public var stepSizeEst: Double = 0
 	public var stepPace: Double = 0
     
+    // for settings
+    public var vibrationOn:Bool = true
+    public var beepFrequency:Float = 1
+    
 	private init(){
 
 	}

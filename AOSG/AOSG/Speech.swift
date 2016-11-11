@@ -13,13 +13,15 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
     
     // singleton pattern
     static let shared = Speech()
-    let synthesizer = AVSpeechSynthesizer()
+    public let synthesizer = AVSpeechSynthesizer()
+    public var speechRate : Float = 0.5
+    public var voiceOn : Bool = true
+    public var volume : Float = 1
 	private var isSpeaking:Bool = false
 	private var isListening:Bool = false
 	var waitingForDoneSpeaking:Bool = false
 	lazy var notifyDoneSpeaking: () -> Void = {arg in}
 
-	
 	override init() {
 		super.init()
 		synthesizer.delegate = self
@@ -27,14 +29,16 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	
     func say(utterance text: String) {
         let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.6
+        utterance.rate = speechRate
+        utterance.volume = volume
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         synthesizer.speak(utterance)
     }
     
     func immediatelySay(utterance text: String) {
         let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.6
+        utterance.rate = speechRate
+        utterance.volume = volume
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         synthesizer.speak(utterance)
