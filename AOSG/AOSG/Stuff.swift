@@ -9,13 +9,13 @@
 
 import Foundation
 
-class Stuff{
-	
+class Stuff {
 	static let things = Stuff()
-	//add your stuff here!
-	public var message:String!
-	public var cancelled:Bool = false //true if route has been cancelled
-	public var currentStepID:Int = 0
+
+	public var message: String! = ""
+	public var cancelled: Bool = false //true if route has been cancelled
+	public var routeManager: RouteManager = RouteManager()
+	public var currentStepID: Int = 0
 	public var currentStepDescription: String = "" //current navigation step
 	public var currentStepDist:Double = 0 //distance remaining in step
 	public var stepLengths: Array<Double> = [] // length of each step in the path
@@ -31,7 +31,7 @@ class Stuff{
 	}
 
 	func sumDists() -> Double{
-		let slice: Array<Double> = Array(stepLengths[currentStepID+1..<stepLengths.count])
+		let slice: Array<Double> = Array(stepLengths[currentStepID + 1..<stepLengths.count])
 		var dist:Double = 0
 		//add distance remaining in current step
 		dist += currentStepDist
@@ -49,6 +49,4 @@ class Stuff{
 		}
 		return stepPace
 	}
-	
-	
 }

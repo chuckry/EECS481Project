@@ -18,23 +18,27 @@ import UIKit
  *
  */
 class RouteManager {
-    let route: NavigationPath
+//    static let sharedInstance = RouteManager()
+    var route: NavigationPath?
+    let locManager = LocationService.sharedInstance
     var lastPoint: CLLocation
     var nextPoint = 0
     var snappedPoints: [CLLocation]
+    var nearestIntersection: String = ""
     
-    // CurrentStepLabel should be returned
-    var currentStepLabel: UILabel
-    
-    init(currentLocation: CLLocation, path: NavigationPath, label: UILabel) {
-        self.lastPoint = currentLocation
-        self.route = path
-        self.currentStepLabel = label
-        self.route.nextStep()
+    init() {
+        self.lastPoint = CLLocation()
         self.snappedPoints = []
-        self.getSnapPoints()
+        self.route = nil
     }
     
+    init(currentLocation: CLLocation, path: NavigationPath) {
+        self.lastPoint = currentLocation
+        self.route = path
+        self.route?.nextStep()
+        self.snappedPoints = []
+    }
+
     /*
      *  Get "snap points," or intermediary checkpoints, to tailor sound output to
      *  complex movement.
@@ -42,8 +46,8 @@ class RouteManager {
     func getSnapPoints() {
         let currLat = self.lastPoint.coordinate.latitude
         let currLong = self.lastPoint.coordinate.longitude
-        let lat = self.route.currentStep().goal.coordinate.latitude
-        let long = self.route.currentStep().goal.coordinate.longitude
+        let lat = self.route?.currentStep().goal.coordinate.latitude
+        let long = self.route?.currentStep().goal.coordinate.longitude
         
         let path = "\(currLat),\(currLong)|\(lat),\(long)"
         
@@ -99,7 +103,7 @@ class RouteManager {
      */
     func moveToNextSnapPoint(loc: CLLocation) {
         self.nextPoint += 1
-        if self.route.currentStep().achievedGoal(location: loc) {
+        if (self.route?.currentStep().achievedGoal(location: loc))! {
             self.moveToNextStep()
         }
         if self.outsideSnapPointBounds() {
@@ -114,9 +118,9 @@ class RouteManager {
      *  Gather new snap points
      */
     func moveToNextStep() {
-        self.lastPoint = self.route.currentStep().goal
+        self.lastPoint = (self.route?.currentStep().goal)!
         self.nextPoint = 0
-        self.route.nextStep()
+        self.route?.nextStep()
         self.getSnapPoints()
     }
     
@@ -125,6 +129,41 @@ class RouteManager {
      */
     func outsideSnapPointBounds() -> Bool {
         return self.nextPoint >= self.snappedPoints.count
+    }
+    
+    /*
+     *  Using the closest address to current location, return the nearest intersection
+     */
+    func getNearestIntersection(loc: CLLocation?) -> String {
+        if loc != nil {
+            // Call Reverse Geocode API
+            let lat = loc?.coordinate.latitude
+            let long = loc?.coordinate.longitude
+            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat!)&lng=\(long!)&username=chuckry"
+            let requestURL = URL(string: url)
+            var request = URLRequest(url: requestURL!)
+            request.httpMethod = "GET"
+            
+            let task = URLSession.shared.dataTask(with: request) {
+                (data, response, error) -> Void in
+                if error != nil {
+                    print("ERROR: \(error)")
+                    return
+                }
+                let json = JSON(data: data!)
+                let intersection = json["intersection"]
+                if intersection != JSON.null {
+                    self.nearestIntersection = "You are near, \(intersection["street1"]), and, \(intersection["street2"])"
+                }
+            }
+            task.resume()
+        } else {
+            print("Couldn't get nearest intersection!")
+        }
+        
+        // Guard against returning value before its assigned
+        while self.nearestIntersection.isEmpty {}
+        return self.nearestIntersection
     }
 
     /*
@@ -135,7 +174,7 @@ class RouteManager {
     func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
 		//print ("\(userHeading)")
         let trig = getTrig(userLocation, userHeading)
-        return Float(getSoundScore(angle: trig.0, directionVector: trig.1, userVector: trig.2))
+        return Float(getSoundScore(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2))
     }
     
     /*
@@ -143,9 +182,16 @@ class RouteManager {
      *
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
-    func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2) {
+    func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2)? {
+        let goal: CLLocation
+        if self.outsideSnapPointBounds() {
+            print("Using direction instead of snap point!")
+            goal = (self.route?.currentStep().goal)!
+        } else {
+            goal = self.snappedPoints[self.nextPoint]
+        }
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
-        let directionVector = getVectorFromPoints(start: userLocation, end: self.snappedPoints[nextPoint])
+        let directionVector = getVectorFromPoints(start: userLocation, end: goal)
         return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
     }
     
@@ -164,11 +210,7 @@ class RouteManager {
        // print("SIGN: \(signOfSigma)")
        // print("SCORE: \(score)")
         
-        if (score > 0) {
-            return min(1.0, score)
-        } else {
-            return max(-1.0, score)
-        }
+        return score > 0 ? min(1.0, score) : max(-1.0, score)
     }
     
     /*

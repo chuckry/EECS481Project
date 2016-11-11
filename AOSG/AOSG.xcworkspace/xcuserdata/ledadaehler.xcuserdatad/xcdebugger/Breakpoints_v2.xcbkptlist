@@ -353,7 +353,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
@@ -366,49 +366,79 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "globalinit_33_40A3E1EBBE420525A4B2A23749DEE1FE_func0"
+                  symbolName = "AOSG.PromptViewController.__deallocating_deinit"
                   moduleName = "AOSG"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
-                  timestampString = "500584021.05162"
+                  timestampString = "500584371.937476"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "8">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AOSG.PromptViewController.shared.unsafeMutableAddressor : AOSG.PromptViewController"
+                  symbolName = "AOSG.PromptViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AOSG.PromptViewController"
                   moduleName = "AOSG"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
-                  timestampString = "500584021.054208"
+                  timestampString = "500584371.940488"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static AOSG.PromptViewController.shared.getter : AOSG.PromptViewController"
+                  symbolName = "AOSG.PromptViewController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AOSG.PromptViewController"
                   moduleName = "AOSG"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
-                  timestampString = "500584021.056548"
+                  timestampString = "500584371.943187"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
                   offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AOSG.PromptViewController&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "500584371.945862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AOSG.PromptViewController&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "500584371.948226"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -489,7 +519,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
             endingLineNumber = "39"
-            landmarkName = "viewDidAppear(_:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -505,8 +535,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "PromptViewController"
-            landmarkType = "3">
+            landmarkName = "runSpeech()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -521,7 +551,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
             endingLineNumber = "139"
-            landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
+            landmarkName = "noop()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
