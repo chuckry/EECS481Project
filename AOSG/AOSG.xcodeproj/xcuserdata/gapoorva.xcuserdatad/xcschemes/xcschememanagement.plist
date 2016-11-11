@@ -4,15 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-AOSG.xcscheme</key>
+		<key>AOSG.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4486D29B41E5ABD2BBC41860EC98172B</key>
+		<key>41952C371DA81D56001B237A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41952C4B1DA81D56001B237A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41952C561DA81D56001B237A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

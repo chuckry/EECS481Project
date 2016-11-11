@@ -39,9 +39,12 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
     }
 	
 	//voice control variables
-	var words: Array<String> = ["LIST", "EDIT"] //array of words to be recognized. Remove spaces in multiple word phrases. 
-	let openingStatement:String = "Favorites. At the tone, speak the name of your favorite destination. Say, list, to read saved favorite destinations. Or say, edit, to add or delete saved favorites. Swipe right to cancel. "
-	let listStatement:String = "You said list. Do something with this"
+	var words: Array<String> = ["LIST", "EDIT, ADD, DELETE"] //array of words to be recognized. Remove spaces in multiple word phrases.
+	let openingStatement:String = "Favorites"
+    let rootMenuOptions:String = "At the tone, speak the name of your favorite destination or Say, list, to read saved favorite destinations. Or say, edit, to add or delete saved favorites. Swipe right to cancel."
+	let listConfirmation:String = "Listing all favorites."
+    let editStatement:String = "Editing Favorites."
+    let editMenuOptions:String = "At the tone Say, add, to add a new favorite. Or say, delete, to delete a saved favorite."
 	//keep adding prompts here
 	var openEarsEventsObserver = OEEventsObserver()
 	var startFailedDueToLackOfPermissions = Bool()
@@ -49,10 +52,13 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 	var dicPath: String!
 	var player: AVAudioPlayer?
 
-	
+    var isAdding: Bool = false
+    var isDeleting: Bool = false
 	
     var favs = [Favorite]()
     public var horizontalPageVC: HorizontalPageViewController!
+    
+    // MARK: View Controller Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,10 +71,10 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
         if let savedFavorites = loadFavorites() {
             favs += savedFavorites
         }
+        // Add to dictionary of words
 		loadOpenEars()
 		
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,16 +91,7 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 		self.stopListening()
 	}
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: Favorites Methods
     
     func saveFavorites() {
         let isSucessfulSave = NSKeyedArchiver.archiveRootObject(favs, toFile: Favorite.archiveURL.path)
@@ -102,15 +99,45 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
             print("Error Saving!!")
         }
     }
-    
     func loadFavorites() -> [Favorite]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Favorite.archiveURL.path) as? [Favorite]
     }
+    
+    // MARK: Custom Speach Methods
+    
+    // Runs a one-time openning speech
 	func runOpeningSpeech(){
-		print("running speech")
+		print("running openning speech")
 		Speech.shared.immediatelySay(utterance: self.openingStatement)
-		Speech.shared.waitToFinishSpeaking(callback: self.listen)
+        runRootMenuSpeech()
 	}
+    
+    // Runs the root menu speech
+    func runRootMenuSpeech() {
+        print("running root menu speech")
+        Speech.shared.immediatelySay(utterance: self.rootMenuOptions)
+        Speech.shared.waitToFinishSpeaking(callback: self.listen)
+    }
+    
+    // Lists all favorites currently avaliable.
+    func runListFavorites() {
+        print("listing favorites")
+        var listString: String = ""
+        for f in favs {
+            listString += "\(f.name), "
+        }
+        Speech.shared.immediatelySay(utterance: listString)
+        Speech.shared.waitToFinishSpeaking(callback: self.runRootMenuSpeech)
+    }
+    
+    // Runs the edit menu speech
+    func runEditMenuSpeech() {
+        print("running edit menu speech")
+        Speech.shared.immediatelySay(utterance: self.editStatement)
+        Speech.shared.waitToFinishSpeaking(callback: self.listen)
+    }
+    
+    
 	func listen(){
 		
 		//plap beep
@@ -174,12 +201,21 @@ class FavoritesViewController: UIViewController, OEEventsObserverDelegate {
 		/*
 		STENCIL: Add if/else for every word in your words list. initially stop listening and make sure to use callback function when saying something
 		*/
-		if (hypothesis == "LIST"){
+		if (hypothesis == "LIST") {
 			print("HEARD LIST")
 			self.stopListening()
-			Speech.shared.immediatelySay(utterance: self.listStatement)
-			Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-		}
+			Speech.shared.immediatelySay(utterance: self.listConfirmation)
+            Speech.shared.waitToFinishSpeaking(callback: self.runListFavorites)
+        } else if hypothesis == "EDIT" {
+            print("HEARD EDIT")
+            self.stopListening()
+            Speech.shared.immediatelySay(utterance: self.editStatement)
+            Speech.shared.waitToFinishSpeaking(callback: self.runEditMenuSpeech)
+        } else if hypothesis == "ADD" {
+            print("HEARD ADD")
+        } else if hypothesis == "DELETE" {
+            
+        }
 	
 		
 	}
