@@ -160,6 +160,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
             print("HEARD CROSSROADS")
             self.stopListening()
             let intersection = self.whereAmI()
+            print("Intersection: \(intersection)")
             Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
             Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
         }

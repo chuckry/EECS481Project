@@ -139,7 +139,7 @@ class RouteManager {
             // Call Reverse Geocode API
             let lat = loc?.coordinate.latitude
             let long = loc?.coordinate.longitude
-            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat!)&lng=\(long!)&username=chuckry"
+            let url = "http://api.geonames.org/findNearestIntersectionJSON?filter=S2000&lat=\(lat!)&lng=\(long!)&username=chuckry"
             let requestURL = URL(string: url)
             var request = URLRequest(url: requestURL!)
             request.httpMethod = "GET"
@@ -162,7 +162,9 @@ class RouteManager {
         }
         
         // Guard against returning value before its assigned
-        while self.nearestIntersection.isEmpty {}
+        while self.nearestIntersection.isEmpty {
+            print("Waiting for another thread to store intersection")
+        }
         return self.nearestIntersection
     }
 
