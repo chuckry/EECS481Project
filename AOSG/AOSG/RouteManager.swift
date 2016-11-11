@@ -133,7 +133,7 @@ class RouteManager {
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
     func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
-		print ("\(userHeading)")
+		//print ("\(userHeading)")
         let trig = getTrig(userLocation, userHeading)
         return Float(getSoundScore(angle: trig.0, directionVector: trig.1, userVector: trig.2))
     }
@@ -160,9 +160,9 @@ class RouteManager {
         
         let score = (angle * signOfSigma) / (-90.0)
         
-        print("ANGLE: \(angle)")
-        print("SIGN: \(signOfSigma)")
-        print("SCORE: \(score)")
+       // print("ANGLE: \(angle)")
+       // print("SIGN: \(signOfSigma)")
+       // print("SCORE: \(score)")
         
         if (score > 0) {
             return min(1.0, score)

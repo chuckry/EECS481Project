@@ -82,8 +82,7 @@ class SettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Speech.shared.immediatelySay(utterance: "Settings")
-    }
-    
+    }    
     
     func saveSettings() {
         let isSucessfulSave = NSKeyedArchiver.archiveRootObject(currentSettings, toFile: Settings.archiveURL.path)

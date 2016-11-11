@@ -60,7 +60,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
-    
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
+	
     // MARK: UITextFieldDelegate Handlers
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -173,25 +177,13 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
-            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().formattedDescription
-            self.readText(text: start_text)
+            let start_text = "All set with direction to" + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
+            Speech.shared.say(utterance: start_text)
             
             
             // FOR TESTING ONLY
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
-    }
-
-    
-    func readText(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        
-        // Will be able to change rate in settings in beta releasse
-        utterance.rate = 0.5
-		
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
     }
 
     func playFeedback(balance: Float, volume: Float, numLoops: Int) {
@@ -218,20 +210,41 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             if loc == nil || heading == nil {
                 return
             }
+			
+			
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             // Handle relation to next snap point
             self.routeManager.checkLocToSnapPoint(location: loc!)
-			
+			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
+			
+			
+			Stuff.things.currentStepDescription = self.currentStepLabel.text!
+			Stuff.things.stepPace = self.route.pedometer.stepPaceEst
             
             if (self.route.arrivedAtDestination()) {
-                self.readText(text: "You have arrived at destination")
+                Speech.shared.say(utterance: "You have arrived at destination")
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
-            
+			if (self.route.cancelledNavigation()) {
+				Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
+				print ("You have cancelled navigation ")
+				self.currentStepLabel.text = "--"
+				self.destinationTextField.text = ""
+				self.currentLocationLabel.text = "--"
+				self.destinationLocationLabel.text = "--"
+				self.directionList.text = ""
+				
+				return; // Returning here permanently stops location change updates
+			}
+			
+            // TODO: Change so that routeManager owns the memory associated with the path
+            // right now, ViewController and RouteManager are both maintaining it.
+            // Could we just put the navigationDriver under the RouteManager?
+			
             // TODO: Move navigationDriver to RouteManager
 			
             // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
@@ -240,7 +253,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // achievedGoal() will return true when passed a location at most 10 meters
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
-                self.readText(text: self.route.currentStep().currentFormattedDescription!)
+                self.routeManager.moveToNextStep()
+				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
+                Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {
                 self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
