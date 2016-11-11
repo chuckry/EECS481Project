@@ -28,6 +28,7 @@ class NavigationPath {
         endLocation = endAt
         totalPathDistance = dist
         totalPathDuration = dur
+		Stuff.things.totalDistance = dist
         path = steps
         step = 0
 		Stuff.things.cancelled = false;
@@ -41,6 +42,7 @@ class NavigationPath {
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
+			Stuff.things.stepLengths.append(step.totalDistance)
             if step.formattedNote != nil {
 				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
                 directions.append(text)
@@ -61,7 +63,6 @@ class NavigationPath {
 	
 	// navigation cancelled?
 	func cancelledNavigation() -> Bool {
-		print(Stuff.things.cancelled)
 		return Stuff.things.cancelled
 	}
 	
@@ -76,7 +77,10 @@ class NavigationPath {
     // go to the next step
     func nextStep() {
         step += 1
+		Stuff.things.currentStepID = Stuff.things.currentStepID+1
     }
+	
+
 }
 
 
@@ -108,13 +112,18 @@ struct NavigationStep {
     var totalDuration: Double
     // What should be printed on the string
     var formattedDescription: String
+    // What should be read aloud
+    var readingDescription: String
     // Optional note (default is empty)
     var formattedNote: String?
     var rawDescription: String
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
 	var currentFormattedDescription: String? //for current location label and read aloud
-	
+    var abbreviationsToText: [String : String] = ["St" : "Street", "Ave": "Avenue", "Dr" : "Drive", "Blvd" : "Boulevard", "Rd" : "Road", "Ln" : "Lane", "Mt" : "Mount" , "N" : "North", "S" : "South", "E" : "East", "W" : "West", "Rte" : "Route"]
+    
+    var setOfAbbreviations = ["St", "Ave", "Dr", "Blvd", "Rd", "Ln", "Mt",
+                                     "N", "S", "E", "W", "Rte"]
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
@@ -132,14 +141,24 @@ struct NavigationStep {
         }
         //formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
         totalHumanSteps = 0
+        
+        var myArray : [String] = formattedDescription.components(separatedBy:" ")
+        
+        for (index, word) in myArray.enumerated() {
+            if setOfAbbreviations.contains(word) {
+                myArray[index] = abbreviationsToText[word]!
+            }
+        }
+        
+        readingDescription = myArray.joined(separator: " ")
     }
 	
 	func createCurrentFormattedString(currentLocation: CLLocation, stepSizeEst: Double) -> String{
 		var dist = estimatedDistanceRemaining(from: currentLocation)
-		var stepEst = dist/stepSizeEst
+		Stuff.things.currentStepDist = dist
+		let stepEst = Int(round(1*dist/stepSizeEst)/1)
 		dist = Double(round(100*dist)/100)
-		stepEst = Double(round(100*stepEst)/100)
-		let text: String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		let text: String = formattedDescription + " in \(stepEst) steps"// (\(dist) meters) "
 		return text
 	}
     
