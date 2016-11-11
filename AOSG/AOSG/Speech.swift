@@ -28,10 +28,6 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	}
 	
     func say(utterance text: String) {
-        if (!voiceOn) {
-            return
-        }
-
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = speechRate
         utterance.volume = volume
@@ -40,9 +36,6 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func immediatelySay(utterance text: String) {
-        if (!voiceOn) {
-            return
-        }
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = speechRate
         utterance.volume = volume
