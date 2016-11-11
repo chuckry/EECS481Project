@@ -46,7 +46,7 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 		waitingForDoneSpeaking = true
 		print("done speaking 3")
 	}
-	
+    
 	func speechSynthesizer(_ synth: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
 		print("done speaking 1")
 		if (Speech.shared.waitingForDoneSpeaking == true){
