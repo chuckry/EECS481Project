@@ -32,6 +32,14 @@ class Stuff {
 	private init(){
 
 	}
+    
+    func getHeaderFilterValue() -> Double {
+        return 10 - Double(beepFrequency)
+    }
+    
+    func getDistanceFilterValue() -> Double {
+        return 10 - Double(beepFrequency)
+    }
 
 	func sumDists() -> Double{
 		let slice: Array<Double> = Array(stepLengths[currentStepID + 1..<stepLengths.count])

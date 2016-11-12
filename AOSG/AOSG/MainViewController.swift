@@ -178,6 +178,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Beging naviation and read first direction outloud
             // TODO: give capability to change rate in settings
+            print ("old heading filter = ", self.locationService.headingFilter)
+            self.locationService.headingFilter = Stuff.things.getHeaderFilterValue()
+            self.locationService.distanceFilter = Stuff.things.getDistanceFilterValue()
+            print ("new heading filter = ", self.locationService.headingFilter)
+            
             let start_text = "All set with direction to " + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)
             
@@ -261,7 +266,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             } else {
                 self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
             }
-            
+
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
     }

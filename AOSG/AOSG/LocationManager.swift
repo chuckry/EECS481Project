@@ -21,6 +21,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     // these public filters can be overriden with more suitable values...
     public var headingFilter: CLLocationDegrees = 5.0
     public var distanceFilter: CLLocationDistance = 5.0
+
     
     
 	var lastLocation: CLLocation?
