@@ -26,9 +26,20 @@ class Stuff {
 	public var stepSizeEst: Double = 0
 	public var stepPace: Double = 0
     
+    public var vibrationOn:Bool = true
+    public var beepFrequency:Float = 1
+    
 	private init(){
 
 	}
+    
+    func getHeaderFilterValue() -> Double {
+        return 10 - Double(beepFrequency)
+    }
+    
+    func getDistanceFilterValue() -> Double {
+        return 10 - Double(beepFrequency)
+    }
 
 	func sumDists() -> Double{
 		let slice: Array<Double> = Array(stepLengths[currentStepID + 1..<stepLengths.count])

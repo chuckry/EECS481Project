@@ -25,7 +25,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	var player: AVAudioPlayer?
 	var wordGuess:String = ""
-	var openEarsEventsObserver = OEEventsObserver()
+	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
@@ -35,12 +35,12 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		loadOpenEars()
     }
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		loadOpenEars()
 		runSpeech()
 	}
 	
@@ -49,6 +49,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		super.viewDidDisappear(animated)
 		Speech.shared.waitingForDoneSpeaking = false
 		self.stopListening()
+		self.openEarsEventsObserver = nil
 	}
 	
 	func runSpeech(){
@@ -81,7 +82,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	func loadOpenEars() {
 		openEarsEventsObserver = OEEventsObserver()
-		openEarsEventsObserver.delegate = self;
+		openEarsEventsObserver?.delegate = self;
 		
 		let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
 		
@@ -233,6 +234,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx is now listening for speech.
 	func pocketsphinxDidStartListening() {
+		print("in prompt")
 		print("Local callback: Pocketsphinx is now listening.") // Log it.
 	}
 	
