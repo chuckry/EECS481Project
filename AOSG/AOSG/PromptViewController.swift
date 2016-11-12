@@ -16,7 +16,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
-	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "CROSSROADS", "HOWFAR"]
+	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
 	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? "
@@ -157,8 +157,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
             
-        if (hypothesis == "CROSSROADS") {
-            print("HEARD CROSSROADS")
+        if (hypothesis == "WHEREAMI") {
+            print("HEARD WHEREAMI")
             self.stopListening()
             let intersection = self.whereAmI()
             print("Intersection: \(intersection!)")
