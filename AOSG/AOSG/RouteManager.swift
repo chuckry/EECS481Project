@@ -10,15 +10,8 @@ import Foundation
 import CoreLocation
 import UIKit
 
-/*
- *  For Speech class:
- *      - readText            : (String) -> (Void)
- *      - playFeedback        : (Float, Float, Int) -> (Void)
- *
- *
- */
+
 class RouteManager {
-//    static let sharedInstance = RouteManager()
     var route: NavigationPath?
     let locManager = LocationService.sharedInstance
     var lastPoint: CLLocation
@@ -80,8 +73,7 @@ class RouteManager {
                     self.snappedPoints.append(loc)
                 }
             }
-            print(self.snappedPoints)
-            self.nextPoint += 1
+            self.nextPoint = 0
         }
         task.resume()
     }
@@ -94,29 +86,24 @@ class RouteManager {
     }
     
     /*
-     *  Check whether you've moved within a 2 meter radius of the next point
+     *  If you've reached the goal, move to next step
+     *
+     *  Otherwise, gather snap points and move to next one if we're within
+     *  a 3 meter radius
      */
-    func checkLocToSnapPoint(location: CLLocation) {
-        if self.outsideSnapPointBounds() {
-            print("Outside Bounds!")
-            return
-        }
-        if self.snappedPoints[self.nextPoint].distance(from: location) <= 2 {
-            self.moveToNextSnapPoint(loc: location)
-        }
-    }
-    
-    /*
-     *  Increment to next snap point in the array.
-     */
-    func moveToNextSnapPoint(loc: CLLocation) {
-        self.nextPoint += 1
+    func moveToNextSnapPointIfClose(loc: CLLocation) {
+        
         if (self.route?.currentStep().achievedGoal(location: loc))! {
             self.moveToNextStep()
-        }
-        if self.outsideSnapPointBounds() {
-            print("Outside Bounds!")
-            return
+        } else {
+            if self.outsideSnapPointBounds() {
+                print("Outside Bounds!")
+                self.lastPoint = loc
+                self.getSnapPoints()
+            }
+            if self.snappedPoints[self.nextPoint].distance(from: loc) <= 3 {
+                self.nextPoint += 1
+            }
         }
     }
     
@@ -173,7 +160,6 @@ class RouteManager {
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
     func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
-		//print ("\(userHeading)")
         let trig = getTrig(userLocation, userHeading)
         return Float(getSoundScore(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2))
     }
@@ -188,8 +174,11 @@ class RouteManager {
         if self.outsideSnapPointBounds() {
             print("Using direction instead of snap point!")
             goal = (self.route?.currentStep().goal)!
+            self.lastPoint = LocationService.sharedInstance.lastLocation!
+            self.getSnapPoints()
         } else {
             goal = self.snappedPoints[self.nextPoint]
+            print("Using snap point: \(goal)")
         }
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
         let directionVector = getVectorFromPoints(start: userLocation, end: goal)
@@ -206,10 +195,6 @@ class RouteManager {
         let signOfSigma = (sigma < 0 ? -1.0 : 1.0)
         
         let score = (angle * signOfSigma) / (-90.0)
-        
-       // print("ANGLE: \(angle)")
-       // print("SIGN: \(signOfSigma)")
-       // print("SCORE: \(score)")
         
         return score > 0 ? min(1.0, score) : max(-1.0, score)
     }
