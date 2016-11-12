@@ -47,8 +47,8 @@ class RouteManager {
     func getSnapPoints() {
         let currLat = self.lastPoint.coordinate.latitude
         let currLong = self.lastPoint.coordinate.longitude
-        let lat = self.route?.currentStep().goal.coordinate.latitude
-        let long = self.route?.currentStep().goal.coordinate.longitude
+        let lat = (self.route?.currentStep().goal.coordinate.latitude)!
+        let long = (self.route?.currentStep().goal.coordinate.longitude)!
         
         let path = "\(currLat),\(currLong)|\(lat),\(long)"
         
