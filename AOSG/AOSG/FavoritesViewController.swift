@@ -39,6 +39,7 @@ class FavoritesViewController: UIViewController {
         favoritesVoiceController.tapRegistered()
     }
 
+
 	
     var favs = [Favorite]()
     var horizontalPageVC: HorizontalPageViewController!
@@ -60,6 +61,7 @@ class FavoritesViewController: UIViewController {
         }
 		favoritesVoiceController = FavoritesVoiceController(withFavorites: favs)
         favoritesVoiceController.delegate = self
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,11 +77,13 @@ class FavoritesViewController: UIViewController {
         } else {
             enableUIElements()
         }
+
     }
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
         favoritesVoiceController.stopUsingVoiceControlMenu()
+
 	}
     
     // MARK: Favorites Methods
@@ -118,6 +122,7 @@ class FavoritesViewController: UIViewController {
         tableEditButton.isEnabled = true
         tableAddButton.isEnabled = true
     }
+
 }
 
 extension FavoritesViewController: UITableViewDataSource {
