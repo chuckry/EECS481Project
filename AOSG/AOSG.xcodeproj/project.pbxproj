@@ -39,6 +39,7 @@
 		BA7753EE1DC782A60051EE3B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753ED1DC782A60051EE3B /* SettingsViewController.swift */; };
 		BA7753F01DC782C00051EE3B /* PromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753EF1DC782C00051EE3B /* PromptViewController.swift */; };
 		BA7753F21DC783470051EE3B /* VerticalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753F11DC783470051EE3B /* VerticalPageViewController.swift */; };
+		BA90DC281DD78C8500AF8B2E /* FavoritesVoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90DC271DD78C8500AF8B2E /* FavoritesVoiceController.swift */; };
 		BAE5F0501DB00152009DCA26 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		BA7753ED1DC782A60051EE3B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA7753EF1DC782C00051EE3B /* PromptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptViewController.swift; sourceTree = "<group>"; };
 		BA7753F11DC783470051EE3B /* VerticalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPageViewController.swift; sourceTree = "<group>"; };
+		BA90DC271DD78C8500AF8B2E /* FavoritesVoiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesVoiceController.swift; sourceTree = "<group>"; };
 		BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.release.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +185,7 @@
 				41952C3D1DA81D56001B237A /* MainViewController.swift */,
 				BA7753E91DC7766B0051EE3B /* InputViewController.swift */,
 				BA7753EB1DC776C90051EE3B /* FavoritesViewController.swift */,
+				BA90DC271DD78C8500AF8B2E /* FavoritesVoiceController.swift */,
 				BA7753ED1DC782A60051EE3B /* SettingsViewController.swift */,
 				BA7753EF1DC782C00051EE3B /* PromptViewController.swift */,
 				BA54197C1DCA8F0F00FDAB24 /* Speech.swift */,
@@ -454,6 +457,7 @@
 				414FA2421DBA69490032397E /* RouteManager.swift in Sources */,
 				BA35D99C1DCFDB0800BCDFA1 /* Favorite.swift in Sources */,
 				41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */,
+				BA90DC281DD78C8500AF8B2E /* FavoritesVoiceController.swift in Sources */,
 				BA7753EE1DC782A60051EE3B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
