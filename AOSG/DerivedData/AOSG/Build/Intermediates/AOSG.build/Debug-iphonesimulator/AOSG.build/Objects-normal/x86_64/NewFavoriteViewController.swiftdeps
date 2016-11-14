@@ -1,0 +1,1252 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "NewFavoriteViewController"
+provides-nominal:
+- "C4AOSG25NewFavoriteViewController"
+provides-member:
+- ["C4AOSG25NewFavoriteViewController", ""]
+provides-dynamic-lookup:
+- "locationSearchStatusLabel"
+- "textFieldDidEndEditing"
+- "updateSaveButton"
+- "useCurrentLocationSwitch"
+- "textFieldDidBeginEditing"
+- "nameTextField"
+- "cancelButton"
+- "favorite"
+- "viewDidAppear"
+- "currentAddress"
+- "useCurrentLocationSwitchToggled"
+- "addressTextField"
+- "viewDidLoad"
+- "locationAddressLabel"
+- "prepare"
+- "textFieldShouldEndEditing"
+- "locationManager"
+- "addressAvailable"
+- "textFieldShouldReturn"
+- "didReceiveMemoryWarning"
+- "saveButton"
+depends-top-level:
+- "CastingPrecedence"
+- "AssignmentPrecedence"
+- "UITextFieldDelegate"
+- !private "AnyObject"
+- "Bool"
+- !private "&&"
+- "UIViewController"
+- "UIBarButtonItem"
+- !private "UIControlEvents"
+- "UILabel"
+- "LocationService"
+- !private "!="
+- !private "||"
+- !private "!"
+- "UIStoryboardSegue"
+- "Favorite"
+- !private "StringLiteralType"
+- "UITextField"
+- "String"
+- "UISwitch"
+- !private "DispatchQueue"
+- !private "BooleanLiteralType"
+- "NewFavoriteViewController"
+- !private "==="
+depends-member:
+- !private ["Ps9AnyObject", "DispatchQueue"]
+- !private ["Ps9AnyObject", "Favorite"]
+- ["Ps9AnyObject", "LocationService"]
+- !private ["Ps9AnyObject", "NewFavoriteViewController"]
+- !private ["Ps9AnyObject", "UIControlEvents"]
+- !private ["Ps9AnyObject", "addTarget"]
+- ["Ps9AnyObject", "addressAvailable"]
+- ["Ps9AnyObject", "addressTextField"]
+- !private ["Ps9AnyObject", "async"]
+- ["Ps9AnyObject", "cancelButton"]
+- ["Ps9AnyObject", "currentAddress"]
+- !private ["Ps9AnyObject", "delegate"]
+- ["Ps9AnyObject", "didReceiveMemoryWarning"]
+- !private ["Ps9AnyObject", "dismiss"]
+- ["Ps9AnyObject", "favorite"]
+- !private ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "isEnabled"]
+- !private ["Ps9AnyObject", "isHidden"]
+- !private ["Ps9AnyObject", "isOn"]
+- ["Ps9AnyObject", "locationAddressLabel"]
+- ["Ps9AnyObject", "locationManager"]
+- ["Ps9AnyObject", "locationSearchStatusLabel"]
+- !private ["Ps9AnyObject", "main"]
+- ["Ps9AnyObject", "nameTextField"]
+- ["Ps9AnyObject", "prepare"]
+- !private ["Ps9AnyObject", "resignFirstResponder"]
+- ["Ps9AnyObject", "saveButton"]
+- ["Ps9AnyObject", "sharedInstance"]
+- !private ["Ps9AnyObject", "text"]
+- ["Ps9AnyObject", "textField"]
+- ["Ps9AnyObject", "textFieldDidBeginEditing"]
+- ["Ps9AnyObject", "textFieldDidEndEditing"]
+- ["Ps9AnyObject", "textFieldShouldBeginEditing"]
+- ["Ps9AnyObject", "textFieldShouldClear"]
+- ["Ps9AnyObject", "textFieldShouldEndEditing"]
+- ["Ps9AnyObject", "textFieldShouldReturn"]
+- ["Ps9AnyObject", "updateSaveButton"]
+- ["Ps9AnyObject", "useCurrentLocationSwitch"]
+- ["Ps9AnyObject", "useCurrentLocationSwitchToggled"]
+- ["Ps9AnyObject", "viewDidAppear"]
+- ["Ps9AnyObject", "viewDidLoad"]
+- !private ["Ps9AnyObject", "waitForAddressToBeAvailable"]
+- ["Ps9AnyObject", ""]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- ["Sb", "deinit"]
+- !private ["PSo15CALayerDelegate", "addTarget"]
+- !private ["PSo15CALayerDelegate", "delegate"]
+- !private ["PSo15CALayerDelegate", "isEnabled"]
+- !private ["PSo15CALayerDelegate", "isHidden"]
+- !private ["PSo15CALayerDelegate", "isOn"]
+- !private ["PSo15CALayerDelegate", "resignFirstResponder"]
+- !private ["PSo15CALayerDelegate", "text"]
+- ["PSo25CLLocationManagerDelegate", "sharedInstance"]
+- !private ["PSo25CLLocationManagerDelegate", "waitForAddressToBeAvailable"]
+- !private ["Ps7CVarArg", "DispatchQueue"]
+- !private ["Ps7CVarArg", "Favorite"]
+- ["Ps7CVarArg", "LocationService"]
+- !private ["Ps7CVarArg", "NewFavoriteViewController"]
+- !private ["Ps7CVarArg", "UIControlEvents"]
+- !private ["Ps7CVarArg", "addTarget"]
+- ["Ps7CVarArg", "addressAvailable"]
+- ["Ps7CVarArg", "addressTextField"]
+- !private ["Ps7CVarArg", "async"]
+- ["Ps7CVarArg", "cancelButton"]
+- ["Ps7CVarArg", "currentAddress"]
+- !private ["Ps7CVarArg", "delegate"]
+- ["Ps7CVarArg", "didReceiveMemoryWarning"]
+- !private ["Ps7CVarArg", "dismiss"]
+- ["Ps7CVarArg", "favorite"]
+- !private ["Ps7CVarArg", "init"]
+- !private ["Ps7CVarArg", "isEnabled"]
+- !private ["Ps7CVarArg", "isHidden"]
+- !private ["Ps7CVarArg", "isOn"]
+- ["Ps7CVarArg", "locationAddressLabel"]
+- ["Ps7CVarArg", "locationManager"]
+- ["Ps7CVarArg", "locationSearchStatusLabel"]
+- !private ["Ps7CVarArg", "main"]
+- ["Ps7CVarArg", "nameTextField"]
+- ["Ps7CVarArg", "prepare"]
+- !private ["Ps7CVarArg", "resignFirstResponder"]
+- ["Ps7CVarArg", "saveButton"]
+- ["Ps7CVarArg", "sharedInstance"]
+- !private ["Ps7CVarArg", "text"]
+- ["Ps7CVarArg", "textField"]
+- ["Ps7CVarArg", "textFieldDidBeginEditing"]
+- ["Ps7CVarArg", "textFieldDidEndEditing"]
+- ["Ps7CVarArg", "textFieldShouldBeginEditing"]
+- ["Ps7CVarArg", "textFieldShouldClear"]
+- ["Ps7CVarArg", "textFieldShouldEndEditing"]
+- ["Ps7CVarArg", "textFieldShouldReturn"]
+- ["Ps7CVarArg", "updateSaveButton"]
+- ["Ps7CVarArg", "useCurrentLocationSwitch"]
+- ["Ps7CVarArg", "useCurrentLocationSwitchToggled"]
+- ["Ps7CVarArg", "viewDidAppear"]
+- ["Ps7CVarArg", "viewDidLoad"]
+- !private ["Ps7CVarArg", "waitForAddressToBeAvailable"]
+- ["Ps7CVarArg", ""]
+- !private ["Ps10Comparable", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "DispatchQueue"]
+- !private ["Ps28CustomDebugStringConvertible", "Favorite"]
+- ["Ps28CustomDebugStringConvertible", "LocationService"]
+- !private ["Ps28CustomDebugStringConvertible", "NewFavoriteViewController"]
+- !private ["Ps28CustomDebugStringConvertible", "UIControlEvents"]
+- !private ["Ps28CustomDebugStringConvertible", "addTarget"]
+- ["Ps28CustomDebugStringConvertible", "addressAvailable"]
+- ["Ps28CustomDebugStringConvertible", "addressTextField"]
+- !private ["Ps28CustomDebugStringConvertible", "async"]
+- ["Ps28CustomDebugStringConvertible", "cancelButton"]
+- ["Ps28CustomDebugStringConvertible", "currentAddress"]
+- !private ["Ps28CustomDebugStringConvertible", "delegate"]
+- ["Ps28CustomDebugStringConvertible", "didReceiveMemoryWarning"]
+- !private ["Ps28CustomDebugStringConvertible", "dismiss"]
+- ["Ps28CustomDebugStringConvertible", "favorite"]
+- !private ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "isEnabled"]
+- !private ["Ps28CustomDebugStringConvertible", "isHidden"]
+- !private ["Ps28CustomDebugStringConvertible", "isOn"]
+- ["Ps28CustomDebugStringConvertible", "locationAddressLabel"]
+- ["Ps28CustomDebugStringConvertible", "locationManager"]
+- ["Ps28CustomDebugStringConvertible", "locationSearchStatusLabel"]
+- !private ["Ps28CustomDebugStringConvertible", "main"]
+- ["Ps28CustomDebugStringConvertible", "nameTextField"]
+- ["Ps28CustomDebugStringConvertible", "prepare"]
+- !private ["Ps28CustomDebugStringConvertible", "resignFirstResponder"]
+- ["Ps28CustomDebugStringConvertible", "saveButton"]
+- ["Ps28CustomDebugStringConvertible", "sharedInstance"]
+- !private ["Ps28CustomDebugStringConvertible", "text"]
+- ["Ps28CustomDebugStringConvertible", "textField"]
+- ["Ps28CustomDebugStringConvertible", "textFieldDidBeginEditing"]
+- ["Ps28CustomDebugStringConvertible", "textFieldDidEndEditing"]
+- ["Ps28CustomDebugStringConvertible", "textFieldShouldBeginEditing"]
+- ["Ps28CustomDebugStringConvertible", "textFieldShouldClear"]
+- ["Ps28CustomDebugStringConvertible", "textFieldShouldEndEditing"]
+- ["Ps28CustomDebugStringConvertible", "textFieldShouldReturn"]
+- ["Ps28CustomDebugStringConvertible", "updateSaveButton"]
+- ["Ps28CustomDebugStringConvertible", "useCurrentLocationSwitch"]
+- ["Ps28CustomDebugStringConvertible", "useCurrentLocationSwitchToggled"]
+- ["Ps28CustomDebugStringConvertible", "viewDidAppear"]
+- ["Ps28CustomDebugStringConvertible", "viewDidLoad"]
+- !private ["Ps28CustomDebugStringConvertible", "waitForAddressToBeAvailable"]
+- ["Ps28CustomDebugStringConvertible", ""]
+- !private ["Ps29CustomPlaygroundQuickLookable", "_getBuiltinLogicValue"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "init"]
+- !private ["Ps17CustomReflectable", "_getBuiltinLogicValue"]
+- !private ["Ps17CustomReflectable", "init"]
+- !private ["Ps23CustomStringConvertible", "DispatchQueue"]
+- !private ["Ps23CustomStringConvertible", "Favorite"]
+- ["Ps23CustomStringConvertible", "LocationService"]
+- !private ["Ps23CustomStringConvertible", "NewFavoriteViewController"]
+- !private ["Ps23CustomStringConvertible", "UIControlEvents"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "addTarget"]
+- ["Ps23CustomStringConvertible", "addressAvailable"]
+- ["Ps23CustomStringConvertible", "addressTextField"]
+- !private ["Ps23CustomStringConvertible", "async"]
+- ["Ps23CustomStringConvertible", "cancelButton"]
+- ["Ps23CustomStringConvertible", "currentAddress"]
+- !private ["Ps23CustomStringConvertible", "delegate"]
+- ["Ps23CustomStringConvertible", "didReceiveMemoryWarning"]
+- !private ["Ps23CustomStringConvertible", "dismiss"]
+- ["Ps23CustomStringConvertible", "favorite"]
+- !private ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "isEnabled"]
+- !private ["Ps23CustomStringConvertible", "isHidden"]
+- !private ["Ps23CustomStringConvertible", "isOn"]
+- ["Ps23CustomStringConvertible", "locationAddressLabel"]
+- ["Ps23CustomStringConvertible", "locationManager"]
+- ["Ps23CustomStringConvertible", "locationSearchStatusLabel"]
+- !private ["Ps23CustomStringConvertible", "main"]
+- ["Ps23CustomStringConvertible", "nameTextField"]
+- ["Ps23CustomStringConvertible", "prepare"]
+- !private ["Ps23CustomStringConvertible", "resignFirstResponder"]
+- ["Ps23CustomStringConvertible", "saveButton"]
+- ["Ps23CustomStringConvertible", "sharedInstance"]
+- !private ["Ps23CustomStringConvertible", "text"]
+- ["Ps23CustomStringConvertible", "textField"]
+- ["Ps23CustomStringConvertible", "textFieldDidBeginEditing"]
+- ["Ps23CustomStringConvertible", "textFieldDidEndEditing"]
+- ["Ps23CustomStringConvertible", "textFieldShouldBeginEditing"]
+- ["Ps23CustomStringConvertible", "textFieldShouldClear"]
+- ["Ps23CustomStringConvertible", "textFieldShouldEndEditing"]
+- ["Ps23CustomStringConvertible", "textFieldShouldReturn"]
+- ["Ps23CustomStringConvertible", "updateSaveButton"]
+- ["Ps23CustomStringConvertible", "useCurrentLocationSwitch"]
+- ["Ps23CustomStringConvertible", "useCurrentLocationSwitchToggled"]
+- ["Ps23CustomStringConvertible", "viewDidAppear"]
+- ["Ps23CustomStringConvertible", "viewDidLoad"]
+- !private ["Ps23CustomStringConvertible", "waitForAddressToBeAvailable"]
+- ["Ps23CustomStringConvertible", ""]
+- !private ["CSo14DispatchObject", "async"]
+- !private ["CSo14DispatchObject", "main"]
+- !private ["CSo13DispatchQueue", "async"]
+- ["CSo13DispatchQueue", "deinit"]
+- !private ["CSo13DispatchQueue", "main"]
+- !private ["Ps9Equatable", "DispatchQueue"]
+- !private ["Ps9Equatable", "Favorite"]
+- ["Ps9Equatable", "LocationService"]
+- !private ["Ps9Equatable", "NewFavoriteViewController"]
+- !private ["Ps9Equatable", "UIControlEvents"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "addTarget"]
+- ["Ps9Equatable", "addressAvailable"]
+- ["Ps9Equatable", "addressTextField"]
+- !private ["Ps9Equatable", "allTouchEvents"]
+- !private ["Ps9Equatable", "async"]
+- ["Ps9Equatable", "cancelButton"]
+- ["Ps9Equatable", "currentAddress"]
+- !private ["Ps9Equatable", "delegate"]
+- ["Ps9Equatable", "didReceiveMemoryWarning"]
+- !private ["Ps9Equatable", "dismiss"]
+- ["Ps9Equatable", "favorite"]
+- !private ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "isEnabled"]
+- !private ["Ps9Equatable", "isHidden"]
+- !private ["Ps9Equatable", "isOn"]
+- ["Ps9Equatable", "locationAddressLabel"]
+- ["Ps9Equatable", "locationManager"]
+- ["Ps9Equatable", "locationSearchStatusLabel"]
+- !private ["Ps9Equatable", "main"]
+- ["Ps9Equatable", "nameTextField"]
+- ["Ps9Equatable", "prepare"]
+- !private ["Ps9Equatable", "resignFirstResponder"]
+- ["Ps9Equatable", "saveButton"]
+- ["Ps9Equatable", "sharedInstance"]
+- !private ["Ps9Equatable", "text"]
+- ["Ps9Equatable", "textField"]
+- ["Ps9Equatable", "textFieldDidBeginEditing"]
+- ["Ps9Equatable", "textFieldDidEndEditing"]
+- ["Ps9Equatable", "textFieldShouldBeginEditing"]
+- ["Ps9Equatable", "textFieldShouldClear"]
+- ["Ps9Equatable", "textFieldShouldEndEditing"]
+- ["Ps9Equatable", "textFieldShouldReturn"]
+- ["Ps9Equatable", "updateSaveButton"]
+- ["Ps9Equatable", "useCurrentLocationSwitch"]
+- ["Ps9Equatable", "useCurrentLocationSwitchToggled"]
+- ["Ps9Equatable", "viewDidAppear"]
+- ["Ps9Equatable", "viewDidLoad"]
+- !private ["Ps9Equatable", "waitForAddressToBeAvailable"]
+- ["Ps9Equatable", ""]
+- !private ["Ps25ExpressibleByArrayLiteral", "allTouchEvents"]
+- !private ["Ps27ExpressibleByBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps32ExpressibleByStringInterpolation", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "init"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- ["C4AOSG8Favorite", "deinit"]
+- !private ["C4AOSG8Favorite", "init"]
+- !private ["Ps8Hashable", "DispatchQueue"]
+- !private ["Ps8Hashable", "Favorite"]
+- ["Ps8Hashable", "LocationService"]
+- !private ["Ps8Hashable", "NewFavoriteViewController"]
+- !private ["Ps8Hashable", "UIControlEvents"]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "addTarget"]
+- ["Ps8Hashable", "addressAvailable"]
+- ["Ps8Hashable", "addressTextField"]
+- !private ["Ps8Hashable", "async"]
+- ["Ps8Hashable", "cancelButton"]
+- ["Ps8Hashable", "currentAddress"]
+- !private ["Ps8Hashable", "delegate"]
+- ["Ps8Hashable", "didReceiveMemoryWarning"]
+- !private ["Ps8Hashable", "dismiss"]
+- ["Ps8Hashable", "favorite"]
+- !private ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "isEnabled"]
+- !private ["Ps8Hashable", "isHidden"]
+- !private ["Ps8Hashable", "isOn"]
+- ["Ps8Hashable", "locationAddressLabel"]
+- ["Ps8Hashable", "locationManager"]
+- ["Ps8Hashable", "locationSearchStatusLabel"]
+- !private ["Ps8Hashable", "main"]
+- ["Ps8Hashable", "nameTextField"]
+- ["Ps8Hashable", "prepare"]
+- !private ["Ps8Hashable", "resignFirstResponder"]
+- ["Ps8Hashable", "saveButton"]
+- ["Ps8Hashable", "sharedInstance"]
+- !private ["Ps8Hashable", "text"]
+- ["Ps8Hashable", "textField"]
+- ["Ps8Hashable", "textFieldDidBeginEditing"]
+- ["Ps8Hashable", "textFieldDidEndEditing"]
+- ["Ps8Hashable", "textFieldShouldBeginEditing"]
+- ["Ps8Hashable", "textFieldShouldClear"]
+- ["Ps8Hashable", "textFieldShouldEndEditing"]
+- ["Ps8Hashable", "textFieldShouldReturn"]
+- ["Ps8Hashable", "updateSaveButton"]
+- ["Ps8Hashable", "useCurrentLocationSwitch"]
+- ["Ps8Hashable", "useCurrentLocationSwitchToggled"]
+- ["Ps8Hashable", "viewDidAppear"]
+- ["Ps8Hashable", "viewDidLoad"]
+- !private ["Ps8Hashable", "waitForAddressToBeAvailable"]
+- ["Ps8Hashable", ""]
+- ["SQ", "deinit"]
+- !private ["P4AOSG17JSONSubscriptType", "init"]
+- ["C4AOSG15LocationService", "deinit"]
+- ["C4AOSG15LocationService", "sharedInstance"]
+- !private ["C4AOSG15LocationService", "waitForAddressToBeAvailable"]
+- !private ["Ps25LosslessStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps25LosslessStringConvertible", "init"]
+- !private ["Ps10MirrorPath", "init"]
+- ["CSo7NSCoder", "deinit"]
+- !private ["PSo8NSCoding", "DispatchQueue"]
+- !private ["PSo8NSCoding", "Favorite"]
+- ["PSo8NSCoding", "LocationService"]
+- !private ["PSo8NSCoding", "NewFavoriteViewController"]
+- !private ["PSo8NSCoding", "UIControlEvents"]
+- !private ["PSo8NSCoding", "addTarget"]
+- ["PSo8NSCoding", "addressAvailable"]
+- ["PSo8NSCoding", "addressTextField"]
+- ["PSo8NSCoding", "cancelButton"]
+- ["PSo8NSCoding", "currentAddress"]
+- !private ["PSo8NSCoding", "delegate"]
+- ["PSo8NSCoding", "didReceiveMemoryWarning"]
+- !private ["PSo8NSCoding", "dismiss"]
+- ["PSo8NSCoding", "favorite"]
+- !private ["PSo8NSCoding", "init"]
+- !private ["PSo8NSCoding", "isEnabled"]
+- !private ["PSo8NSCoding", "isHidden"]
+- !private ["PSo8NSCoding", "isOn"]
+- ["PSo8NSCoding", "locationAddressLabel"]
+- ["PSo8NSCoding", "locationManager"]
+- ["PSo8NSCoding", "locationSearchStatusLabel"]
+- ["PSo8NSCoding", "nameTextField"]
+- ["PSo8NSCoding", "prepare"]
+- !private ["PSo8NSCoding", "resignFirstResponder"]
+- ["PSo8NSCoding", "saveButton"]
+- !private ["PSo8NSCoding", "text"]
+- ["PSo8NSCoding", "textField"]
+- ["PSo8NSCoding", "textFieldDidBeginEditing"]
+- ["PSo8NSCoding", "textFieldDidEndEditing"]
+- ["PSo8NSCoding", "textFieldShouldBeginEditing"]
+- ["PSo8NSCoding", "textFieldShouldClear"]
+- ["PSo8NSCoding", "textFieldShouldEndEditing"]
+- ["PSo8NSCoding", "textFieldShouldReturn"]
+- ["PSo8NSCoding", "updateSaveButton"]
+- ["PSo8NSCoding", "useCurrentLocationSwitch"]
+- ["PSo8NSCoding", "useCurrentLocationSwitchToggled"]
+- ["PSo8NSCoding", "viewDidAppear"]
+- ["PSo8NSCoding", "viewDidLoad"]
+- ["PSo8NSCoding", ""]
+- !private ["PSo9NSCopying", "init"]
+- !private ["PSo26NSExtensionRequestHandling", "DispatchQueue"]
+- !private ["PSo26NSExtensionRequestHandling", "Favorite"]
+- ["PSo26NSExtensionRequestHandling", "LocationService"]
+- !private ["PSo26NSExtensionRequestHandling", "NewFavoriteViewController"]
+- !private ["PSo26NSExtensionRequestHandling", "UIControlEvents"]
+- ["PSo26NSExtensionRequestHandling", "addressAvailable"]
+- ["PSo26NSExtensionRequestHandling", "addressTextField"]
+- ["PSo26NSExtensionRequestHandling", "cancelButton"]
+- ["PSo26NSExtensionRequestHandling", "currentAddress"]
+- ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
+- !private ["PSo26NSExtensionRequestHandling", "dismiss"]
+- ["PSo26NSExtensionRequestHandling", "favorite"]
+- !private ["PSo26NSExtensionRequestHandling", "init"]
+- ["PSo26NSExtensionRequestHandling", "locationAddressLabel"]
+- ["PSo26NSExtensionRequestHandling", "locationManager"]
+- ["PSo26NSExtensionRequestHandling", "locationSearchStatusLabel"]
+- ["PSo26NSExtensionRequestHandling", "nameTextField"]
+- ["PSo26NSExtensionRequestHandling", "prepare"]
+- ["PSo26NSExtensionRequestHandling", "saveButton"]
+- ["PSo26NSExtensionRequestHandling", "textField"]
+- ["PSo26NSExtensionRequestHandling", "textFieldDidBeginEditing"]
+- ["PSo26NSExtensionRequestHandling", "textFieldDidEndEditing"]
+- ["PSo26NSExtensionRequestHandling", "textFieldShouldBeginEditing"]
+- ["PSo26NSExtensionRequestHandling", "textFieldShouldClear"]
+- ["PSo26NSExtensionRequestHandling", "textFieldShouldEndEditing"]
+- ["PSo26NSExtensionRequestHandling", "textFieldShouldReturn"]
+- ["PSo26NSExtensionRequestHandling", "updateSaveButton"]
+- ["PSo26NSExtensionRequestHandling", "useCurrentLocationSwitch"]
+- ["PSo26NSExtensionRequestHandling", "useCurrentLocationSwitchToggled"]
+- ["PSo26NSExtensionRequestHandling", "viewDidAppear"]
+- ["PSo26NSExtensionRequestHandling", "viewDidLoad"]
+- ["PSo26NSExtensionRequestHandling", ""]
+- !private ["PSo16NSMutableCopying", "init"]
+- !private ["CSo8NSObject", "AnyObject"]
+- ["CSo8NSObject", "Bool"]
+- !private ["CSo8NSObject", "DispatchQueue"]
+- ["CSo8NSObject", "Favorite"]
+- ["CSo8NSObject", "LocationService"]
+- !private ["CSo8NSObject", "NewFavoriteViewController"]
+- ["CSo8NSObject", "String"]
+- ["CSo8NSObject", "UIBarButtonItem"]
+- !private ["CSo8NSObject", "UIControlEvents"]
+- ["CSo8NSObject", "UILabel"]
+- ["CSo8NSObject", "UIStoryboardSegue"]
+- ["CSo8NSObject", "UISwitch"]
+- ["CSo8NSObject", "UITextField"]
+- !private ["CSo8NSObject", "addTarget"]
+- ["CSo8NSObject", "addressAvailable"]
+- ["CSo8NSObject", "addressTextField"]
+- !private ["CSo8NSObject", "async"]
+- ["CSo8NSObject", "cancelButton"]
+- ["CSo8NSObject", "currentAddress"]
+- !private ["CSo8NSObject", "delegate"]
+- ["CSo8NSObject", "didReceiveMemoryWarning"]
+- !private ["CSo8NSObject", "dismiss"]
+- ["CSo8NSObject", "favorite"]
+- ["CSo8NSObject", "init"]
+- !private ["CSo8NSObject", "isEnabled"]
+- !private ["CSo8NSObject", "isHidden"]
+- !private ["CSo8NSObject", "isOn"]
+- ["CSo8NSObject", "locationAddressLabel"]
+- ["CSo8NSObject", "locationManager"]
+- ["CSo8NSObject", "locationSearchStatusLabel"]
+- !private ["CSo8NSObject", "main"]
+- ["CSo8NSObject", "nameTextField"]
+- ["CSo8NSObject", "prepare"]
+- !private ["CSo8NSObject", "resignFirstResponder"]
+- ["CSo8NSObject", "saveButton"]
+- ["CSo8NSObject", "sharedInstance"]
+- !private ["CSo8NSObject", "text"]
+- ["CSo8NSObject", "textField"]
+- ["CSo8NSObject", "textFieldDidBeginEditing"]
+- ["CSo8NSObject", "textFieldDidEndEditing"]
+- ["CSo8NSObject", "textFieldShouldBeginEditing"]
+- ["CSo8NSObject", "textFieldShouldClear"]
+- ["CSo8NSObject", "textFieldShouldEndEditing"]
+- ["CSo8NSObject", "textFieldShouldReturn"]
+- ["CSo8NSObject", "updateSaveButton"]
+- ["CSo8NSObject", "useCurrentLocationSwitch"]
+- ["CSo8NSObject", "useCurrentLocationSwitchToggled"]
+- ["CSo8NSObject", "viewDidAppear"]
+- ["CSo8NSObject", "viewDidLoad"]
+- !private ["CSo8NSObject", "waitForAddressToBeAvailable"]
+- !private ["PSo16NSObjectProtocol", "DispatchQueue"]
+- !private ["PSo16NSObjectProtocol", "Favorite"]
+- ["PSo16NSObjectProtocol", "LocationService"]
+- !private ["PSo16NSObjectProtocol", "NewFavoriteViewController"]
+- !private ["PSo16NSObjectProtocol", "UIControlEvents"]
+- !private ["PSo16NSObjectProtocol", "addTarget"]
+- ["PSo16NSObjectProtocol", "addressAvailable"]
+- ["PSo16NSObjectProtocol", "addressTextField"]
+- !private ["PSo16NSObjectProtocol", "async"]
+- ["PSo16NSObjectProtocol", "cancelButton"]
+- ["PSo16NSObjectProtocol", "currentAddress"]
+- !private ["PSo16NSObjectProtocol", "delegate"]
+- ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
+- !private ["PSo16NSObjectProtocol", "dismiss"]
+- ["PSo16NSObjectProtocol", "favorite"]
+- !private ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "isEnabled"]
+- !private ["PSo16NSObjectProtocol", "isHidden"]
+- !private ["PSo16NSObjectProtocol", "isOn"]
+- ["PSo16NSObjectProtocol", "locationAddressLabel"]
+- ["PSo16NSObjectProtocol", "locationManager"]
+- ["PSo16NSObjectProtocol", "locationSearchStatusLabel"]
+- !private ["PSo16NSObjectProtocol", "main"]
+- ["PSo16NSObjectProtocol", "nameTextField"]
+- ["PSo16NSObjectProtocol", "prepare"]
+- !private ["PSo16NSObjectProtocol", "resignFirstResponder"]
+- ["PSo16NSObjectProtocol", "saveButton"]
+- ["PSo16NSObjectProtocol", "sharedInstance"]
+- !private ["PSo16NSObjectProtocol", "text"]
+- ["PSo16NSObjectProtocol", "textField"]
+- ["PSo16NSObjectProtocol", "textFieldDidBeginEditing"]
+- ["PSo16NSObjectProtocol", "textFieldDidEndEditing"]
+- ["PSo16NSObjectProtocol", "textFieldShouldBeginEditing"]
+- ["PSo16NSObjectProtocol", "textFieldShouldClear"]
+- ["PSo16NSObjectProtocol", "textFieldShouldEndEditing"]
+- ["PSo16NSObjectProtocol", "textFieldShouldReturn"]
+- ["PSo16NSObjectProtocol", "updateSaveButton"]
+- ["PSo16NSObjectProtocol", "useCurrentLocationSwitch"]
+- ["PSo16NSObjectProtocol", "useCurrentLocationSwitchToggled"]
+- ["PSo16NSObjectProtocol", "viewDidAppear"]
+- ["PSo16NSObjectProtocol", "viewDidLoad"]
+- !private ["PSo16NSObjectProtocol", "waitForAddressToBeAvailable"]
+- ["PSo16NSObjectProtocol", ""]
+- !private ["PSo14NSSecureCoding", "init"]
+- !private ["CSo8NSString", "init"]
+- !private ["C4AOSG25NewFavoriteViewController", "AnyObject"]
+- ["C4AOSG25NewFavoriteViewController", "Bool"]
+- !private ["C4AOSG25NewFavoriteViewController", "DispatchQueue"]
+- ["C4AOSG25NewFavoriteViewController", "Favorite"]
+- ["C4AOSG25NewFavoriteViewController", "LocationService"]
+- !private ["C4AOSG25NewFavoriteViewController", "NewFavoriteViewController"]
+- ["C4AOSG25NewFavoriteViewController", "String"]
+- ["C4AOSG25NewFavoriteViewController", "UIBarButtonItem"]
+- !private ["C4AOSG25NewFavoriteViewController", "UIControlEvents"]
+- ["C4AOSG25NewFavoriteViewController", "UILabel"]
+- ["C4AOSG25NewFavoriteViewController", "UIStoryboardSegue"]
+- ["C4AOSG25NewFavoriteViewController", "UISwitch"]
+- ["C4AOSG25NewFavoriteViewController", "UITextField"]
+- ["C4AOSG25NewFavoriteViewController", "addressAvailable"]
+- ["C4AOSG25NewFavoriteViewController", "addressTextField"]
+- ["C4AOSG25NewFavoriteViewController", "cancelButton"]
+- ["C4AOSG25NewFavoriteViewController", "currentAddress"]
+- ["C4AOSG25NewFavoriteViewController", "deinit"]
+- ["C4AOSG25NewFavoriteViewController", "didReceiveMemoryWarning"]
+- !private ["C4AOSG25NewFavoriteViewController", "dismiss"]
+- ["C4AOSG25NewFavoriteViewController", "favorite"]
+- ["C4AOSG25NewFavoriteViewController", "init"]
+- ["C4AOSG25NewFavoriteViewController", "locationAddressLabel"]
+- ["C4AOSG25NewFavoriteViewController", "locationManager"]
+- ["C4AOSG25NewFavoriteViewController", "locationSearchStatusLabel"]
+- ["C4AOSG25NewFavoriteViewController", "nameTextField"]
+- ["C4AOSG25NewFavoriteViewController", "prepare"]
+- ["C4AOSG25NewFavoriteViewController", "saveButton"]
+- ["C4AOSG25NewFavoriteViewController", "textField"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldDidBeginEditing"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldDidEndEditing"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldShouldBeginEditing"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldShouldClear"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldShouldEndEditing"]
+- ["C4AOSG25NewFavoriteViewController", "textFieldShouldReturn"]
+- ["C4AOSG25NewFavoriteViewController", "updateSaveButton"]
+- ["C4AOSG25NewFavoriteViewController", "useCurrentLocationSwitch"]
+- ["C4AOSG25NewFavoriteViewController", "useCurrentLocationSwitchToggled"]
+- ["C4AOSG25NewFavoriteViewController", "viewDidAppear"]
+- ["C4AOSG25NewFavoriteViewController", "viewDidLoad"]
+- !private ["CSo9OS_object", "async"]
+- !private ["CSo9OS_object", "main"]
+- !private ["Ps9OptionSet", "allTouchEvents"]
+- ["Sq", "deinit"]
+- !private ["Ps16RawRepresentable", "allTouchEvents"]
+- ["V10ObjectiveC8Selector", "deinit"]
+- !private ["Ps10SetAlgebra", "allTouchEvents"]
+- ["SS", "deinit"]
+- !private ["SS", "init"]
+- !private ["Ps16TextOutputStream", "init"]
+- !private ["Ps20TextOutputStreamable", "init"]
+- !private ["PSo29UIAccessibilityIdentification", "addTarget"]
+- !private ["PSo29UIAccessibilityIdentification", "delegate"]
+- !private ["PSo29UIAccessibilityIdentification", "isEnabled"]
+- !private ["PSo29UIAccessibilityIdentification", "isHidden"]
+- !private ["PSo29UIAccessibilityIdentification", "isOn"]
+- !private ["PSo29UIAccessibilityIdentification", "resignFirstResponder"]
+- !private ["PSo29UIAccessibilityIdentification", "text"]
+- !private ["PSo12UIAppearance", "addTarget"]
+- !private ["PSo12UIAppearance", "delegate"]
+- !private ["PSo12UIAppearance", "isEnabled"]
+- !private ["PSo12UIAppearance", "isHidden"]
+- !private ["PSo12UIAppearance", "isOn"]
+- !private ["PSo12UIAppearance", "resignFirstResponder"]
+- !private ["PSo12UIAppearance", "text"]
+- !private ["PSo21UIAppearanceContainer", "DispatchQueue"]
+- !private ["PSo21UIAppearanceContainer", "Favorite"]
+- ["PSo21UIAppearanceContainer", "LocationService"]
+- !private ["PSo21UIAppearanceContainer", "NewFavoriteViewController"]
+- !private ["PSo21UIAppearanceContainer", "UIControlEvents"]
+- !private ["PSo21UIAppearanceContainer", "addTarget"]
+- ["PSo21UIAppearanceContainer", "addressAvailable"]
+- ["PSo21UIAppearanceContainer", "addressTextField"]
+- ["PSo21UIAppearanceContainer", "cancelButton"]
+- ["PSo21UIAppearanceContainer", "currentAddress"]
+- !private ["PSo21UIAppearanceContainer", "delegate"]
+- ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
+- !private ["PSo21UIAppearanceContainer", "dismiss"]
+- ["PSo21UIAppearanceContainer", "favorite"]
+- !private ["PSo21UIAppearanceContainer", "init"]
+- !private ["PSo21UIAppearanceContainer", "isEnabled"]
+- !private ["PSo21UIAppearanceContainer", "isHidden"]
+- !private ["PSo21UIAppearanceContainer", "isOn"]
+- ["PSo21UIAppearanceContainer", "locationAddressLabel"]
+- ["PSo21UIAppearanceContainer", "locationManager"]
+- ["PSo21UIAppearanceContainer", "locationSearchStatusLabel"]
+- ["PSo21UIAppearanceContainer", "nameTextField"]
+- ["PSo21UIAppearanceContainer", "prepare"]
+- !private ["PSo21UIAppearanceContainer", "resignFirstResponder"]
+- ["PSo21UIAppearanceContainer", "saveButton"]
+- !private ["PSo21UIAppearanceContainer", "text"]
+- ["PSo21UIAppearanceContainer", "textField"]
+- ["PSo21UIAppearanceContainer", "textFieldDidBeginEditing"]
+- ["PSo21UIAppearanceContainer", "textFieldDidEndEditing"]
+- ["PSo21UIAppearanceContainer", "textFieldShouldBeginEditing"]
+- ["PSo21UIAppearanceContainer", "textFieldShouldClear"]
+- ["PSo21UIAppearanceContainer", "textFieldShouldEndEditing"]
+- ["PSo21UIAppearanceContainer", "textFieldShouldReturn"]
+- ["PSo21UIAppearanceContainer", "updateSaveButton"]
+- ["PSo21UIAppearanceContainer", "useCurrentLocationSwitch"]
+- ["PSo21UIAppearanceContainer", "useCurrentLocationSwitchToggled"]
+- ["PSo21UIAppearanceContainer", "viewDidAppear"]
+- ["PSo21UIAppearanceContainer", "viewDidLoad"]
+- ["PSo21UIAppearanceContainer", ""]
+- !private ["CSo15UIBarButtonItem", "isEnabled"]
+- !private ["CSo9UIBarItem", "isEnabled"]
+- !private ["PSo18UIContentContainer", "DispatchQueue"]
+- !private ["PSo18UIContentContainer", "Favorite"]
+- ["PSo18UIContentContainer", "LocationService"]
+- !private ["PSo18UIContentContainer", "NewFavoriteViewController"]
+- !private ["PSo18UIContentContainer", "UIControlEvents"]
+- ["PSo18UIContentContainer", "addressAvailable"]
+- ["PSo18UIContentContainer", "addressTextField"]
+- ["PSo18UIContentContainer", "cancelButton"]
+- ["PSo18UIContentContainer", "currentAddress"]
+- ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
+- !private ["PSo18UIContentContainer", "dismiss"]
+- ["PSo18UIContentContainer", "favorite"]
+- !private ["PSo18UIContentContainer", "init"]
+- ["PSo18UIContentContainer", "locationAddressLabel"]
+- ["PSo18UIContentContainer", "locationManager"]
+- ["PSo18UIContentContainer", "locationSearchStatusLabel"]
+- ["PSo18UIContentContainer", "nameTextField"]
+- ["PSo18UIContentContainer", "prepare"]
+- ["PSo18UIContentContainer", "saveButton"]
+- ["PSo18UIContentContainer", "textField"]
+- ["PSo18UIContentContainer", "textFieldDidBeginEditing"]
+- ["PSo18UIContentContainer", "textFieldDidEndEditing"]
+- ["PSo18UIContentContainer", "textFieldShouldBeginEditing"]
+- ["PSo18UIContentContainer", "textFieldShouldClear"]
+- ["PSo18UIContentContainer", "textFieldShouldEndEditing"]
+- ["PSo18UIContentContainer", "textFieldShouldReturn"]
+- ["PSo18UIContentContainer", "updateSaveButton"]
+- ["PSo18UIContentContainer", "useCurrentLocationSwitch"]
+- ["PSo18UIContentContainer", "useCurrentLocationSwitchToggled"]
+- ["PSo18UIContentContainer", "viewDidAppear"]
+- ["PSo18UIContentContainer", "viewDidLoad"]
+- ["PSo18UIContentContainer", ""]
+- !private ["PSo30UIContentSizeCategoryAdjusting", "delegate"]
+- !private ["PSo30UIContentSizeCategoryAdjusting", "isEnabled"]
+- !private ["PSo30UIContentSizeCategoryAdjusting", "isHidden"]
+- !private ["PSo30UIContentSizeCategoryAdjusting", "resignFirstResponder"]
+- !private ["PSo30UIContentSizeCategoryAdjusting", "text"]
+- !private ["CSo9UIControl", "addTarget"]
+- !private ["CSo9UIControl", "delegate"]
+- !private ["CSo9UIControl", "isEnabled"]
+- !private ["CSo9UIControl", "isOn"]
+- !private ["CSo9UIControl", "resignFirstResponder"]
+- !private ["CSo9UIControl", "text"]
+- !private ["VSC15UIControlEvents", "allTouchEvents"]
+- ["VSC15UIControlEvents", "deinit"]
+- !private ["PSo17UICoordinateSpace", "addTarget"]
+- !private ["PSo17UICoordinateSpace", "delegate"]
+- !private ["PSo17UICoordinateSpace", "isEnabled"]
+- !private ["PSo17UICoordinateSpace", "isHidden"]
+- !private ["PSo17UICoordinateSpace", "isOn"]
+- !private ["PSo17UICoordinateSpace", "resignFirstResponder"]
+- !private ["PSo17UICoordinateSpace", "text"]
+- !private ["PSo13UIDynamicItem", "addTarget"]
+- !private ["PSo13UIDynamicItem", "delegate"]
+- !private ["PSo13UIDynamicItem", "isEnabled"]
+- !private ["PSo13UIDynamicItem", "isHidden"]
+- !private ["PSo13UIDynamicItem", "isOn"]
+- !private ["PSo13UIDynamicItem", "resignFirstResponder"]
+- !private ["PSo13UIDynamicItem", "text"]
+- !private ["PSo18UIFocusEnvironment", "DispatchQueue"]
+- !private ["PSo18UIFocusEnvironment", "Favorite"]
+- ["PSo18UIFocusEnvironment", "LocationService"]
+- !private ["PSo18UIFocusEnvironment", "NewFavoriteViewController"]
+- !private ["PSo18UIFocusEnvironment", "UIControlEvents"]
+- !private ["PSo18UIFocusEnvironment", "addTarget"]
+- ["PSo18UIFocusEnvironment", "addressAvailable"]
+- ["PSo18UIFocusEnvironment", "addressTextField"]
+- ["PSo18UIFocusEnvironment", "cancelButton"]
+- ["PSo18UIFocusEnvironment", "currentAddress"]
+- !private ["PSo18UIFocusEnvironment", "delegate"]
+- ["PSo18UIFocusEnvironment", "didReceiveMemoryWarning"]
+- !private ["PSo18UIFocusEnvironment", "dismiss"]
+- ["PSo18UIFocusEnvironment", "favorite"]
+- !private ["PSo18UIFocusEnvironment", "init"]
+- !private ["PSo18UIFocusEnvironment", "isEnabled"]
+- !private ["PSo18UIFocusEnvironment", "isHidden"]
+- !private ["PSo18UIFocusEnvironment", "isOn"]
+- ["PSo18UIFocusEnvironment", "locationAddressLabel"]
+- ["PSo18UIFocusEnvironment", "locationManager"]
+- ["PSo18UIFocusEnvironment", "locationSearchStatusLabel"]
+- ["PSo18UIFocusEnvironment", "nameTextField"]
+- ["PSo18UIFocusEnvironment", "prepare"]
+- !private ["PSo18UIFocusEnvironment", "resignFirstResponder"]
+- ["PSo18UIFocusEnvironment", "saveButton"]
+- !private ["PSo18UIFocusEnvironment", "text"]
+- ["PSo18UIFocusEnvironment", "textField"]
+- ["PSo18UIFocusEnvironment", "textFieldDidBeginEditing"]
+- ["PSo18UIFocusEnvironment", "textFieldDidEndEditing"]
+- ["PSo18UIFocusEnvironment", "textFieldShouldBeginEditing"]
+- ["PSo18UIFocusEnvironment", "textFieldShouldClear"]
+- ["PSo18UIFocusEnvironment", "textFieldShouldEndEditing"]
+- ["PSo18UIFocusEnvironment", "textFieldShouldReturn"]
+- ["PSo18UIFocusEnvironment", "updateSaveButton"]
+- ["PSo18UIFocusEnvironment", "useCurrentLocationSwitch"]
+- ["PSo18UIFocusEnvironment", "useCurrentLocationSwitchToggled"]
+- ["PSo18UIFocusEnvironment", "viewDidAppear"]
+- ["PSo18UIFocusEnvironment", "viewDidLoad"]
+- ["PSo18UIFocusEnvironment", ""]
+- !private ["PSo11UIFocusItem", "addTarget"]
+- !private ["PSo11UIFocusItem", "delegate"]
+- !private ["PSo11UIFocusItem", "isEnabled"]
+- !private ["PSo11UIFocusItem", "isHidden"]
+- !private ["PSo11UIFocusItem", "isOn"]
+- !private ["PSo11UIFocusItem", "resignFirstResponder"]
+- !private ["PSo11UIFocusItem", "text"]
+- !private ["PSo10UIKeyInput", "delegate"]
+- !private ["PSo10UIKeyInput", "isEnabled"]
+- !private ["PSo10UIKeyInput", "resignFirstResponder"]
+- !private ["PSo10UIKeyInput", "text"]
+- !private ["CSo7UILabel", "isHidden"]
+- !private ["CSo7UILabel", "text"]
+- !private ["CSo11UIResponder", "AnyObject"]
+- ["CSo11UIResponder", "Bool"]
+- !private ["CSo11UIResponder", "DispatchQueue"]
+- ["CSo11UIResponder", "Favorite"]
+- ["CSo11UIResponder", "LocationService"]
+- !private ["CSo11UIResponder", "NewFavoriteViewController"]
+- ["CSo11UIResponder", "String"]
+- ["CSo11UIResponder", "UIBarButtonItem"]
+- !private ["CSo11UIResponder", "UIControlEvents"]
+- ["CSo11UIResponder", "UILabel"]
+- ["CSo11UIResponder", "UIStoryboardSegue"]
+- ["CSo11UIResponder", "UISwitch"]
+- ["CSo11UIResponder", "UITextField"]
+- !private ["CSo11UIResponder", "addTarget"]
+- ["CSo11UIResponder", "addressAvailable"]
+- ["CSo11UIResponder", "addressTextField"]
+- ["CSo11UIResponder", "cancelButton"]
+- ["CSo11UIResponder", "currentAddress"]
+- !private ["CSo11UIResponder", "delegate"]
+- ["CSo11UIResponder", "didReceiveMemoryWarning"]
+- !private ["CSo11UIResponder", "dismiss"]
+- ["CSo11UIResponder", "favorite"]
+- ["CSo11UIResponder", "init"]
+- !private ["CSo11UIResponder", "isEnabled"]
+- !private ["CSo11UIResponder", "isHidden"]
+- !private ["CSo11UIResponder", "isOn"]
+- ["CSo11UIResponder", "locationAddressLabel"]
+- ["CSo11UIResponder", "locationManager"]
+- ["CSo11UIResponder", "locationSearchStatusLabel"]
+- ["CSo11UIResponder", "nameTextField"]
+- ["CSo11UIResponder", "prepare"]
+- !private ["CSo11UIResponder", "resignFirstResponder"]
+- ["CSo11UIResponder", "saveButton"]
+- !private ["CSo11UIResponder", "text"]
+- ["CSo11UIResponder", "textField"]
+- ["CSo11UIResponder", "textFieldDidBeginEditing"]
+- ["CSo11UIResponder", "textFieldDidEndEditing"]
+- ["CSo11UIResponder", "textFieldShouldBeginEditing"]
+- ["CSo11UIResponder", "textFieldShouldClear"]
+- ["CSo11UIResponder", "textFieldShouldEndEditing"]
+- ["CSo11UIResponder", "textFieldShouldReturn"]
+- ["CSo11UIResponder", "updateSaveButton"]
+- ["CSo11UIResponder", "useCurrentLocationSwitch"]
+- ["CSo11UIResponder", "useCurrentLocationSwitchToggled"]
+- ["CSo11UIResponder", "viewDidAppear"]
+- ["CSo11UIResponder", "viewDidLoad"]
+- !private ["PSo30UIResponderStandardEditActions", "DispatchQueue"]
+- !private ["PSo30UIResponderStandardEditActions", "Favorite"]
+- ["PSo30UIResponderStandardEditActions", "LocationService"]
+- !private ["PSo30UIResponderStandardEditActions", "NewFavoriteViewController"]
+- !private ["PSo30UIResponderStandardEditActions", "UIControlEvents"]
+- !private ["PSo30UIResponderStandardEditActions", "addTarget"]
+- ["PSo30UIResponderStandardEditActions", "addressAvailable"]
+- ["PSo30UIResponderStandardEditActions", "addressTextField"]
+- ["PSo30UIResponderStandardEditActions", "cancelButton"]
+- ["PSo30UIResponderStandardEditActions", "currentAddress"]
+- !private ["PSo30UIResponderStandardEditActions", "delegate"]
+- ["PSo30UIResponderStandardEditActions", "didReceiveMemoryWarning"]
+- !private ["PSo30UIResponderStandardEditActions", "dismiss"]
+- ["PSo30UIResponderStandardEditActions", "favorite"]
+- !private ["PSo30UIResponderStandardEditActions", "init"]
+- !private ["PSo30UIResponderStandardEditActions", "isEnabled"]
+- !private ["PSo30UIResponderStandardEditActions", "isHidden"]
+- !private ["PSo30UIResponderStandardEditActions", "isOn"]
+- ["PSo30UIResponderStandardEditActions", "locationAddressLabel"]
+- ["PSo30UIResponderStandardEditActions", "locationManager"]
+- ["PSo30UIResponderStandardEditActions", "locationSearchStatusLabel"]
+- ["PSo30UIResponderStandardEditActions", "nameTextField"]
+- ["PSo30UIResponderStandardEditActions", "prepare"]
+- !private ["PSo30UIResponderStandardEditActions", "resignFirstResponder"]
+- ["PSo30UIResponderStandardEditActions", "saveButton"]
+- !private ["PSo30UIResponderStandardEditActions", "text"]
+- ["PSo30UIResponderStandardEditActions", "textField"]
+- ["PSo30UIResponderStandardEditActions", "textFieldDidBeginEditing"]
+- ["PSo30UIResponderStandardEditActions", "textFieldDidEndEditing"]
+- ["PSo30UIResponderStandardEditActions", "textFieldShouldBeginEditing"]
+- ["PSo30UIResponderStandardEditActions", "textFieldShouldClear"]
+- ["PSo30UIResponderStandardEditActions", "textFieldShouldEndEditing"]
+- ["PSo30UIResponderStandardEditActions", "textFieldShouldReturn"]
+- ["PSo30UIResponderStandardEditActions", "updateSaveButton"]
+- ["PSo30UIResponderStandardEditActions", "useCurrentLocationSwitch"]
+- ["PSo30UIResponderStandardEditActions", "useCurrentLocationSwitchToggled"]
+- ["PSo30UIResponderStandardEditActions", "viewDidAppear"]
+- ["PSo30UIResponderStandardEditActions", "viewDidLoad"]
+- ["PSo30UIResponderStandardEditActions", ""]
+- !private ["PSo16UIStateRestoring", "DispatchQueue"]
+- !private ["PSo16UIStateRestoring", "Favorite"]
+- ["PSo16UIStateRestoring", "LocationService"]
+- !private ["PSo16UIStateRestoring", "NewFavoriteViewController"]
+- !private ["PSo16UIStateRestoring", "UIControlEvents"]
+- ["PSo16UIStateRestoring", "addressAvailable"]
+- ["PSo16UIStateRestoring", "addressTextField"]
+- ["PSo16UIStateRestoring", "cancelButton"]
+- ["PSo16UIStateRestoring", "currentAddress"]
+- ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
+- !private ["PSo16UIStateRestoring", "dismiss"]
+- ["PSo16UIStateRestoring", "favorite"]
+- !private ["PSo16UIStateRestoring", "init"]
+- ["PSo16UIStateRestoring", "locationAddressLabel"]
+- ["PSo16UIStateRestoring", "locationManager"]
+- ["PSo16UIStateRestoring", "locationSearchStatusLabel"]
+- ["PSo16UIStateRestoring", "nameTextField"]
+- ["PSo16UIStateRestoring", "prepare"]
+- ["PSo16UIStateRestoring", "saveButton"]
+- ["PSo16UIStateRestoring", "textField"]
+- ["PSo16UIStateRestoring", "textFieldDidBeginEditing"]
+- ["PSo16UIStateRestoring", "textFieldDidEndEditing"]
+- ["PSo16UIStateRestoring", "textFieldShouldBeginEditing"]
+- ["PSo16UIStateRestoring", "textFieldShouldClear"]
+- ["PSo16UIStateRestoring", "textFieldShouldEndEditing"]
+- ["PSo16UIStateRestoring", "textFieldShouldReturn"]
+- ["PSo16UIStateRestoring", "updateSaveButton"]
+- ["PSo16UIStateRestoring", "useCurrentLocationSwitch"]
+- ["PSo16UIStateRestoring", "useCurrentLocationSwitchToggled"]
+- ["PSo16UIStateRestoring", "viewDidAppear"]
+- ["PSo16UIStateRestoring", "viewDidLoad"]
+- ["PSo16UIStateRestoring", ""]
+- !private ["CSo8UISwitch", "addTarget"]
+- !private ["CSo8UISwitch", "isOn"]
+- ["CSo11UITextField", "deinit"]
+- !private ["CSo11UITextField", "delegate"]
+- !private ["CSo11UITextField", "isEnabled"]
+- !private ["CSo11UITextField", "resignFirstResponder"]
+- !private ["CSo11UITextField", "text"]
+- !private ["PSo19UITextFieldDelegate", "DispatchQueue"]
+- !private ["PSo19UITextFieldDelegate", "Favorite"]
+- ["PSo19UITextFieldDelegate", "LocationService"]
+- !private ["PSo19UITextFieldDelegate", "NewFavoriteViewController"]
+- !private ["PSo19UITextFieldDelegate", "UIControlEvents"]
+- !private ["PSo19UITextFieldDelegate", "addressAvailable"]
+- !private ["PSo19UITextFieldDelegate", "addressTextField"]
+- !private ["PSo19UITextFieldDelegate", "currentAddress"]
+- !private ["PSo19UITextFieldDelegate", "dismiss"]
+- !private ["PSo19UITextFieldDelegate", "favorite"]
+- !private ["PSo19UITextFieldDelegate", "locationManager"]
+- !private ["PSo19UITextFieldDelegate", "locationSearchStatusLabel"]
+- !private ["PSo19UITextFieldDelegate", "nameTextField"]
+- !private ["PSo19UITextFieldDelegate", "saveButton"]
+- ["PSo19UITextFieldDelegate", "textField"]
+- ["PSo19UITextFieldDelegate", "textFieldDidBeginEditing"]
+- ["PSo19UITextFieldDelegate", "textFieldDidEndEditing"]
+- ["PSo19UITextFieldDelegate", "textFieldShouldBeginEditing"]
+- ["PSo19UITextFieldDelegate", "textFieldShouldClear"]
+- ["PSo19UITextFieldDelegate", "textFieldShouldEndEditing"]
+- ["PSo19UITextFieldDelegate", "textFieldShouldReturn"]
+- !private ["PSo19UITextFieldDelegate", "updateSaveButton"]
+- !private ["PSo19UITextFieldDelegate", "useCurrentLocationSwitch"]
+- !private ["PSo19UITextFieldDelegate", "useCurrentLocationSwitchToggled"]
+- ["PSo19UITextFieldDelegate", ""]
+- !private ["PSo11UITextInput", "delegate"]
+- !private ["PSo11UITextInput", "isEnabled"]
+- !private ["PSo11UITextInput", "resignFirstResponder"]
+- !private ["PSo11UITextInput", "text"]
+- !private ["PSo17UITextInputTraits", "delegate"]
+- !private ["PSo17UITextInputTraits", "isEnabled"]
+- !private ["PSo17UITextInputTraits", "resignFirstResponder"]
+- !private ["PSo17UITextInputTraits", "text"]
+- !private ["PSo18UITraitEnvironment", "DispatchQueue"]
+- !private ["PSo18UITraitEnvironment", "Favorite"]
+- ["PSo18UITraitEnvironment", "LocationService"]
+- !private ["PSo18UITraitEnvironment", "NewFavoriteViewController"]
+- !private ["PSo18UITraitEnvironment", "UIControlEvents"]
+- !private ["PSo18UITraitEnvironment", "addTarget"]
+- ["PSo18UITraitEnvironment", "addressAvailable"]
+- ["PSo18UITraitEnvironment", "addressTextField"]
+- ["PSo18UITraitEnvironment", "cancelButton"]
+- ["PSo18UITraitEnvironment", "currentAddress"]
+- !private ["PSo18UITraitEnvironment", "delegate"]
+- ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
+- !private ["PSo18UITraitEnvironment", "dismiss"]
+- ["PSo18UITraitEnvironment", "favorite"]
+- !private ["PSo18UITraitEnvironment", "init"]
+- !private ["PSo18UITraitEnvironment", "isEnabled"]
+- !private ["PSo18UITraitEnvironment", "isHidden"]
+- !private ["PSo18UITraitEnvironment", "isOn"]
+- ["PSo18UITraitEnvironment", "locationAddressLabel"]
+- ["PSo18UITraitEnvironment", "locationManager"]
+- ["PSo18UITraitEnvironment", "locationSearchStatusLabel"]
+- ["PSo18UITraitEnvironment", "nameTextField"]
+- ["PSo18UITraitEnvironment", "prepare"]
+- !private ["PSo18UITraitEnvironment", "resignFirstResponder"]
+- ["PSo18UITraitEnvironment", "saveButton"]
+- !private ["PSo18UITraitEnvironment", "text"]
+- ["PSo18UITraitEnvironment", "textField"]
+- ["PSo18UITraitEnvironment", "textFieldDidBeginEditing"]
+- ["PSo18UITraitEnvironment", "textFieldDidEndEditing"]
+- ["PSo18UITraitEnvironment", "textFieldShouldBeginEditing"]
+- ["PSo18UITraitEnvironment", "textFieldShouldClear"]
+- ["PSo18UITraitEnvironment", "textFieldShouldEndEditing"]
+- ["PSo18UITraitEnvironment", "textFieldShouldReturn"]
+- ["PSo18UITraitEnvironment", "updateSaveButton"]
+- ["PSo18UITraitEnvironment", "useCurrentLocationSwitch"]
+- ["PSo18UITraitEnvironment", "useCurrentLocationSwitchToggled"]
+- ["PSo18UITraitEnvironment", "viewDidAppear"]
+- ["PSo18UITraitEnvironment", "viewDidLoad"]
+- ["PSo18UITraitEnvironment", ""]
+- !private ["CSo6UIView", "addTarget"]
+- !private ["CSo6UIView", "delegate"]
+- !private ["CSo6UIView", "isEnabled"]
+- !private ["CSo6UIView", "isHidden"]
+- !private ["CSo6UIView", "isOn"]
+- !private ["CSo6UIView", "resignFirstResponder"]
+- !private ["CSo6UIView", "text"]
+- !private ["CSo16UIViewController", "AnyObject"]
+- ["CSo16UIViewController", "Bool"]
+- !private ["CSo16UIViewController", "DispatchQueue"]
+- ["CSo16UIViewController", "Favorite"]
+- ["CSo16UIViewController", "LocationService"]
+- !private ["CSo16UIViewController", "NewFavoriteViewController"]
+- ["CSo16UIViewController", "String"]
+- ["CSo16UIViewController", "UIBarButtonItem"]
+- !private ["CSo16UIViewController", "UIControlEvents"]
+- ["CSo16UIViewController", "UILabel"]
+- ["CSo16UIViewController", "UIStoryboardSegue"]
+- ["CSo16UIViewController", "UISwitch"]
+- ["CSo16UIViewController", "UITextField"]
+- ["CSo16UIViewController", "addressAvailable"]
+- ["CSo16UIViewController", "addressTextField"]
+- ["CSo16UIViewController", "cancelButton"]
+- ["CSo16UIViewController", "currentAddress"]
+- ["CSo16UIViewController", "deinit"]
+- ["CSo16UIViewController", "didReceiveMemoryWarning"]
+- !private ["CSo16UIViewController", "dismiss"]
+- ["CSo16UIViewController", "favorite"]
+- ["CSo16UIViewController", "init"]
+- ["CSo16UIViewController", "locationAddressLabel"]
+- ["CSo16UIViewController", "locationManager"]
+- ["CSo16UIViewController", "locationSearchStatusLabel"]
+- ["CSo16UIViewController", "nameTextField"]
+- ["CSo16UIViewController", "prepare"]
+- ["CSo16UIViewController", "saveButton"]
+- ["CSo16UIViewController", "textField"]
+- ["CSo16UIViewController", "textFieldDidBeginEditing"]
+- ["CSo16UIViewController", "textFieldDidEndEditing"]
+- ["CSo16UIViewController", "textFieldShouldBeginEditing"]
+- ["CSo16UIViewController", "textFieldShouldClear"]
+- ["CSo16UIViewController", "textFieldShouldEndEditing"]
+- ["CSo16UIViewController", "textFieldShouldReturn"]
+- ["CSo16UIViewController", "updateSaveButton"]
+- ["CSo16UIViewController", "useCurrentLocationSwitch"]
+- ["CSo16UIViewController", "useCurrentLocationSwitchToggled"]
+- ["CSo16UIViewController", "viewDidAppear"]
+- ["CSo16UIViewController", "viewDidLoad"]
+- ["CSo16UIViewController", ""]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "addTarget"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "delegate"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "isEnabled"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "isHidden"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "isOn"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "resignFirstResponder"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "text"]
+- !private ["Ps35_ExpressibleByBuiltinBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "init"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "init"]
+- !private ["Ps9_Hashable", "DispatchQueue"]
+- !private ["Ps9_Hashable", "Favorite"]
+- ["Ps9_Hashable", "LocationService"]
+- !private ["Ps9_Hashable", "NewFavoriteViewController"]
+- !private ["Ps9_Hashable", "UIControlEvents"]
+- !private ["Ps9_Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps9_Hashable", "addTarget"]
+- ["Ps9_Hashable", "addressAvailable"]
+- ["Ps9_Hashable", "addressTextField"]
+- !private ["Ps9_Hashable", "async"]
+- ["Ps9_Hashable", "cancelButton"]
+- ["Ps9_Hashable", "currentAddress"]
+- !private ["Ps9_Hashable", "delegate"]
+- ["Ps9_Hashable", "didReceiveMemoryWarning"]
+- !private ["Ps9_Hashable", "dismiss"]
+- ["Ps9_Hashable", "favorite"]
+- !private ["Ps9_Hashable", "init"]
+- !private ["Ps9_Hashable", "isEnabled"]
+- !private ["Ps9_Hashable", "isHidden"]
+- !private ["Ps9_Hashable", "isOn"]
+- ["Ps9_Hashable", "locationAddressLabel"]
+- ["Ps9_Hashable", "locationManager"]
+- ["Ps9_Hashable", "locationSearchStatusLabel"]
+- !private ["Ps9_Hashable", "main"]
+- ["Ps9_Hashable", "nameTextField"]
+- ["Ps9_Hashable", "prepare"]
+- !private ["Ps9_Hashable", "resignFirstResponder"]
+- ["Ps9_Hashable", "saveButton"]
+- ["Ps9_Hashable", "sharedInstance"]
+- !private ["Ps9_Hashable", "text"]
+- ["Ps9_Hashable", "textField"]
+- ["Ps9_Hashable", "textFieldDidBeginEditing"]
+- ["Ps9_Hashable", "textFieldDidEndEditing"]
+- ["Ps9_Hashable", "textFieldShouldBeginEditing"]
+- ["Ps9_Hashable", "textFieldShouldClear"]
+- ["Ps9_Hashable", "textFieldShouldEndEditing"]
+- ["Ps9_Hashable", "textFieldShouldReturn"]
+- ["Ps9_Hashable", "updateSaveButton"]
+- ["Ps9_Hashable", "useCurrentLocationSwitch"]
+- ["Ps9_Hashable", "useCurrentLocationSwitchToggled"]
+- ["Ps9_Hashable", "viewDidAppear"]
+- ["Ps9_Hashable", "viewDidLoad"]
+- !private ["Ps9_Hashable", "waitForAddressToBeAvailable"]
+- ["Ps9_Hashable", ""]
+- !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "init"]
+- !private ["Vs26_OptionalNilComparisonType", "deinit"]
+depends-nominal:
+- "Ps9AnyObject"
+- "Sb"
+- !private "PSo15CALayerDelegate"
+- "PSo25CLLocationManagerDelegate"
+- "Ps7CVarArg"
+- !private "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- !private "Ps29CustomPlaygroundQuickLookable"
+- !private "Ps17CustomReflectable"
+- "Ps23CustomStringConvertible"
+- !private "CSo14DispatchObject"
+- "CSo13DispatchQueue"
+- "Ps9Equatable"
+- !private "Ps25ExpressibleByArrayLiteral"
+- !private "Ps27ExpressibleByBooleanLiteral"
+- !private "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- !private "Ps32ExpressibleByStringInterpolation"
+- !private "Ps26ExpressibleByStringLiteral"
+- !private "Ps33ExpressibleByUnicodeScalarLiteral"
+- "C4AOSG8Favorite"
+- "Ps8Hashable"
+- "SQ"
+- !private "P4AOSG17JSONSubscriptType"
+- "C4AOSG15LocationService"
+- !private "Ps25LosslessStringConvertible"
+- !private "Ps10MirrorPath"
+- "CSo7NSCoder"
+- "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- "PSo26NSExtensionRequestHandling"
+- !private "PSo16NSMutableCopying"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "CSo8NSString"
+- "C4AOSG25NewFavoriteViewController"
+- !private "CSo9OS_object"
+- !private "Ps9OptionSet"
+- "Sq"
+- !private "Ps16RawRepresentable"
+- "V10ObjectiveC8Selector"
+- !private "Ps10SetAlgebra"
+- "SS"
+- !private "Ps16TextOutputStream"
+- !private "Ps20TextOutputStreamable"
+- !private "PSo29UIAccessibilityIdentification"
+- !private "PSo12UIAppearance"
+- "PSo21UIAppearanceContainer"
+- !private "CSo15UIBarButtonItem"
+- !private "CSo9UIBarItem"
+- "PSo18UIContentContainer"
+- !private "PSo30UIContentSizeCategoryAdjusting"
+- !private "CSo9UIControl"
+- "VSC15UIControlEvents"
+- !private "PSo17UICoordinateSpace"
+- !private "PSo13UIDynamicItem"
+- "PSo18UIFocusEnvironment"
+- !private "PSo11UIFocusItem"
+- !private "PSo10UIKeyInput"
+- !private "CSo7UILabel"
+- "CSo11UIResponder"
+- "PSo30UIResponderStandardEditActions"
+- "PSo16UIStateRestoring"
+- !private "CSo8UISwitch"
+- "CSo11UITextField"
+- "PSo19UITextFieldDelegate"
+- !private "PSo11UITextInput"
+- !private "PSo17UITextInputTraits"
+- "PSo18UITraitEnvironment"
+- !private "CSo6UIView"
+- "CSo16UIViewController"
+- !private "Ps37_DefaultCustomPlaygroundQuickLookable"
+- !private "Ps35_ExpressibleByBuiltinBooleanLiteral"
+- !private "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- !private "Ps34_ExpressibleByBuiltinStringLiteral"
+- !private "Ps39_ExpressibleByBuiltinUTF16StringLiteral"
+- !private "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- !private "Ps35_HasCustomAnyHashableRepresentation"
+- "Ps9_Hashable"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Vs26_OptionalNilComparisonType"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/OpenEarsHeader.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEPocketsphinxController.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEEventsObserver.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEContinuousModel.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEContinuousAudioUnit.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OESmartCMN.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/prim_type.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/sphinx_config.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OENotification.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OELanguageModelGenerator.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEGrammarDefinitions.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEGrammarGenerator.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEFliteController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/flite.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_string.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_regex.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_file.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_error.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_alloc.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val_defs.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val_const.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_features.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_item.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_relation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_utterance.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_wave.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_endian.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_track.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_cart.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_phoneset.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_voice.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_audio.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_hrg.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_utt_utils.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_lexicon.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_lts.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_synth.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_tokenstream.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_units.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_sts.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEFliteVoice.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/Slt.framework/Headers/Slt.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OELogging.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEAcousticModel.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMapsBase/GMSCoordinateBounds.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMapsBase/GMSCompatabilityMacros.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Base/Frameworks/GoogleMapsBase.framework/Headers/GoogleMapsBase.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Base/Frameworks/GoogleMapsBase.framework/Modules/module.modulemap"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSURLTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSSyncTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSServices.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPolyline.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPolygon.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaView.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaService.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaLink.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaCameraUpdate.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaCamera.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanorama.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSOrientation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMutablePath.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMarkerLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMarker.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSUISettings.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapView.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapView+Animation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapStyle.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorLevel.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorDisplay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorBuilding.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGroundOverlay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPath.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGeometryUtils.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGeocoder.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSProjection.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCoordinateBounds+GoogleMaps.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSOverlay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCircle.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCameraUpdate.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCameraPosition.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCALayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSDeprecationMacros.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSAddress.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Headers/GoogleMaps.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Modules/module.modulemap"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSUserAddedPlace.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacesErrors.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacesClient.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceTypes.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacePhotoMetadataList.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacePhotoMetadata.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceLikelihoodList.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceLikelihood.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteViewController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteTableDataSource.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlace.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteResultsViewController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompletePrediction.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteMatchFragment.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteFilter.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteFetcher.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAddressComponent.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GooglePlaces/Frameworks/GooglePlaces.framework/Headers/GooglePlaces.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GooglePlaces/Frameworks/GooglePlaces.framework/Modules/module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
+interface-hash: "404678047d7a35b4affd9531c902ec9f"
