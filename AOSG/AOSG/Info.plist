@@ -2,12 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Steereo would like to recognize words and phrases you say, like addresses or names.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Steereo</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Steereo needs access to your microphone to listen when you say things like address, or ask where you are. </string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -59,8 +55,12 @@
 	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Steereo needs access to your microphone to listen when you say things like address, or ask where you are. </string>
 	<key>NSMotionUsageDescription</key>
 	<string>YES</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Steereo would like to recognize words and phrases you say, like addresses or names.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

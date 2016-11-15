@@ -44,6 +44,7 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func immediatelySay(utterance text: String) {
+        print("saying something now");
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = 0.6
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
@@ -61,16 +62,18 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	
 
 	func waitToFinishSpeaking(callback: @escaping () -> Void){
+        print("setting the callback")
 		notifyDoneSpeaking = callback
 		waitingForDoneSpeaking = true
-		print("done speaking 3")
+		//print("done speaking 3")
 	}
     
 	func speechSynthesizer(_ synth: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-		print("done speaking 1")
+		//print("done speaking 1")
 		if (Speech.shared.waitingForDoneSpeaking == true){
-			print("done speaking 2")
+			//print("done speaking 2")
 			Speech.shared.waitingForDoneSpeaking = false
+            print("notifying that we're done speaking")
 			notifyDoneSpeaking()
 		}
 	}

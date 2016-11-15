@@ -58,6 +58,13 @@
 			remoteGlobalIDString = 41952C371DA81D56001B237A;
 			remoteInfo = AOSG;
 		};
+		BAF73AA91DDB9530008C69A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 608CAEE8A239C1F31FE917F0CA39B7F8;
+			remoteInfo = "Pods-AOSG";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +110,7 @@
 		BA7753F11DC783470051EE3B /* VerticalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPageViewController.swift; sourceTree = "<group>"; };
 		BA90DC271DD78C8500AF8B2E /* FavoritesVoiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesVoiceController.swift; sourceTree = "<group>"; };
 		BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
+		BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.release.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +148,7 @@
 		1F28E08293D259D2C8C2C9C7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */,
 				54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */,
 				D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */,
 			);
@@ -242,6 +251,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BAF73AA61DDB9530008C69A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BAF73AAA1DDB9530008C69A4 /* libPods-AOSG.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -313,7 +330,7 @@
 				TargetAttributes = {
 					41952C371DA81D56001B237A = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 3ZFLAR9B98;
+						DevelopmentTeam = PJWYURQB5T;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -347,6 +364,12 @@
 			mainGroup = 41952C2F1DA81D56001B237A;
 			productRefGroup = 41952C391DA81D56001B237A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BAF73AA61DDB9530008C69A4 /* Products */;
+					ProjectRef = BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				41952C371DA81D56001B237A /* AOSG */,
@@ -355,6 +378,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BAF73AAA1DDB9530008C69A4 /* libPods-AOSG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-AOSG.a";
+			remoteRef = BAF73AA91DDB9530008C69A4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		41952C361DA81D56001B237A /* Resources */ = {
@@ -612,14 +645,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = 3ZFLAR9B98;
+				DEVELOPMENT_TEAM = PJWYURQB5T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Framework",
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
@@ -633,14 +666,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = 3ZFLAR9B98;
+				DEVELOPMENT_TEAM = PJWYURQB5T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Framework",
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				SWIFT_VERSION = 3.0;

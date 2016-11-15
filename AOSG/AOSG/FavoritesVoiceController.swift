@@ -8,6 +8,7 @@
 
 import Foundation
 import Speech
+import Dispatch
 
 protocol FavoritesVoiceControllerDelegate {
     // add protocol definition in here
@@ -72,6 +73,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
+    private var transcription: String!
     
     private lazy var notifySpeechRecognitionResultAvailable: (String) -> Void = {arg in}
     private var waitingForSpeechRecognitionResultAvailable: Bool = false
@@ -98,12 +100,14 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         super.init()
         reloadOpenEars()
         speechRecognizer.delegate = self
+        recognizitionAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
     }
     
     init(withFavorites favorites: [Favorite]) {
         super.init()
         addToDictionary(favorites: favorites)
         speechRecognizer.delegate = self
+        recognizitionAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
     }
     
     // MARK: Public Methods
@@ -143,7 +147,6 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         state = .root
         stopListening()
         stopRecording()
-        Speech.shared.interruptRudely()
     }
     
     public func tapRegistered() {
@@ -173,8 +176,10 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     }
     
     private func handleDictatedFavoriteName(name: String) {
+        print("handling dictated name: \(name)")
         favoriteTemplate = Favorite(withName: name, withAddress: "")
         state = .add2
+        
         (Confirmations.addName + name).say {
             MenuOptions.addStepTwo.say(andThen: self.listen)
         }
@@ -242,14 +247,17 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 state = .add1
                 waitingForSpeechRecognitionResultAvailable = true
                 notifySpeechRecognitionResultAvailable = handleDictatedFavoriteName
+                print("set up handler for recognition result")
                 Confirmations.add.say {
                     if !self.recognizitionAuthorized {
                         self.state = .root
                         Confirmations.notAuthorized.say {
                             MenuOptions.root.say(andThen: self.listen)
                         }
+                    } else {
+                        MenuOptions.addStepOne.say(andThen: self.startRecording)
                     }
-                    MenuOptions.addStepOne.say(andThen: self.startRecording)
+                    
                 }
             } else if hypothesis! == "DELETE" {
                 self.stopListening()
@@ -336,26 +344,6 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         recognizitionAuthorized = available
     }
     
-//    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
-//        if recognitionResult.isFinal {
-//            audioEngine.stop()
-//            guard let inputnode = audioEngine.inputNode else {
-//                fatalError("audio engine has no input node!")
-//            }
-//            inputnode.removeTap(onBus: 0)
-//            
-//            self.recognitionRequest = nil
-//            self.recognitionTask = nil
-//            
-//            let text = recognitionResult.bestTranscription.formattedString
-//            
-//            if waitingForSpeechRecognitionResultAvailable {
-//                waitingForSpeechRecognitionResultAvailable = false
-//                notifySpeechRecognitionResultAvailable(text)
-//            }
-//        }
-//    }
-    
     // MARK: Private SpeechRecognizer Controls
     
     private func getSpeechRecognitionPermissions() {
@@ -372,6 +360,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     }
     
     private func startRecording() {
+        print("setup for startRecording()")
         // cancel the last task if any
         if recognitionTask != nil {
             recognitionTask?.cancel()
@@ -401,30 +390,37 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         recognitionRequest.taskHint = .dictation
         recognitionRequest.shouldReportPartialResults = true
         
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-            var isFinal = false
-            
-            if result != nil {
-                isFinal = (result?.isFinal)!
-            }
-            
-            if error != nil || isFinal {
-                self.audioEngine.stop()
-                inputNode.removeTap(onBus: 0)
-                
-                self.recognitionRequest = nil
-                self.recognitionTask = nil
-                
-                if error != nil {
-                    print(error?.localizedDescription)
-                } else {
-                    if self.waitingForSpeechRecognitionResultAvailable {
-                        self.waitingForSpeechRecognitionResultAvailable = false
-                        self.notifySpeechRecognitionResultAvailable((result?.bestTranscription.formattedString)!)
-                    }
-                }
-            }
-        })
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, delegate: self)
+        
+//        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+//            print("speech recognizer callback called")
+//            var isFinal = false
+//            
+//            if result != nil {
+//                isFinal = (result?.isFinal)!
+//                self.transcription = result!.bestTranscription.formattedString
+//                print("set transcription to: \(self.transcription)")
+//            }
+//            
+//            if error != nil || isFinal {
+//                self.audioEngine.stop()
+//                inputNode.removeTap(onBus: 0)
+//                
+//                self.recognitionRequest = nil
+//                self.recognitionTask = nil
+//                
+//                if error != nil {
+//                    print(error?.localizedDescription as Any)
+//                } else {
+//                    if self.waitingForSpeechRecognitionResultAvailable {
+//                        self.waitingForSpeechRecognitionResultAvailable = false
+//                        DispatchQueue.main.async{
+//                            self.notifySpeechRecognitionResultAvailable(self.transcription)
+//                        }
+//                    }
+//                }
+//            }
+//        })
         
         // set up a tap so output goes to the recognition request buffer
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -442,6 +438,27 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         
         // play the Beep
        // playDaBeep()
+    }
+    
+    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
+        print("finished recognition")
+        if recognitionResult.isFinal {
+            audioEngine.stop()
+            guard let inputnode = audioEngine.inputNode else {
+                fatalError("audio engine has no input node!")
+            }
+            inputnode.removeTap(onBus: 0)
+            
+            self.recognitionRequest = nil
+            self.recognitionTask = nil
+            
+            transcription = recognitionResult.bestTranscription.formattedString
+            
+            if waitingForSpeechRecognitionResultAvailable {
+                waitingForSpeechRecognitionResultAvailable = false
+                notifySpeechRecognitionResultAvailable(transcription)
+            }
+        }
     }
     
     private func stopRecording() {
