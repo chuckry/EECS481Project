@@ -12,8 +12,8 @@ import CoreLocation
 import AVFoundation
 
 
-class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate{
-	
+class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate {
+		
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]

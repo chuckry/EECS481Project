@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SettingsViewController: UIViewController, OEEventsObserverDelegate {
+class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
