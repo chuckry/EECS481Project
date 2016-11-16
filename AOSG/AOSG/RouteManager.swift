@@ -120,41 +120,6 @@ class RouteManager {
     }
     
     /*
-     *  Using the closest address to current location, return the nearest intersection
-     */
-    func getNearestIntersection(loc: CLLocation?) -> String {
-        if loc != nil {
-            // Call Reverse Geocode API
-            let lat = loc?.coordinate.latitude
-            let long = loc?.coordinate.longitude
-            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat!)&lng=\(long!)&username=chuckry"
-            let requestURL = URL(string: url)
-            var request = URLRequest(url: requestURL!)
-            request.httpMethod = "GET"
-            
-            let task = URLSession.shared.dataTask(with: request) {
-                (data, response, error) -> Void in
-                if error != nil {
-                    print("ERROR: \(error)")
-                    return
-                }
-                let json = JSON(data: data!)
-                let intersection = json["intersection"]
-                if intersection != JSON.null {
-                    self.nearestIntersection = "You are near, \(intersection["street1"]), and, \(intersection["street2"])"
-                }
-            }
-            task.resume()
-        } else {
-            print("Couldn't get nearest intersection!")
-        }
-        
-        // Guard against returning value before its assigned
-        while self.nearestIntersection.isEmpty {}
-        return self.nearestIntersection
-    }
-
-    /*
      *  Use the user's location and heading to get sound balance ratio.
      *
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
@@ -178,7 +143,6 @@ class RouteManager {
             self.getSnapPoints()
         } else {
             goal = self.snappedPoints[self.nextPoint]
-            print("Using snap point: \(goal)")
         }
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
         let directionVector = getVectorFromPoints(start: userLocation, end: goal)

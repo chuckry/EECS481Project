@@ -47,6 +47,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             locationService.requestAccess()
         }
 		directionList.text = "--";
+        
+        // Wait for a location to be available and save it
+        locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
 	}
 	
     override func viewDidAppear(_ animated: Bool) {
