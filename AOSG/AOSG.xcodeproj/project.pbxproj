@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14D576521DDBDE26002E5609 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 14D576511DDBDE26002E5609 /* logo.png */; };
 		4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136AE4D1DB5B5B800EF7443 /* Steps.swift */; };
 		414FA2421DBA69490032397E /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA23F1DBA69490032397E /* RouteManager.swift */; };
 		414FA2431DBA69490032397E /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA2401DBA69490032397E /* VectorMath.swift */; };
@@ -70,6 +71,7 @@
 /* Begin PBXFileReference section */
 		05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AOSG.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D576301DD65613002E5609 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		14D576511DDBDE26002E5609 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		4136AE4D1DB5B5B800EF7443 /* Steps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Steps.swift; sourceTree = "<group>"; };
 		414FA23F1DBA69490032397E /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		414FA2401DBA69490032397E /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				41DC98B31DD429D5004D47D6 /* beep.wav */,
+				14D576511DDBDE26002E5609 /* logo.png */,
 				BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */,
 				BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
@@ -398,6 +401,7 @@
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
 				41DC98B41DD429D5004D47D6 /* beep.wav in Resources */,
+				14D576521DDBDE26002E5609 /* logo.png in Resources */,
 				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
 				414FA2441DBA69490032397E /* alert.mp3 in Resources */,
 			);
