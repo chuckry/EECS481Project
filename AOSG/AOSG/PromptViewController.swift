@@ -109,16 +109,11 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
      *  Upon entering a location, we tell the user what the nearest location is
      */
     func whereAmI() -> String? {
-        if Stuff.things.routeManager.route != nil {
-            if let currentLocation = locationManager.lastLocation {
-                let intersection = Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
-                return intersection
-            } else {
-                print("Couldn't get current location!")
-                return nil
-            }
+        if locationManager.lastLocation != nil {
+            let intersection = locationManager.getNearestIntersection()
+            return intersection
         } else {
-            print("Route not initialized!")
+            print("Couldn't get current location!")
             return nil
         }
     }
@@ -161,8 +156,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
             print("HEARD WHEREAMI")
             self.stopListening()
             let intersection = self.whereAmI()
-            print("Intersection: \(intersection!)")
             Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
+            print("Intersection: \(intersection!)")
             Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
         }
 		
