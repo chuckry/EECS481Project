@@ -86,7 +86,6 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
 	func waitToFinishBeeping(callback: @escaping () -> Void){
 		print("setting the callback beep")
 		waitingForDoneBeeping = true
-		player?.play()
 	}
 	
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

@@ -18,7 +18,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
     let locationManager = LocationService.sharedInstance
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe down to cancel. "
-	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
+	let helpStatement:String = "Help. Say, repeat, to repeat the last navigation direction. Say, How far, to tell distance and time to final destination. Say , Where am I, to tell you the current city and nearest intersection. Say, cancel, to stop navigation. "
 	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? Double tap the screen to confirm or swipe right to continue navigation. "
 	let navErrorStatement: String = "Navigation has not yet begun. "
 	let cancelDeclinedStatement: String = "Not cancelling route. "
