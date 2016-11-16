@@ -33,6 +33,10 @@
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="U0D-OW-HaZ">
+                                <rect key="frame" x="119" y="447" width="150" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="0.58431372550000005" green="0.79215686269999996" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -45,4 +49,5 @@
     <resources>
         <image name="logo.png" width="803" height="809"/>
     </resources>
+    <color key="tintColor" red="0.85140124643161275" green="0.8506166795940272" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
 </document>
