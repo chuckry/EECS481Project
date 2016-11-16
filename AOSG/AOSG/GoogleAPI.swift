@@ -244,13 +244,17 @@ class GoogleAPI: NSObject {
     
     // MARK: Properties
     // API_KEY for Google Directions (Apoorva Debug): AIzaSyCWTn5M2mMymn-iFSLSzz3FYts4xeQwHzQ
-    let API_KEY = "AIzaSyCWTn5M2mMymn-iFSLSzz3FYts4xeQwHzQ"
+    let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
     let geocodeEnpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let reverseGeocodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let directionsEndpoint = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&"
+    
+    // Handles places input
+    let placesEndpoint = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
     // Querys the Google directions API to extract direction from an origin to a destination
-    func directions(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+    func directionsFromAddress(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+        
         // call the directions API, and create a Navigation path to send back.
         let urlEncodedFrom = from.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let urlEncodedTo = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
@@ -409,6 +413,31 @@ class GoogleAPI: NSObject {
             // call the callback with a fully processed, correct path object
             print("finished parsing API response")
             callback(path)
+        }
+        task.resume()
+    }
+    
+    func addressFromKeywords(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+        let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
+        let address = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let url = "\(placesEndpoint)key=\(API_KEY)&query=\(address!)"
+        print("URL : \(url)")
+        let requestURL = URL(string: url)
+        var request = URLRequest(url: requestURL!)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, response, error) -> Void in
+            if error != nil {
+                print("ERROR: \(error)")
+                return
+            }
+            
+            let json = JSON(data: data!)
+            let result = json["results"][0]["formatted_address"].string!
+            print("RESULT 2: \(result)")
+            
+            self.directionsFromAddress(from: from, to: result, callback: callback)
         }
         task.resume()
     }

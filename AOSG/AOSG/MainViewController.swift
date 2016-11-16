@@ -107,14 +107,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-
-    
     // Should execute as a handler for when location services is able
     // to return a known address
     func initialLocationKnown(location: CLLocation) {
         
         // retrieve the destination as an address
-        guard let destinationAddress = destinationTextField.text else {
+        guard let destinationAddress = destinationTextField.text, !(destinationTextField.text?.isEmpty)! else {
             print("ERROR: destinationTextField value is unavailable")
             // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
             return
@@ -123,7 +121,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         print("ASKING GOOGLE API")
         
         // ask the google API to compute a route. handle response in a callback
-        googleAPI.directions(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
