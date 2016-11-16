@@ -92,7 +92,6 @@ class RouteManager {
      *  a 3 meter radius
      */
     func moveToNextSnapPointIfClose(loc: CLLocation) {
-        
         if (self.route?.currentStep().achievedGoal(location: loc))! {
             self.moveToNextStep()
         } else {
@@ -103,6 +102,7 @@ class RouteManager {
             }
             if self.snappedPoints[self.nextPoint].distance(from: loc) <= 3 {
                 self.nextPoint += 1
+                Speech.shared.immediatelySay(utterance: "Moving to next snap point!")
             }
         }
     }
@@ -113,6 +113,7 @@ class RouteManager {
      *  Gather new snap points
      */
     func moveToNextStep() {
+        Speech.shared.immediatelySay(utterance: "Moving to next step!")
         self.lastPoint = (self.route?.currentStep().goal)!
         self.nextPoint = 0
         self.route?.nextStep()
