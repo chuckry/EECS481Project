@@ -29,7 +29,9 @@ class RouteManager {
     init(currentLocation: CLLocation, path: NavigationPath) {
         self.lastPoint = currentLocation
         self.route = path
+        print("GOAL: \(self.route?.currentStep().currentFormattedDescription)")
         self.route?.nextStep()
+        print("GOAL: \(self.route?.currentStep().currentFormattedDescription)")
         self.snappedPoints = []
         self.getSnapPoints()
     }
@@ -53,35 +55,34 @@ class RouteManager {
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"
         
-        DispatchQueue.main.async {
-            let task = URLSession.shared.dataTask(with: request) {
-                (data, response, error) -> Void in
-                if error != nil {
-                    print("ERROR: \(error)")
-                    return
-                }
-                
-                let json = JSON(data: data!)
-                guard let snappedPoints = json["snappedPoints"].array else {
-                    print("Current: \(self.lastPoint)")
-                    print("Goal: \((self.route?.currentStep().goal)!)")
-                    print(response!)
-                    print("Could not get Snapped Points.")
-                    return
-                }
-                
-                // Extract location data from snap point. Corrects for identical adjacent snap points.
-                self.snappedPoints = []
-                for point in snappedPoints {
-                    let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
-                    if loc != self.snappedPoints.last {
-                        self.snappedPoints.append(loc)
-                    }
-                }
-                self.nextPoint = 0
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, response, error) -> Void in
+            if error != nil {
+                print("ERROR: \(error)")
+                return
             }
-            task.resume()
+            
+            let json = JSON(data: data!)
+            guard let snappedPoints = json["snappedPoints"].array else {
+                print("Current: \(self.lastPoint)")
+                print("Goal: \((self.route?.currentStep().goal)!)")
+                print(response!)
+                print("Could not get Snapped Points.")
+                return
+            }
+            
+            // Extract location data from snap point. Corrects for identical adjacent snap points.
+            self.snappedPoints = []
+            for point in snappedPoints {
+                let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
+                self.snappedPoints.append(loc)
+            }
+            self.nextPoint = 0
         }
+        task.resume()
+        
+        print("Snapped Points: \(self.snappedPoints)")
+        print("Goal: \((self.route?.currentStep().goal)!)")
     }
     
     /*
@@ -92,8 +93,7 @@ class RouteManager {
     }
     
     func distanceFromSnapPoint(loc: CLLocation) -> Double {
-        print("Snapped Points: \(self.snappedPoints)")
-        print("Goal: \((self.route?.currentStep().goal)!)")
+        
         return loc.distance(from: self.snappedPoints[self.nextPoint])
     }
     

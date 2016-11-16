@@ -152,12 +152,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // save the Navigation Path returned as an internal state
         self.route = withPath!
         Stuff.things.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
-        
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
+            // save the Navigation Path returned as an internal state
+            
             // update the UI with the current address:
             self.currentLocationLabel.text = self.route.startLocation.formatForDisplay()
             
