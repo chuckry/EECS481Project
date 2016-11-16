@@ -244,7 +244,7 @@ class GoogleAPI: NSObject {
     
     // MARK: Properties
     // API_KEY for Google Directions (Apoorva Debug): AIzaSyCWTn5M2mMymn-iFSLSzz3FYts4xeQwHzQ
-    let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
+    let API_KEY = "AIzaSyCWTn5M2mMymn-iFSLSzz3FYts4xeQwHzQ"
     let geocodeEnpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let reverseGeocodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let directionsEndpoint = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&"
