@@ -61,7 +61,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     private var favoritesDictionary: [String:Favorite] = [:]
     
     // Openears variables
-    private var openEarsEventsObserver: OEEventsObserver = OEEventsObserver()
+    private var openEarsEventsObserver: OEEventsObserver?
     private let languageModelFileName: String = "LanguageModelFileStarSaver"
     private var languageModelPath: String!
     private var dictionaryPath: String!
@@ -154,7 +154,9 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         case .add1, .add3:
             // Tapped to stop dictation
             print("voiceController tapRegistered() called")
-            self.stopRecording()
+            if waitingForSpeechRecognitionResultAvailable {
+                self.stopRecording()
+            }
         default: break
         }
     }
@@ -177,6 +179,9 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private func handleDictatedFavoriteName(name: String) {
         print("handling dictated name: \(name)")
+        
+        
+        reloadOpenEars()
         favoriteTemplate = Favorite(withName: name, withAddress: "")
         state = .add2
         Speech.shared.immediatelySay(utterance: "imma fuck your shit if you don't say this rn")
@@ -247,6 +252,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 state = .add1
                 waitingForSpeechRecognitionResultAvailable = true
                 notifySpeechRecognitionResultAvailable = handleDictatedFavoriteName
+                openEarsEventsObserver = nil
                 print("set up handler for recognition result")
                 Confirmations.add.say {
                     if !self.recognizitionAuthorized {
@@ -277,6 +283,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 state = .add3
                 waitingForSpeechRecognitionResultAvailable = true
                 notifySpeechRecognitionResultAvailable = handleDictatedFavoriteName
+                openEarsEventsObserver = nil
                 Confirmations.useDictatedAddress.say {
                     MenuOptions.addStepThree.say(andThen: self.startRecording)
                 }
@@ -461,12 +468,17 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
             print("stopping recording")
             audioEngine.stop()
             recognitionRequest?.endAudio()
-            self.recognitionTask!.cancel()
+            self.recognitionTask!.finish()
+            let audioSession = AVAudioSession.sharedInstance()
+            do {
+                try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+            } catch {
+                print("failed to set audioSession properties")
+            }
+            recognitionTask = nil
             if self.waitingForSpeechRecognitionResultAvailable {
                 self.waitingForSpeechRecognitionResultAvailable = false
-                DispatchQueue.main.async{
-                    self.notifySpeechRecognitionResultAvailable(self.transcription)
-                }
+                self.notifySpeechRecognitionResultAvailable(self.transcription)
             }
         }
     }
@@ -514,7 +526,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private func reloadOpenEars() {
         openEarsEventsObserver = OEEventsObserver()
-        openEarsEventsObserver.delegate = self
+        openEarsEventsObserver?.delegate = self
         let filename = languageModelFileName + "_\(self.randomString(length: 20))"
         let openEarsLanguageModelGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
         openEarsLanguageModelGenerator.generateLanguageModel(from: words, withFilesNamed: filename, forAcousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"))
