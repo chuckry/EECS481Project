@@ -179,7 +179,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         print("handling dictated name: \(name)")
         favoriteTemplate = Favorite(withName: name, withAddress: "")
         state = .add2
-        
+        Speech.shared.immediatelySay(utterance: "imma fuck your shit if you don't say this rn")
         (Confirmations.addName + name).say {
             MenuOptions.addStepTwo.say(andThen: self.listen)
         }
@@ -390,37 +390,30 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         recognitionRequest.taskHint = .dictation
         recognitionRequest.shouldReportPartialResults = true
         
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, delegate: self)
+        //recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, delegate: self)
         
-//        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-//            print("speech recognizer callback called")
-//            var isFinal = false
-//            
-//            if result != nil {
-//                isFinal = (result?.isFinal)!
-//                self.transcription = result!.bestTranscription.formattedString
-//                print("set transcription to: \(self.transcription)")
-//            }
-//            
-//            if error != nil || isFinal {
-//                self.audioEngine.stop()
-//                inputNode.removeTap(onBus: 0)
-//                
-//                self.recognitionRequest = nil
-//                self.recognitionTask = nil
-//                
-//                if error != nil {
-//                    print(error?.localizedDescription as Any)
-//                } else {
-//                    if self.waitingForSpeechRecognitionResultAvailable {
-//                        self.waitingForSpeechRecognitionResultAvailable = false
-//                        DispatchQueue.main.async{
-//                            self.notifySpeechRecognitionResultAvailable(self.transcription)
-//                        }
-//                    }
-//                }
-//            }
-//        })
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+            print("speech recognizer callback called")
+            var isFinal = false
+            
+            if result != nil {
+                isFinal = (result?.isFinal)!
+                self.transcription = result!.bestTranscription.formattedString
+                print("set transcription to: \(self.transcription)")
+            }
+            
+            if error != nil || isFinal {
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+                
+                self.recognitionRequest = nil
+                self.recognitionTask = nil
+                
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+            }
+        })
         
         // set up a tap so output goes to the recognition request buffer
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -440,32 +433,41 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
        // playDaBeep()
     }
     
-    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
-        print("finished recognition")
-        if recognitionResult.isFinal {
-            audioEngine.stop()
-            guard let inputnode = audioEngine.inputNode else {
-                fatalError("audio engine has no input node!")
-            }
-            inputnode.removeTap(onBus: 0)
-            
-            self.recognitionRequest = nil
-            self.recognitionTask = nil
-            
-            transcription = recognitionResult.bestTranscription.formattedString
-            
-            if waitingForSpeechRecognitionResultAvailable {
-                waitingForSpeechRecognitionResultAvailable = false
-                notifySpeechRecognitionResultAvailable(transcription)
-            }
-        }
-    }
+
+//    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
+//        print("finished recognition")
+//        if recognitionResult.isFinal {
+//            audioEngine.stop()
+//            guard let inputnode = audioEngine.inputNode else {
+//                fatalError("audio engine has no input node!")
+//            }
+//            inputnode.removeTap(onBus: 0)
+//            
+//            self.recognitionRequest = nil
+//            self.recognitionTask = nil
+//            
+//            transcription = recognitionResult.bestTranscription.formattedString
+//            
+//            if waitingForSpeechRecognitionResultAvailable {
+//                waitingForSpeechRecognitionResultAvailable = false
+//                print("calling callback")
+//                notifySpeechRecognitionResultAvailable(transcription)
+//            }
+//        }
+//    }
     
     private func stopRecording() {
         if audioEngine.isRunning {
             print("stopping recording")
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            self.recognitionTask!.cancel()
+            if self.waitingForSpeechRecognitionResultAvailable {
+                self.waitingForSpeechRecognitionResultAvailable = false
+                DispatchQueue.main.async{
+                    self.notifySpeechRecognitionResultAvailable(self.transcription)
+                }
+            }
         }
     }
     
