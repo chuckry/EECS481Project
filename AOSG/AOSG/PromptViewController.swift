@@ -24,7 +24,6 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	let cancelDeclinedStatement: String = "Not cancelling route. "
 	var howFarStatement: String = ""
 	
-	var player: AVAudioPlayer?
 	var wordGuess:String = ""
 	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
@@ -74,24 +73,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	func runSpeech(){
 		print("running speech")
 		Speech.shared.immediatelySay(utterance: self.openingStatement)
-		Speech.shared.waitToFinishSpeaking(callback: self.speechFinished)
-	}
-	
-	//runs when initial speech is finished
-	func speechFinished(){
-
-		//plap beep
-		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
-
-		do {
-			self.player = try AVAudioPlayer(contentsOf: url)
-			guard let player = self.player else { return }
-			player.prepareToPlay()
-			player.play()
-		} catch let error {
-			print(error.localizedDescription)
-		}
-		self.startListening()
+		Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -190,7 +172,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			}
 			else {
 				Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
-				Speech.shared.waitToFinishSpeaking(callback: self.noop)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.noop)
 			
 				self.previouslyHeardCancel = true;
 				//allows gesture recognizers to be triggered
