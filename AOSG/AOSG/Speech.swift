@@ -18,7 +18,9 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	private var isListening:Bool = false
 	var waitingForDoneSpeaking:Bool = false
 	lazy var notifyDoneSpeaking: () -> Void = {arg in}
-
+    public var speechRate : Float = 0.5
+    public var voiceOn : Bool = true
+    public var volume : Float = 1
 	
 	override init() {
 		super.init()
@@ -26,20 +28,27 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	}
 	
     func say(utterance text: String) {
+        if (!voiceOn) {
+            return
+        }
         let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.6
+        utterance.rate = speechRate
+        utterance.volume = volume
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         synthesizer.speak(utterance)
     }
     
     func immediatelySay(utterance text: String) {
+        if (!voiceOn) {
+            return
+        }
         let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.6
+        utterance.rate = speechRate
+        utterance.volume = volume
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         synthesizer.speak(utterance)
     }
-	
 
 	func waitToFinishSpeaking(callback: @escaping () -> Void){
 		notifyDoneSpeaking = callback

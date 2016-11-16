@@ -2,12 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string></string>
 	<key>CFBundleDisplayName</key>
-	<string>AOSG</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>YES</string>
+	<string>Steereo</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -55,12 +51,33 @@
 		<string>MKDirectionsModeTaxi</string>
 		<string>MKDirectionsModeTrain</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>api.geonames.org</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
+	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>AOSG needs to know your location to help you navigate and keep you safe.</string>
+	<string>Steereo needs to know your location to help you navigate and keep you safe.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>YES</string>
 	<key>NSMotionUsageDescription</key>
 	<string>YES</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

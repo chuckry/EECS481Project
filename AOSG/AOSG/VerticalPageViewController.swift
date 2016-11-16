@@ -21,6 +21,11 @@ class VerticalPageViewController: UIPageViewController {
         dataSource = self
         delegate = self
         setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
+		
+		let prompts = orderedViewControllers[0] as! PromptViewController
+		prompts.verticalPageVC = self
+
+		
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +36,11 @@ class VerticalPageViewController: UIPageViewController {
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         return [UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PromptViewController"), UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController"),UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController")]
     }()
-    
+	
+	public func returnToMainScreen() {
+		setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
+	}
+	
     /*
     // MARK: - Navigation
 

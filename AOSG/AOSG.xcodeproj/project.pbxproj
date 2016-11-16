@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14D576521DDBDE26002E5609 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 14D576511DDBDE26002E5609 /* logo.png */; };
 		4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136AE4D1DB5B5B800EF7443 /* Steps.swift */; };
 		414FA2421DBA69490032397E /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA23F1DBA69490032397E /* RouteManager.swift */; };
 		414FA2431DBA69490032397E /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA2401DBA69490032397E /* VectorMath.swift */; };
 		414FA2441DBA69490032397E /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 414FA2411DBA69490032397E /* alert.mp3 */; };
+		41622E081DD670610079D43B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41622E071DD670610079D43B /* Settings.swift */; };
 		41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3B1DA81D56001B237A /* AppDelegate.swift */; };
 		41952C3E1DA81D56001B237A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3D1DA81D56001B237A /* MainViewController.swift */; };
 		41952C411DA81D56001B237A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41952C3F1DA81D56001B237A /* Main.storyboard */; };
@@ -24,11 +26,14 @@
 		41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D011DCD6ACB004D9FC0 /* Slt.framework */; };
 		41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */; };
 		41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */; };
-		41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DB5DA31DCE943B00AA19C6 /* beep.wav */; };
+		41DC98B41DD429D5004D47D6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DC98B31DD429D5004D47D6 /* beep.wav */; };
 		71F262CBC9436A44E3E0FB9A /* libPods-AOSG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */; };
 		BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */; };
 		BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2277861DAD8D70003DC27F /* LocationManager.swift */; };
 		BA2277891DAD95C5003DC27F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2277881DAD95C5003DC27F /* MapKit.framework */; };
+		BA35D99A1DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */; };
+		BA35D99C1DCFDB0800BCDFA1 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35D99B1DCFDB0800BCDFA1 /* Favorite.swift */; };
+		BA35D9A01DCFF85700BCDFA1 /* NewFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */; };
 		BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54197C1DCA8F0F00FDAB24 /* Speech.swift */; };
 		BA7753E81DC7757B0051EE3B /* HorizontalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */; };
 		BA7753EA1DC7766B0051EE3B /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7753E91DC7766B0051EE3B /* InputViewController.swift */; };
@@ -40,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		14D576341DD65613002E5609 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14D576301DD65613002E5609 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 608CAEE8A239C1F31FE917F0CA39B7F8;
+			remoteInfo = "Pods-AOSG";
+		};
 		41952C4D1DA81D56001B237A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41952C301DA81D56001B237A /* Project object */;
@@ -58,10 +70,13 @@
 
 /* Begin PBXFileReference section */
 		05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AOSG.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14D576301DD65613002E5609 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		14D576511DDBDE26002E5609 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		4136AE4D1DB5B5B800EF7443 /* Steps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Steps.swift; sourceTree = "<group>"; };
 		414FA23F1DBA69490032397E /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		414FA2401DBA69490032397E /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		414FA2411DBA69490032397E /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		41622E071DD670610079D43B /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		41952C381DA81D56001B237A /* AOSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AOSG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41952C3B1DA81D56001B237A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41952C3D1DA81D56001B237A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -82,11 +97,14 @@
 		41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEarsHeader.h; sourceTree = "<group>"; };
-		41DB5DA31DCE943B00AA19C6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beep.wav; path = ../../../../../../Downloads/beep.wav; sourceTree = "<group>"; };
+		41DC98B31DD429D5004D47D6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.debug.xcconfig"; sourceTree = "<group>"; };
 		BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		BA2277861DAD8D70003DC27F /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BA2277881DAD95C5003DC27F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteLocationTableViewCell.swift; sourceTree = "<group>"; };
+		BA35D99B1DCFDB0800BCDFA1 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFavoriteViewController.swift; sourceTree = "<group>"; };
 		BA54197C1DCA8F0F00FDAB24 /* Speech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		BA7753E71DC7757B0051EE3B /* HorizontalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageViewController.swift; sourceTree = "<group>"; };
 		BA7753E91DC7766B0051EE3B /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
@@ -129,9 +147,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14D576311DD65613002E5609 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14D576351DD65613002E5609 /* libPods-AOSG.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1F28E08293D259D2C8C2C9C7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				14D576301DD65613002E5609 /* Pods.xcodeproj */,
 				54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */,
 				D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */,
 			);
@@ -165,7 +192,10 @@
 		41952C3A1DA81D56001B237A /* AOSG */ = {
 			isa = PBXGroup;
 			children = (
-				41DB5DA31DCE943B00AA19C6 /* beep.wav */,
+				41DC98B31DD429D5004D47D6 /* beep.wav */,
+				14D576511DDBDE26002E5609 /* logo.png */,
+				BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */,
+				BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
 				414FA2401DBA69490032397E /* VectorMath.swift */,
 				414FA2411DBA69490032397E /* alert.mp3 */,
@@ -177,11 +207,13 @@
 				BA7753EB1DC776C90051EE3B /* FavoritesViewController.swift */,
 				BA7753ED1DC782A60051EE3B /* SettingsViewController.swift */,
 				BA7753EF1DC782C00051EE3B /* PromptViewController.swift */,
+				41622E071DD670610079D43B /* Settings.swift */,
 				BA54197C1DCA8F0F00FDAB24 /* Speech.swift */,
 				BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */,
 				BA2277841DAC18B5003DC27F /* SwiftyJSON.swift */,
 				BA2277861DAD8D70003DC27F /* LocationManager.swift */,
 				41952C3F1DA81D56001B237A /* Main.storyboard */,
+				BA35D99B1DCFDB0800BCDFA1 /* Favorite.swift */,
 				41952C421DA81D56001B237A /* Assets.xcassets */,
 				41952C441DA81D56001B237A /* LaunchScreen.storyboard */,
 				41952C471DA81D56001B237A /* Info.plist */,
@@ -335,6 +367,12 @@
 			mainGroup = 41952C2F1DA81D56001B237A;
 			productRefGroup = 41952C391DA81D56001B237A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 14D576311DD65613002E5609 /* Products */;
+					ProjectRef = 14D576301DD65613002E5609 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				41952C371DA81D56001B237A /* AOSG */,
@@ -344,15 +382,26 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		14D576351DD65613002E5609 /* libPods-AOSG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-AOSG.a";
+			remoteRef = 14D576341DD65613002E5609 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		41952C361DA81D56001B237A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */,
-				41DB5DA41DCE943B00AA19C6 /* beep.wav in Resources */,
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
+				41DC98B41DD429D5004D47D6 /* beep.wav in Resources */,
+				14D576521DDBDE26002E5609 /* logo.png in Resources */,
 				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
 				414FA2441DBA69490032397E /* alert.mp3 in Resources */,
 			);
@@ -433,14 +482,18 @@
 				BA2277871DAD8D70003DC27F /* LocationManager.swift in Sources */,
 				BA7753F01DC782C00051EE3B /* PromptViewController.swift in Sources */,
 				BA54197D1DCA8F0F00FDAB24 /* Speech.swift in Sources */,
+				BA35D99A1DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift in Sources */,
 				BA2277851DAC18B5003DC27F /* SwiftyJSON.swift in Sources */,
 				41B25CFD1DCA582C004D9FC0 /* Stuff.swift in Sources */,
 				4136AE4E1DB5B5B800EF7443 /* Steps.swift in Sources */,
+				BA35D9A01DCFF85700BCDFA1 /* NewFavoriteViewController.swift in Sources */,
 				BA7753EC1DC776C90051EE3B /* FavoritesViewController.swift in Sources */,
 				BA7753F21DC783470051EE3B /* VerticalPageViewController.swift in Sources */,
 				41952C3E1DA81D56001B237A /* MainViewController.swift in Sources */,
 				BAE5F0501DB00152009DCA26 /* GoogleAPI.swift in Sources */,
 				414FA2421DBA69490032397E /* RouteManager.swift in Sources */,
+				BA35D99C1DCFDB0800BCDFA1 /* Favorite.swift in Sources */,
+				41622E081DD670610079D43B /* Settings.swift in Sources */,
 				41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */,
 				BA7753EE1DC782A60051EE3B /* SettingsViewController.swift in Sources */,
 			);
@@ -603,7 +656,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.Steereo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
@@ -624,7 +677,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.self.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.Steereo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				SWIFT_VERSION = 3.0;

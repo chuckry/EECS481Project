@@ -19,7 +19,7 @@ class NavigationPath {
     var totalPathDuration: Double
     private var path: [NavigationStep] = []
     private var step: Int = 0
-	var pedometer:Steps
+	var pedometer: Steps
 	
     // initialization
     init (startAt: GeocodingResponse, endAt: GeocodingResponse, dist: Double, dur: Double, steps: [NavigationStep]) {
@@ -28,6 +28,7 @@ class NavigationPath {
         endLocation = endAt
         totalPathDistance = dist
         totalPathDuration = dur
+		Stuff.things.totalDistance = dist
         path = steps
         step = 0
 		Stuff.things.cancelled = false;
@@ -41,6 +42,7 @@ class NavigationPath {
     func getDirectionsAsStringArray() -> [String] {
         var directions: [String] = []
         for step in path {
+			Stuff.things.stepLengths.append(step.totalDistance)
             if step.formattedNote != nil {
 				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
                 directions.append(text)
@@ -61,7 +63,6 @@ class NavigationPath {
 	
 	// navigation cancelled?
 	func cancelledNavigation() -> Bool {
-		print(Stuff.things.cancelled)
 		return Stuff.things.cancelled
 	}
 	
@@ -76,7 +77,10 @@ class NavigationPath {
     // go to the next step
     func nextStep() {
         step += 1
+		Stuff.things.currentStepID = Stuff.things.currentStepID+1
     }
+	
+
 }
 
 
@@ -108,13 +112,18 @@ struct NavigationStep {
     var totalDuration: Double
     // What should be printed on the string
     var formattedDescription: String
+    // What should be read aloud
+    var readingDescription: String
     // Optional note (default is empty)
     var formattedNote: String?
     var rawDescription: String
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
 	var currentFormattedDescription: String? //for current location label and read aloud
-	
+    var abbreviationsToText: [String : String] = ["St" : "Street", "Ave": "Avenue", "Dr" : "Drive", "Blvd" : "Boulevard", "Rd" : "Road", "Ln" : "Lane", "Mt" : "Mount" , "N" : "North", "S" : "South", "E" : "East", "W" : "West", "Rte" : "Route"]
+    
+    var setOfAbbreviations = ["St", "Ave", "Dr", "Blvd", "Rd", "Ln", "Mt",
+                                     "N", "S", "E", "W", "Rte"]
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
@@ -132,14 +141,24 @@ struct NavigationStep {
         }
         //formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
         totalHumanSteps = 0
+        
+        var myArray : [String] = formattedDescription.components(separatedBy:" ")
+        
+        for (index, word) in myArray.enumerated() {
+            if setOfAbbreviations.contains(word) {
+                myArray[index] = abbreviationsToText[word]!
+            }
+        }
+        
+        readingDescription = myArray.joined(separator: " ")
     }
 	
 	func createCurrentFormattedString(currentLocation: CLLocation, stepSizeEst: Double) -> String{
 		var dist = estimatedDistanceRemaining(from: currentLocation)
-		var stepEst = dist/stepSizeEst
+		Stuff.things.currentStepDist = dist
+		let stepEst = Int(round(1*dist/stepSizeEst)/1)
 		dist = Double(round(100*dist)/100)
-		stepEst = Double(round(100*stepEst)/100)
-		let text:String = formattedDescription + " in \(stepEst) steps (\(dist) meters) "
+		let text: String = formattedDescription + " in \(stepEst) steps"// (\(dist) meters) "
 		return text
 	}
     
@@ -230,9 +249,12 @@ class GoogleAPI: NSObject {
     let reverseGeocodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?"
     let directionsEndpoint = "https://maps.googleapis.com/maps/api/directions/json?mode=walking&"
     
-    
+    // Handles places input
+    let placesEndpoint = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+
     // Querys the Google directions API to extract direction from an origin to a destination
-    func directions(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+    func directionsFromAddress(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+        
         // call the directions API, and create a Navigation path to send back.
         let urlEncodedFrom = from.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let urlEncodedTo = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
@@ -391,6 +413,31 @@ class GoogleAPI: NSObject {
             // call the callback with a fully processed, correct path object
             print("finished parsing API response")
             callback(path)
+        }
+        task.resume()
+    }
+    
+    func addressFromKeywords(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+        let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
+        let address = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let url = "\(placesEndpoint)key=\(API_KEY)&query=\(address!)"
+        print("URL : \(url)")
+        let requestURL = URL(string: url)
+        var request = URLRequest(url: requestURL!)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, response, error) -> Void in
+            if error != nil {
+                print("ERROR: \(error)")
+                return
+            }
+            
+            let json = JSON(data: data!)
+            let result = json["results"][0]["formatted_address"].string!
+            print("RESULT 2: \(result)")
+            
+            self.directionsFromAddress(from: from, to: result, callback: callback)
         }
         task.resume()
     }

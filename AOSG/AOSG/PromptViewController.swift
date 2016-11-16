@@ -7,38 +7,68 @@
 //
 
 import UIKit
+import Foundation
+import CoreLocation
 import AVFoundation
 
-class PromptViewController: UIViewController, OEEventsObserverDelegate {
+
+class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate{
 	
 	static let shared = PromptViewController()
+    let locationManager = LocationService.sharedInstance
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
-	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
+	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe down to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
-	let repeatErrorStatement: String = "Navigation has not yet begun. "
+	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? Double tap the screen to confirm or swipe right to continue navigation. "
+	let navErrorStatement: String = "Navigation has not yet begun. "
+	let cancelDeclinedStatement: String = "Not cancelling route. "
+	var howFarStatement: String = ""
 	
 	var player: AVAudioPlayer?
 	var wordGuess:String = ""
-	var openEarsEventsObserver = OEEventsObserver()
+	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
 	var lmPath: String!
 	var dicPath: String!
+	var previouslyHeardCancel:Bool = false;
+
+	
+	public var verticalPageVC:VerticalPageViewController!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		loadOpenEars()
-    }
+	}
+	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
+		print("tapped")
+		if (previouslyHeardCancel == true){
+			Stuff.things.cancelled = true
+			verticalPageVC.returnToMainScreen()
+		}
+	}
+	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
+		print("swiped")
+		if (previouslyHeardCancel == true){
+			self.previouslyHeardCancel = false
+			Speech.shared.immediatelySay(utterance: self.cancelDeclinedStatement)
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+		}
+	}
+
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
+		previouslyHeardCancel = false;
 		super.viewDidAppear(animated)
+		loadOpenEars()
 		runSpeech()
 	}
 	
 	//stop listening and cancel callback when we leave the view
 	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
 		Speech.shared.waitingForDoneSpeaking = false
 		self.stopListening()
+		self.openEarsEventsObserver = nil
 	}
 	
 	func runSpeech(){
@@ -52,14 +82,13 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 
 		//plap beep
 		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
-		print("here")
 
 		do {
 			self.player = try AVAudioPlayer(contentsOf: url)
 			guard let player = self.player else { return }
 			player.prepareToPlay()
 			player.play()
-		} catch let error as Error {
+		} catch let error {
 			print(error.localizedDescription)
 		}
 		self.startListening()
@@ -72,7 +101,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	func loadOpenEars() {
 		openEarsEventsObserver = OEEventsObserver()
-		openEarsEventsObserver.delegate = self;
+		openEarsEventsObserver?.delegate = self;
 		
 		let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
 		
@@ -94,53 +123,119 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 		print("Starting listening")
 		OEPocketsphinxController.sharedInstance().startListeningWithLanguageModel(atPath: lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"), languageModelIsJSGF: false)
 	}
-	
-	
+
+    /*
+     *  Upon entering a location, we tell the user what the nearest location is
+     */
+    func whereAmI() -> String? {
+        if locationManager.lastLocation != nil {
+            let intersection = locationManager.getNearestIntersection()
+            return intersection
+        } else {
+            print("Couldn't get current location!")
+            return nil
+        }
+    }
+
 	func stopListening() {
 		print("Stopping listening")
-		if(OEPocketsphinxController.sharedInstance().isListening){
+		//Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+		if (OEPocketsphinxController.sharedInstance().isListening){
 			let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
-			if(stopListeningError != nil) {
+			if (stopListeningError != nil) {
 				print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
 			}
 		}
 		
 	}
-
-///////////////////////Copied openears inteface functions///////////////////////
+	
+	func noop() {
+		print("noop")
+	}
+	
+/////////////////////// openears interface functions///////////////////////
 	
 	//what happens when each phrase is heard
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
 		
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
 		
-		//read help text then say opening speech
-		if (hypothesis == "HELP"){
+		if (hypothesis != "CANCEL") {
+			self.previouslyHeardCancel = false;
+		}
+		
+		if (hypothesis == "HELP") {
 			print("HEARD HELP")
 			self.stopListening()
 			Speech.shared.immediatelySay(utterance: self.helpStatement)
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
+            
+        if (hypothesis == "WHEREAMI") {
+            print("HEARD WHEREAMI")
+            self.stopListening()
+            let intersection = self.whereAmI()
+            Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
+            print("Intersection: \(intersection!)")
+            Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+        }
 		
-		//
-		else if (hypothesis == "CANCEL"){
+		else if (hypothesis == "CANCEL") {
 			print("HEARD CANCEL")
 			self.stopListening()
-			//TODO: THis			
-			runSpeech()
+			//verify that the user wanted to cancel
+			if (Stuff.things.currentStepDescription == ""){
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
+				Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			}
+			else {
+				Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
+				Speech.shared.waitToFinishSpeaking(callback: self.noop)
+			
+				self.previouslyHeardCancel = true;
+				//allows gesture recognizers to be triggered
+			}
 		}
+
 		else if (hypothesis == "REPEAT"){
 			print("HEARD REPEAT")
 			self.stopListening()
 			if (Stuff.things.currentStepDescription == ""){
-				Speech.shared.immediatelySay(utterance: self.repeatErrorStatement)
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
 			}
 			else{
-				//TODO: this description should be updated to use current distance to goal
 				Speech.shared.immediatelySay(utterance: Stuff.things.currentStepDescription)
 			}
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+		}
+			
+		else if (hypothesis == "HOWFAR"){
+			print("HEARD HOW FAR")
+			self.stopListening()
+			if (Stuff.things.currentStepDescription == ""){
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
+			}
+			else {
+				var dist = Stuff.things.sumDists() //m
+				let pace = Stuff.things.getPace() //s/m
+				var timeEst = dist*pace //s
+				dist = dist * 0.000621371 //miles
 				
+				var arrivalTime = Date()
+				let cal = NSCalendar.current
+				arrivalTime = cal.date(byAdding: .second, value:Int(timeEst), to: Date())!
+				let formatter = DateFormatter()
+				formatter.dateFormat = "h:mm a"
+				formatter.amSymbol = "AM"
+				formatter.pmSymbol = "PM"
+				
+				timeEst = timeEst/60 //minutes
+				self.howFarStatement = "You will arrive at your destination in \(Double(round(10*dist)/10)) miles at \(formatter.string(from: arrivalTime)) in \(Int(round(1*timeEst)/1)) minutes"
+				print(howFarStatement)
+				Speech.shared.immediatelySay(utterance: self.howFarStatement)
+			}
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			
 		}
 		//keep adding prompts
 	}
@@ -153,6 +248,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	
 	// An optional delegate method of OEEventsObserver which informs that Pocketsphinx is now listening for speech.
 	func pocketsphinxDidStartListening() {
+		print("in prompt")
 		print("Local callback: Pocketsphinx is now listening.") // Log it.
 	}
 	
@@ -214,9 +310,4 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	func micPermissionCheckCompleted(withResult: Bool) {
 		print("Local callback: mic check completed.")
 	}
-	
-	
-
-
-
 }
