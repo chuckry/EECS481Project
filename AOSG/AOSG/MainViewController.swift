@@ -197,6 +197,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		
 		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
+            if (Stuff.things.vibrationOn) {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.warning)
+            }
+            
 			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
 			if sound != nil {
 				sound.pan = balance
