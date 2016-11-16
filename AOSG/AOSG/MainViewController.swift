@@ -31,7 +31,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     // navigation state properties
     var route: NavigationPath!
-	var routeManager: RouteManager!
 
 	
 	override func viewDidLoad() {
@@ -48,6 +47,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             locationService.requestAccess()
         }
 		directionList.text = "--";
+        
+        // Wait for a location to be available and save it
+        locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
 	}
 	
     override func viewDidAppear(_ animated: Bool) {
@@ -105,14 +107,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-
-    
     // Should execute as a handler for when location services is able
     // to return a known address
     func initialLocationKnown(location: CLLocation) {
         
         // retrieve the destination as an address
-        guard let destinationAddress = destinationTextField.text else {
+        guard let destinationAddress = destinationTextField.text, !(destinationTextField.text?.isEmpty)! else {
             print("ERROR: destinationTextField value is unavailable")
             // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
             return
@@ -121,7 +121,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         print("ASKING GOOGLE API")
         
         // ask the google API to compute a route. handle response in a callback
-        googleAPI.directions(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
@@ -154,8 +154,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         // save the Navigation Path returned as an internal state
         self.route = withPath!
-        self.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
-        Stuff.things.routeManager = self.routeManager
+        Stuff.things.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
         
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
@@ -198,6 +197,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		
 		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
+            if (Stuff.things.vibrationOn) {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.warning)
+            }
+            
 			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
 			if sound != nil {
 				sound.pan = balance
@@ -217,12 +221,13 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 return
             }
 			
+            let routeManager = Stuff.things.routeManager
 			
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             // Handle relation to next snap point
-            self.routeManager.checkLocToSnapPoint(location: loc!)
+            routeManager.moveToNextSnapPointIfClose(loc: loc!)
 			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
 			
@@ -244,7 +249,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 				self.destinationLocationLabel.text = "--"
 				self.directionList.text = ""
 				
-				return; // Returning here permanently stops location change updates
+				return // Returning here permanently stops location change updates
 			}
 			
             // TODO: Change so that routeManager owns the memory associated with the path
@@ -259,12 +264,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // achievedGoal() will return true when passed a location at most 10 meters
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
-                self.routeManager.moveToNextStep()
+                routeManager.moveToNextStep()
 				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
                 Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {
-                self.playFeedback(balance: self.routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
+                self.playFeedback(balance: routeManager.calculateSoundRatio(userLocation: loc!, userHeading: heading!.trueHeading), volume: 1, numLoops: 1)
             }
 
             self.locationService.waitForSignificantLocationChanges(callback: self.navigationDriver)

@@ -12,15 +12,16 @@ import CoreLocation
 import AVFoundation
 
 
-class PromptViewController: UIViewController, OEEventsObserverDelegate {
+class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate{
 	
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
-	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "CROSSROADS", "HOWFAR"]
-	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe up to cancel. "
+	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
+	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe down to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
-	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? "
+	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? Double tap the screen to confirm or swipe right to continue navigation. "
 	let navErrorStatement: String = "Navigation has not yet begun. "
+	let cancelDeclinedStatement: String = "Not cancelling route. "
 	var howFarStatement: String = ""
 	
 	var player: AVAudioPlayer?
@@ -30,15 +31,33 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	var lmPath: String!
 	var dicPath: String!
 	var previouslyHeardCancel:Bool = false;
+
 	
 	public var verticalPageVC:VerticalPageViewController!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-    }
+	}
+	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
+		print("tapped")
+		if (previouslyHeardCancel == true){
+			Stuff.things.cancelled = true
+			verticalPageVC.returnToMainScreen()
+		}
+	}
+	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
+		print("swiped")
+		if (previouslyHeardCancel == true){
+			self.previouslyHeardCancel = false
+			Speech.shared.immediatelySay(utterance: self.cancelDeclinedStatement)
+			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+		}
+	}
+
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
+		previouslyHeardCancel = false;
 		super.viewDidAppear(animated)
 		loadOpenEars()
 		runSpeech()
@@ -109,16 +128,11 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
      *  Upon entering a location, we tell the user what the nearest location is
      */
     func whereAmI() -> String? {
-        if Stuff.things.routeManager.route != nil {
-            if let currentLocation = locationManager.lastLocation {
-                let intersection = Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
-                return intersection
-            } else {
-                print("Couldn't get current location!")
-                return nil
-            }
+        if locationManager.lastLocation != nil {
+            let intersection = locationManager.getNearestIntersection()
+            return intersection
         } else {
-            print("Route not initialized!")
+            print("Couldn't get current location!")
             return nil
         }
     }
@@ -138,7 +152,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 	func noop() {
 		print("noop")
 	}
-
+	
 /////////////////////// openears interface functions///////////////////////
 	
 	//what happens when each phrase is heard
@@ -157,33 +171,32 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
             
-        if (hypothesis == "CROSSROADS") {
-            print("HEARD CROSSROADS")
+        if (hypothesis == "WHEREAMI") {
+            print("HEARD WHEREAMI")
             self.stopListening()
             let intersection = self.whereAmI()
-            print("Intersection: \(intersection!)")
             Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
+            print("Intersection: \(intersection!)")
             Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
         }
 		
-		//
 		else if (hypothesis == "CANCEL") {
 			print("HEARD CANCEL")
 			self.stopListening()
-			self.previouslyHeardCancel = true
 			//verify that the user wanted to cancel
-			Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
-			//Gesture recognizer
-			///*if (tapped){
+			if (Stuff.things.currentStepDescription == ""){
+				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
+				Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
+			}
+			else {
+				Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
 				Speech.shared.waitToFinishSpeaking(callback: self.noop)
-				Stuff.things.cancelled = true
-				verticalPageVC.returnToMainScreen()
-			//}
-			//else if (swiped){
-			//	Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
-			//}*/
 			
+				self.previouslyHeardCancel = true;
+				//allows gesture recognizers to be triggered
+			}
 		}
+
 		else if (hypothesis == "REPEAT"){
 			print("HEARD REPEAT")
 			self.stopListening()
@@ -195,6 +208,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate {
 			}
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
+			
 		else if (hypothesis == "HOWFAR"){
 			print("HEARD HOW FAR")
 			self.stopListening()
