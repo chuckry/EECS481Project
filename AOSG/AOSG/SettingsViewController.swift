@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
     
-    var currentSettings: Settings = Settings(volumeIn: 1, voiceOnIn: true, voiceSpeedIn: 0.5, vibrationOnIn: true, beepFrequencyIn: 1)
+    var currentSettings: Settings = Settings(volumeIn: 1, voiceOnIn: true, voiceSpeedIn: 0.5, vibrationOnIn: true, beepFrequencyIn: 5)
     
     @IBOutlet weak var volumeChangeLabel: UITextField!
     @IBOutlet weak var volumeChange: UIStepper!
@@ -227,7 +227,6 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         Stuff.things.beepFrequency = Float(beepChange.value)
         currentSettings.beepFrequency = Float(beepChange.value)
         beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
-        
         saveSettings()
     }
 	

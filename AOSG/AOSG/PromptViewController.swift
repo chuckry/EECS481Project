@@ -16,7 +16,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
-	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "CROSSROADS", "HOWFAR"]
+	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe down to cancel. "
 	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
 	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? Double tap the screen to confirm or swipe right to continue navigation. "
@@ -128,16 +128,11 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
      *  Upon entering a location, we tell the user what the nearest location is
      */
     func whereAmI() -> String? {
-        if Stuff.things.routeManager.route != nil {
-            if let currentLocation = locationManager.lastLocation {
-                let intersection = Stuff.things.routeManager.getNearestIntersection(loc: currentLocation)
-                return intersection
-            } else {
-                print("Couldn't get current location!")
-                return nil
-            }
+        if locationManager.lastLocation != nil {
+            let intersection = locationManager.getNearestIntersection()
+            return intersection
         } else {
-            print("Route not initialized!")
+            print("Couldn't get current location!")
             return nil
         }
     }
@@ -176,12 +171,12 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
             
-        else if (hypothesis == "CROSSROADS") {
-            print("HEARD CROSSROADS")
+        if (hypothesis == "WHEREAMI") {
+            print("HEARD WHEREAMI")
             self.stopListening()
             let intersection = self.whereAmI()
-            print("Intersection: \(intersection!)")
             Speech.shared.immediatelySay(utterance: (intersection != nil) ? intersection! : "Sorry. I could not find the nearest intersection.")
+            print("Intersection: \(intersection!)")
             Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
         }
 		

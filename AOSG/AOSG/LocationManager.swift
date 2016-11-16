@@ -21,9 +21,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     // these public filters can be overriden with more suitable values...
     public var headingFilter: CLLocationDegrees = 5.0
     public var distanceFilter: CLLocationDistance = 5.0
+
     
     
 	var lastLocation: CLLocation?
+    var nearestIntersection: String = ""
     private var lastHeading: CLHeading?
     
     private var locationManager: CLLocationManager!
@@ -196,6 +198,42 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             alertController.addAction(cancelAction)
             delegateView!.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    /*
+     *  Using the closest address to current location, return the nearest intersection
+     */
+    func getNearestIntersection() -> String {
+        let loc = self.lastLocation
+        if loc != nil {
+            // Call Reverse Geocode API
+            let lat = (loc?.coordinate.latitude)!
+            let long = (loc?.coordinate.longitude)!
+            let url = "http://api.geonames.org/findNearestIntersectionJSON?lat=\(lat)&lng=\(long)&username=chuckry"
+            let requestURL = URL(string: url)
+            var request = URLRequest(url: requestURL!)
+            request.httpMethod = "GET"
+            
+            let task = URLSession.shared.dataTask(with: request) {
+                (data, response, error) -> Void in
+                if error != nil {
+                    print("ERROR: \(error)")
+                    return
+                }
+                let json = JSON(data: data!)
+                let intersection = json["intersection"]
+                if intersection != JSON.null {
+                    self.nearestIntersection = "You are near, \(intersection["street1"]), and, \(intersection["street2"])"
+                }
+            }
+            task.resume()
+        } else {
+            print("Couldn't get nearest intersection!")
+        }
+        
+        // Guard against returning value before its assigned
+        while self.nearestIntersection.isEmpty {}
+        return self.nearestIntersection
     }
     
     // MARK: Initialization
