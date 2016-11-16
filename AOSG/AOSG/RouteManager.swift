@@ -85,6 +85,10 @@ class RouteManager {
         return self.nextPoint >= self.snappedPoints.count
     }
     
+    func distanceFromSnapPoint(loc: CLLocation) -> Double {
+        return loc.distance(from: self.snappedPoints[self.nextPoint])
+    }
+    
     /*
      *  If you've reached the goal, move to next step
      *

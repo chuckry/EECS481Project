@@ -223,6 +223,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Handle relation to next snap point
             routeManager.moveToNextSnapPointIfClose(loc: loc!)
+            print(routeManager.distanceFromSnapPoint(loc: loc!))
 			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
 			
