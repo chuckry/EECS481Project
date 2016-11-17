@@ -53,7 +53,6 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
 		}
 	}
-
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
