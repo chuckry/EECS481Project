@@ -18,6 +18,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet weak var destinationTextField: UITextField!
+    var destinationText: String?
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -104,16 +105,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     func initialLocationKnown(location: CLLocation) {
         
         // retrieve the destination as an address
-        guard let destinationAddress = destinationTextField.text, !(destinationTextField.text?.isEmpty)! else {
+        guard let destinationAddress = destinationText else {
             print("ERROR: destinationTextField value is unavailable")
             // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
             return
         }
-        
-        print("ASKING GOOGLE API")
-        
-        // ask the google API to compute a route. handle response in a callback
-        googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        "Navigating to \(destinationAddress)".say {
+            print("ASKING GOOGLE API")
+            
+            // ask the google API to compute a route. handle response in a callback
+            self.googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        }
     }
     
     // Should execute as a handler when the Google API responds with a route

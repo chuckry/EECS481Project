@@ -716,12 +716,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yzt-gy-ZoK">
-                                <rect key="frame" x="157" y="174" width="60" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="zad-HE-POf"/>
-                                </constraints>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -730,14 +724,11 @@
                             <constraint firstItem="Xz9-gy-LAY" firstAttribute="trailing" secondItem="8pb-oE-pvj" secondAttribute="trailingMargin" id="PhF-8B-25e"/>
                             <constraint firstItem="46f-zK-lhh" firstAttribute="top" secondItem="K4C-zT-ZAb" secondAttribute="bottom" id="eqx-8d-2Bg"/>
                             <constraint firstItem="46f-zK-lhh" firstAttribute="leading" secondItem="8pb-oE-pvj" secondAttribute="leading" id="maN-WL-z7z"/>
-                            <constraint firstItem="yzt-gy-ZoK" firstAttribute="centerX" secondItem="Xz9-gy-LAY" secondAttribute="centerX" id="tEf-m8-cv9"/>
                             <constraint firstAttribute="trailing" secondItem="46f-zK-lhh" secondAttribute="trailing" id="vcI-rE-siI"/>
-                            <constraint firstItem="yzt-gy-ZoK" firstAttribute="top" secondItem="Xz9-gy-LAY" secondAttribute="bottom" constant="21" id="z8D-bD-Yaj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="inputDestinationTextField" destination="Xz9-gy-LAY" id="lF8-YI-3Py"/>
-                        <outlet property="spinner" destination="yzt-gy-ZoK" id="jFW-n7-57w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTY-7S-eGd" userLabel="First Responder" sceneMemberID="firstResponder"/>
