@@ -38,7 +38,6 @@ class FavoritesViewController: UIViewController {
         }
     }
     
-    
     var favs = [Favorite]()
     public var horizontalPageVC: HorizontalPageViewController!
     
@@ -64,7 +63,12 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Speech.shared.immediatelySay(utterance: "Favorites")
+        if Speech.shared.voiceOn {
+            disableUIElements()
+           "Favorites".say(andThen: favoritesVoiceController.useVoiceControlMenu)
+        } else {
+            enableUIElements()
+        }
     }
 	
 	override func viewDidDisappear(_ animated: Bool) {

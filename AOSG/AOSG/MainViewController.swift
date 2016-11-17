@@ -46,7 +46,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         if !locationService.startUpdatingLocation() {
             locationService.requestAccess()
         }
-		directionList.text = "--";
         
         // Wait for a location to be available and save it
         locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
@@ -72,13 +71,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
-    }
-    
-    // Executes when user taps the input to start entering a destination
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Implement anything that should be done when the textField begins editing
-
-        // May implement a "cancel route guidance" feature here at some point...
     }
     
     // Executes when user hits the return key
@@ -197,12 +189,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		
 		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
+            if (Stuff.things.vibrationOn) {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.warning)
+            }
+            
 			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
 			if sound != nil {
 				sound.pan = balance
 				sound.volume = volume
 				sound.numberOfLoops = numLoops
-				sound.play()
+                if (Stuff.things.beepOn) { sound.play() }
 				print("playing sound")
 			}
 		}
