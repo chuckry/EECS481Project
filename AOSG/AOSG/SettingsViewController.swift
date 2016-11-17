@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
     
-    var currentSettings: Settings = Settings(volumeIn: 10, voiceOnIn: true, voiceSpeedIn: 5, vibrationOnIn: true, beepFrequencyIn: 5)
+    var currentSettings: Settings = Settings(volumeIn: 10, vibrationOnIn: true, voiceOnIn: true, voiceSpeedIn: 5, beepOnIn: true, beepFrequencyIn: 5)
     var settingToChange : String = ""
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
@@ -31,12 +31,15 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
     @IBOutlet weak var vibrationSwitchLabel: UITextField!
     @IBOutlet weak var vibrationSwitch: UISwitch!
     
+    @IBOutlet weak var beepSwitchLabel: UITextField!
+    @IBOutlet weak var beepSwitch: UISwitch!
+    
     @IBOutlet weak var beepChangeLabel: UITextField!
     @IBOutlet weak var beepChange: UIStepper!
     
     
 	//voice control variables
-	var words: Array<String> = ["VOLUME","VOICE", "VOICEON", "VOICEOFF", "SPEECHRATE", "RATE", "VIBRATIONON", "VIBRATION", "VIBRATIONOFF", "BEEPFREQUENCY"] //array of words to be recognized. Remove spaces in multiple word phrases.
+	var words: Array<String> = ["VOLUME","VOICE", "VOICEON", "VOICEOFF", "SPEECHRATE", "SPEECHSPEED", "RATE", "VIBRATIONON", "VIBRATION", "VIBRATIONOFF", "BEEP", "BEEPFREQUENCY", "FREQUENCY"] //array of words to be recognized. Remove spaces in multiple word phrases.
 	let openingStatement:String = "Settings. At the tone, speak the name of the setting you would like to edit. Or say, help, to read all available settings. Swipe down to cancel. "
 	let helpStatement:String = "You said help. You are on the Settings Page. On this page you can change the following settings: volume, voice on/off, voice speed, vibration on/off, beep frequency. To adjust one of these settings please say the desired setting name after the tone then wait for further instructions."
 
@@ -57,24 +60,16 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         }
         print ("Saved voice speed = ", currentSettings.voiceSpeed)
         
+        // Initilize Speech Settings
         Speech.shared.volume = currentSettings.volume
         Speech.shared.voiceOn = currentSettings.voiceOn
         Speech.shared.speechRate = currentSettings.voiceSpeed
         
-        
+        // Load Volume
         volumeChange.value = Double((currentSettings.volume)*10.0)
-        volumeChangeLabel.text = "Volume: \(volumeChange.value)"
+        volumeChangeLabel.text = "Volume: \(Int(volumeChange.value))"
         
-        voiceSwitch.isOn = currentSettings.voiceOn
-        if voiceSwitch.isOn {
-            voiceSwitchLabel.text = "Voice: ON"
-        } else {
-            voiceSwitchLabel.text = "Voice: OFF"
-        }
-        
-        voiceChange.value = Double(currentSettings.voiceSpeed*10.0)
-        voiceChangeLabel.text = "Speech Rate: \(voiceChange.value)"
-        
+        // Load Vibration On / Off
         Stuff.things.vibrationOn = currentSettings.vibrationOn
         vibrationSwitch.isOn = currentSettings.vibrationOn
         if vibrationSwitch.isOn {
@@ -83,9 +78,25 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
             vibrationSwitchLabel.text = "Vibration: OFF"
         }
         
+        // Load Voice On / Off
+        voiceSwitch.isOn = currentSettings.voiceOn
+        if voiceSwitch.isOn {
+            voiceSwitchLabel.text = "Voice: ON"
+        } else {
+            voiceSwitchLabel.text = "Voice: OFF"
+        }
+        
+        // Load Speech Rate
+        voiceChange.value = Double(currentSettings.voiceSpeed*10.0)
+        voiceChangeLabel.text = "Speech Rate: \(Int(voiceChange.value))"
+        
+        // Load Beep On / Off
+        
+        
+        // Load Beep Frequency
         Stuff.things.beepFrequency = currentSettings.beepFrequency
         beepChange.value = Double(currentSettings.beepFrequency)
-        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
+        beepChangeLabel.text = "Beep Frequency: \(Int(beepChange.value))"
 
     }
     
@@ -187,28 +198,7 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
     @IBAction func volumeChangeControl(_ sender: AnyObject) {
         currentSettings.volume = Float(volumeChange.value/10)
         Speech.shared.volume = Float(volumeChange.value)
-        volumeChangeLabel.text = "Volume: \(volumeChange.value)"
-        saveSettings()
-    }
-    
-    @IBAction func voiceSwitchToggle(_ sender: AnyObject) {
-        if voiceSwitch.isOn {
-            voiceSwitchLabel.text = "Voice: ON"
-        } else {
-            voiceSwitchLabel.text = "Voice: OFF"
-        }
-        
-        currentSettings.voiceOn = voiceSwitch.isOn
-        Speech.shared.voiceOn = voiceSwitch.isOn
-        
-        saveSettings()
-    }
-    
-    
-    @IBAction func voiceChangeController(_ sender: AnyObject) {
-        currentSettings.voiceSpeed = Float(voiceChange.value/10)
-        Speech.shared.speechRate = Float(voiceChange.value)
-        voiceChangeLabel.text = "Speech Rate: \(voiceChange.value)"
+        volumeChangeLabel.text = "Volume: \(Int(volumeChange.value))"
         saveSettings()
     }
     
@@ -229,25 +219,69 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         saveSettings()
     }
     
+    @IBAction func voiceSwitchToggle(_ sender: AnyObject) {
+        if voiceSwitch.isOn {
+            voiceSwitchLabel.text = "Voice: ON"
+        } else {
+            voiceSwitchLabel.text = "Voice: OFF"
+        }
+        
+        currentSettings.voiceOn = voiceSwitch.isOn
+        Speech.shared.voiceOn = voiceSwitch.isOn
+        
+        saveSettings()
+    }
+    
+    
+    @IBAction func voiceChangeController(_ sender: AnyObject) {
+        currentSettings.voiceSpeed = Float(voiceChange.value/10)
+        Speech.shared.speechRate = Float(voiceChange.value)
+        voiceChangeLabel.text = "Speech Rate: \(Int(voiceChange.value))"
+        saveSettings()
+    }
+    
+    @IBAction func beepSwitchToggle(_ sender: Any) {
+        if beepSwitch.isOn {
+            Stuff.things.beepOn = true;
+            currentSettings.beepOn = true;
+            beepSwitchLabel.text = "Beep: ON"
+        }
+        else {
+            Stuff.things.beepOn = false;
+            currentSettings.beepOn = false;
+            beepSwitchLabel.text = "Beep: OFF"
+        }
+        currentSettings.beepOn = beepSwitch.isOn
+        Stuff.things.beepOn = beepSwitch.isOn
+        
+        saveSettings()
+    }
+
     
     @IBAction func beepChangeControl(_ sender: AnyObject) {
         Stuff.things.beepFrequency = Float(beepChange.value)
         currentSettings.beepFrequency = Float(beepChange.value)
-        beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency)"
+        beepChangeLabel.text = "Beep Frequency: \(Int(beepChange.value))"
         saveSettings()
     }
 	
 	/////////////////////// openears interface functions///////////////////////
-	
+    func boolToOnOff(on_off : Bool) -> String {
+        if on_off {
+            return "on"
+        }
+        return "off"
+    }
 	//what happens when each phrase is heard
 	func pocketsphinxDidReceiveHypothesis(_ hypothesis: String!, recognitionScore: String!, utteranceID: String!){ // Something was heard
 		
 		print("Local callback: The received hypothesis is \(hypothesis!) with a score of \(recognitionScore!) and an ID of \(utteranceID!)")
 		
         let volumeHelpStatement:String = "You have selected the volume setting. To increase the volume, tap the top half of the screen. To decrease the volume, tap the bottom half of the screen."
-        let voiceHelpStatement:String = "You have selected the voice on/off setting. Voice is currently" + String(self.voiceSwitch.isOn) + ". To toggle this, please tap the screen once."
+        let vibrationHelpStatement:String = "You have selected the vibration on/off setting. Vibration is currently" + boolToOnOff(on_off : self.vibrationSwitch.isOn) + ". To toggle this, please tap the screen once."
+        let voiceHelpStatement:String = "You have selected the voice on/off setting. Voice is currently" + boolToOnOff(on_off : self.voiceSwitch.isOn) + ". To toggle this, please tap the screen once."
         let voiceSpeedHelpStatement:String = "You have selected the voice speed setting. To increase the voice speed, tap the top half of the screen. To decrease the voice speed, tap the bottom half of the screen."
-        let vibrationHelpStatement:String = "You have selected the vibration on/off setting. Voice is currently" + String(self.vibrationSwitch.isOn) + ". To toggle this, please tap the screen once."
+        let beepHelpStatement:String = "You have selected the beep on/off setting. Beeping is currently" + boolToOnOff(on_off : self.beepSwitch.isOn) + ". To toggle this, please tap the screen once."
         let beepFrequencyHelpStatement:String = "You have selected the beep frequency setting. To increase the beep frequency, tap the top half of the screen. To decrease the voice speed, tap the bottom half of the screen."
         
 		/*
@@ -260,47 +294,41 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
 			Speech.shared.immediatelySay(utterance: volumeHelpStatement)
             self.settingToChange = "VOLUME"
             toggleButtons(on_off: false)
-
-            //Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-
 		}
-        else if (hypothesis == "VOICE" || hypothesis == "VOICEON" || hypothesis == "VOICEOFF"){
-            print("HEARD VOICE HELP")
-            self.stopListening()
-            Speech.shared.immediatelySay(utterance: voiceHelpStatement)
-            self.settingToChange = "VOICE"
-            toggleButtons(on_off: false)
-
-            //Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-        }
-        else if (hypothesis == "SPEECHSPEED" || hypothesis == "RATE"){
-            print("HEARD SPEECHSPEED")
-            self.stopListening()
-            Speech.shared.immediatelySay(utterance: voiceSpeedHelpStatement)
-            self.settingToChange = "SPEECHSPEED"
-            toggleButtons(on_off: false)
-
-            //Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-
-        }
         else if (hypothesis == "VIBRATION" || hypothesis == "VIBRATIONON" || hypothesis == "VIBRATIONOFF"){
             print("HEARD VIBRATION")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: vibrationHelpStatement)
             self.settingToChange = "VIBRATION"
             toggleButtons(on_off: false)
-
-            //Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-
         }
-        else if (hypothesis == "BEEPFREQUENCY"){
+        else if (hypothesis == "VOICE" || hypothesis == "VOICEON" || hypothesis == "VOICEOFF"){
+            print("HEARD VOICE")
+            self.stopListening()
+            Speech.shared.immediatelySay(utterance: voiceHelpStatement)
+            self.settingToChange = "VOICE"
+            toggleButtons(on_off: false)
+        }
+        else if (hypothesis == "SPEECHSPEED" || hypothesis == "SPEECHRATE" || hypothesis == "RATE"){
+            print("HEARD SPEECHRATE")
+            self.stopListening()
+            Speech.shared.immediatelySay(utterance: voiceSpeedHelpStatement)
+            self.settingToChange = "SPEECHSPEED"
+            toggleButtons(on_off: false)
+        }
+        else if (hypothesis == "BEEP"){
+            print("HEARD BEEP")
+            self.stopListening()
+            Speech.shared.immediatelySay(utterance: beepHelpStatement)
+            self.settingToChange = "BEEP"
+            toggleButtons(on_off: false)
+        }
+        else if (hypothesis == "BEEPFREQUENCY" || hypothesis == "FREQUENCY"){
             print("HEARD BEEPFREQUENCY")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: beepFrequencyHelpStatement)
             self.settingToChange = "BEEPFREQUENCY"
             toggleButtons(on_off: false)
-
-            //Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
         }
 	}
 	
@@ -374,31 +402,53 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
 	func micPermissionCheckCompleted(withResult: Bool) {
 		print("Local callback: mic check completed.")
 	}
-    
-    func withinBounds(setting: Float, upper: Bool) -> Bool{
-        if (upper && setting <= 0.9) {return true}
-        if (!upper && setting >= 0.2) {return true}
-        
-        return false
-    }
 	
     @IBAction func tapToChangeSettings(_ sender: Any) {
         if (settingToChange == "VOLUME") {
-            if tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2)  && withinBounds(setting: currentSettings.volume, upper: true){
-                currentSettings.volume += 0.1
-                Speech.shared.say(utterance: "Volume up")
-                print ("volume++")
+            if (tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2)) {
+                if (volumeChange.value < 10) {
+                    volumeChange.value += 1
+                    Speech.shared.say(utterance: "Volume up")
+                    print ("volume++")
+                }
+                else {
+                    Speech.shared.say(utterance: "Volume is already at max")
+                }
             }
-            else if withinBounds(setting: currentSettings.volume, upper: false) {
-                currentSettings.volume -= 0.1
-                Speech.shared.say(utterance: "Volume down")
-                print ("volume--")
+            else if (tapGesture.location(in: self.inputView).y >= (UIScreen.main.bounds.maxY / 2)) {
+                if (volumeChange.value > 0) {
+                    volumeChange.value -= 1
+                    Speech.shared.say(utterance: "Volume down")
+                    print ("volume--")
+                }
+                else {
+                    Speech.shared.say(utterance: "Volume is already at min")
+                }
             }
-            volumeChangeLabel.text = "Volume: \(currentSettings.volume*10)"
-            volumeChange.value = Double (currentSettings.volume*10)
-            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+            volumeChangeLabel.text = "Volume: \(Int(volumeChange.value))"
+            currentSettings.volume = Float(volumeChange.value/10)
             toggleButtons(on_off: true)
             settingToChange = ""
+            saveSettings()
+            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+        }
+        else if (settingToChange == "VIBRATION") {
+            currentSettings.vibrationOn = !currentSettings.vibrationOn
+            if (currentSettings.vibrationOn == true) {
+                vibrationSwitchLabel.text = "Vibration: ON"
+                vibrationSwitch.isOn = true
+                Speech.shared.say(utterance: "Vibration On")
+            }
+            else {
+                vibrationSwitchLabel.text = "Vibration: OFF"
+                vibrationSwitch.isOn = false
+                Speech.shared.say(utterance: "Vibration Off")
+            }
+            Stuff.things.vibrationOn = vibrationSwitch.isOn
+            toggleButtons(on_off: true)
+            settingToChange = ""
+            saveSettings()
+            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
         }
         else if (settingToChange == "VOICE") {
             if voiceSwitch.isOn {
@@ -415,69 +465,96 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
 
                 currentSettings.voiceOn = true
             }
-            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+            print ("wait for speech to finish speaking then call opening speech")
             toggleButtons(on_off: true)
             settingToChange = ""
-            
-        }
-        else if (settingToChange == "SPEECHRATE") {
-            if tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2) && withinBounds(setting: currentSettings.voiceSpeed, upper: true){
-                currentSettings.voiceSpeed += 0.1
-                Speech.shared.say(utterance: "Speech Rate up")
-                print ("voice++")
-            }
-            else if withinBounds(setting: currentSettings.voiceSpeed, upper: false){
-                currentSettings.voiceSpeed -= 0.1
-                Speech.shared.say(utterance: "Speech Rate down")
-                print ("voice--")
-            }
+            saveSettings()
             Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
-            voiceChangeLabel.text = "Speech Rate: \(currentSettings.beepFrequency*10)"
+        }
+        else if (settingToChange == "SPEECHSPEED") {
+            if (tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2)) {
+                if (voiceChange.value < 10) {
+                    voiceChange.value += 1
+                    Speech.shared.say(utterance: "Speech Rate up")
+                    print ("voice++")
+                }
+                else {
+                    Speech.shared.say(utterance: "Speech is already at max rate")
+                }
+            }
+            else if (tapGesture.location(in: self.inputView).y >= (UIScreen.main.bounds.maxY / 2)){
+                if (voiceChange.value > 1) {
+                    voiceChange.value -= 1
+                    Speech.shared.say(utterance: "Speech Rate down")
+                    print ("voice--")
+                }
+                else {
+                    Speech.shared.say(utterance: "Speech is already at min rate")
+                }
+            }
+            voiceChangeLabel.text = "Speech Rate: \(Int(voiceChange.value))"
+            currentSettings.voiceSpeed = Float(voiceChange.value/10)
             toggleButtons(on_off: true)
             settingToChange = ""
+            saveSettings()
+            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
         }
-        else if (settingToChange == "VIBRATION") {
-            currentSettings.vibrationOn = !currentSettings.vibrationOn
-            if (currentSettings.vibrationOn == true) {
-                vibrationSwitchLabel.text = "Vibration: ON"
-                vibrationSwitch.isOn = true
-                Speech.shared.say(utterance: "Vibration On")
+        else if (settingToChange == "BEEP") {
+            currentSettings.beepOn = !currentSettings.beepOn
+            if (currentSettings.beepOn == true) {
+                beepSwitchLabel.text = "Beep: ON"
+                beepSwitch.isOn = true
+                Speech.shared.say(utterance: "Beeping On")
             }
             else {
-                vibrationSwitchLabel.text = "Vibration: OFF"
-                vibrationSwitch.isOn = false
-                Speech.shared.say(utterance: "Vibration Off")
+                beepSwitchLabel.text = "Beep: OFF"
+                beepSwitch.isOn = false
+                Speech.shared.say(utterance: "Beeping Off")
             }
-            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+            Stuff.things.beepOn = beepSwitch.isOn
             toggleButtons(on_off: true)
             settingToChange = ""
+            saveSettings()
+            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
         }
         else if (settingToChange == "BEEPFREQUENCY") {
-            print("Mid point of screen is: ",UIScreen.main.bounds.maxY / 2)
-            print("User taped at: ", tapGesture.location(in: self.inputView).y)
-            if tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2) && withinBounds(setting: currentSettings.beepFrequency, upper: true){
-                currentSettings.beepFrequency += 0.1
-                Speech.shared.say(utterance: "Beep Frequency up")
-
-                print ("beep++")
+            if (tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2)) {
+                if (beepChange.value < 10) {
+                    beepChange.value += 1
+                    Speech.shared.say(utterance: "Beep Frequency up")
+                    print ("beep++")
+                }
+                else {
+                    Speech.shared.say(utterance: "Beep Frequency is already at max")
+                }
             }
-            else if withinBounds(setting: currentSettings.beepFrequency, upper: false){
-                currentSettings.beepFrequency -= 0.1
-                Speech.shared.say(utterance: "Beep Frequency Down")
-                print ("beep--")
+            else if (tapGesture.location(in: self.inputView).y >= (UIScreen.main.bounds.maxY / 2)) {
+                if (beepChange.value > 1) {
+                    beepChange.value -= 1
+                    Speech.shared.say(utterance: "Beep Frequency Down")
+                    print ("beep--")
+                }
+                else {
+                    Speech.shared.say(utterance: "Beep Frequency is already at min")
+                }
             }
-            beepChangeLabel.text = "Beep Frequency: \(currentSettings.beepFrequency*10)"
-            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+            
+            beepChangeLabel.text = "Beep Frequency: \(Int(beepChange.value))"
+            currentSettings.beepFrequency = Float(beepChange.value/10)
+            Stuff.things.beepFrequency = currentSettings.beepFrequency
             toggleButtons(on_off: true)
             settingToChange = ""
+            saveSettings()
+            Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
         }
     }
 	
     func toggleButtons(on_off : Bool) {
         volumeChange.isEnabled = on_off
+        vibrationSwitch.isEnabled = on_off
         voiceSwitch.isEnabled = on_off
         voiceChange.isEnabled = on_off
-        vibrationSwitch.isEnabled = on_off
+        beepSwitch.isEnabled = on_off
         beepChange.isEnabled = on_off
     }
 	

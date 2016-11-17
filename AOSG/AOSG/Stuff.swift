@@ -28,6 +28,7 @@ class Stuff {
     
     public var vibrationOn:Bool = true
     public var beepFrequency:Float = 1
+    public var beepOn:Bool = true
     
 	private init(){
 
