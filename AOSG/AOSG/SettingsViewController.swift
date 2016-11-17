@@ -91,7 +91,13 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         voiceChangeLabel.text = "Speech Rate: \(Int(voiceChange.value))"
         
         // Load Beep On / Off
-        
+        Stuff.things.beepOn = currentSettings.beepOn
+        beepSwitch.isOn = currentSettings.beepOn
+        if beepSwitch.isOn {
+            beepSwitchLabel.text = "Beep: ON"
+        } else {
+            beepSwitchLabel.text = "Beep: OFF"
+        }
         
         // Load Beep Frequency
         Stuff.things.beepFrequency = currentSettings.beepFrequency
