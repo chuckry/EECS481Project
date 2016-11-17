@@ -217,7 +217,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             }
 			
             let routeManager = Stuff.things.routeManager
-			
+            routeManager.printSnapPoints()
+
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
@@ -260,7 +261,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // achievedGoal() will return true when passed a location at most 10 meters
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
-                routeManager.moveToNextStep()
+                routeManager.moveToNextStep(loc: loc!)
 				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
                 Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)

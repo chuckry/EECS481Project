@@ -17,7 +17,7 @@ class NavigationPath {
     var endLocation: GeocodingResponse
     var totalPathDistance: Double
     var totalPathDuration: Double
-    private var path: [NavigationStep] = []
+    var path: [NavigationStep] = []
     private var step: Int = 0
 	var pedometer: Steps
 	
@@ -417,11 +417,13 @@ class GoogleAPI: NSObject {
         task.resume()
     }
     
+    /*
+     *  Takes an input location and converts it to a formatted address via API call
+     */
     func addressFromKeywords(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
         let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
         let address = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let url = "\(placesEndpoint)key=\(API_KEY)&query=\(address!)"
-        print("URL : \(url)")
         let requestURL = URL(string: url)
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"

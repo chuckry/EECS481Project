@@ -29,24 +29,23 @@ class RouteManager {
     init(currentLocation: CLLocation, path: NavigationPath) {
         self.lastPoint = currentLocation
         self.route = path
-        print("GOAL: \(self.route?.currentStep().currentFormattedDescription)")
         self.route?.nextStep()
-        print("GOAL: \(self.route?.currentStep().currentFormattedDescription)")
         self.snappedPoints = []
         self.getSnapPoints()
     }
 
     /*
      *  Get "snap points," or intermediary checkpoints, to tailor sound output to
-     *  complex movement.
+     *  complex geography.
      */
     func getSnapPoints() {
         let currLat = self.lastPoint.coordinate.latitude
         let currLong = self.lastPoint.coordinate.longitude
-        let lat = (self.route?.currentStep().goal.coordinate.latitude)!
-        let long = (self.route?.currentStep().goal.coordinate.longitude)!
         
-        let path = "\(currLat),\(currLong)|\(lat),\(long)"
+        var path = "\(currLat),\(currLong)"
+        for step in (self.route?.path)! {
+            path += "|\(step.goal.coordinate.latitude),\(step.goal.coordinate.longitude)"
+        }
         
         let URLEndPoint = "https://roads.googleapis.com/v1/snapToRoads?"
         let params = "path=\(path)&interpolate=true".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
@@ -55,34 +54,31 @@ class RouteManager {
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"
         
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) -> Void in
-            if error != nil {
-                print("ERROR: \(error)")
-                return
+        DispatchQueue.main.async {
+            let task = URLSession.shared.dataTask(with: request) {
+                (data, response, error) -> Void in
+                if error != nil {
+                    print("ERROR: \(error)")
+                    return
+                }
+                
+                let json = JSON(data: data!)
+                guard let points = json["snappedPoints"].array else {
+                    print(response!)
+                    print("Could not get Snapped Points.")
+                    return
+                }
+                
+                // Extract location data from snap point
+                self.snappedPoints = []
+                for point in points {
+                    let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
+                    self.snappedPoints.append(loc)
+                }
+                self.nextPoint = 0
             }
-            
-            let json = JSON(data: data!)
-            guard let snappedPoints = json["snappedPoints"].array else {
-                print("Current: \(self.lastPoint)")
-                print("Goal: \((self.route?.currentStep().goal)!)")
-                print(response!)
-                print("Could not get Snapped Points.")
-                return
-            }
-            
-            // Extract location data from snap point. Corrects for identical adjacent snap points.
-            self.snappedPoints = []
-            for point in snappedPoints {
-                let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
-                self.snappedPoints.append(loc)
-            }
-            self.nextPoint = 0
+            task.resume()
         }
-        task.resume()
-        
-        print("Snapped Points: \(self.snappedPoints)")
-        print("Goal: \((self.route?.currentStep().goal)!)")
     }
     
     /*
@@ -105,14 +101,14 @@ class RouteManager {
      */
     func moveToNextSnapPointIfClose(loc: CLLocation) {
         if (self.route?.currentStep().achievedGoal(location: loc))! {
-            self.moveToNextStep()
+            self.moveToNextStep(loc: loc)
         } else {
             if self.outsideSnapPointBounds() {
                 print("Outside Bounds!")
                 self.lastPoint = loc
                 self.getSnapPoints()
             }
-            if self.snappedPoints[self.nextPoint].distance(from: loc) <= 3 {
+            if self.snappedPoints[self.nextPoint].distance(from: loc) <= 15 {
                 self.nextPoint += 1
                 Speech.shared.immediatelySay(utterance: "Moving to next snap point!")
             }
@@ -124,9 +120,9 @@ class RouteManager {
      *  Increment to next step
      *  Gather new snap points
      */
-    func moveToNextStep() {
+    func moveToNextStep(loc: CLLocation) {
         Speech.shared.immediatelySay(utterance: "Moving to next step!")
-        self.lastPoint = (self.route?.currentStep().goal)!
+        self.lastPoint = loc
         self.nextPoint = 0
         self.route?.nextStep()
         self.getSnapPoints()
@@ -149,14 +145,14 @@ class RouteManager {
      */
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2)? {
         let goal: CLLocation
-        if self.outsideSnapPointBounds() {
+        while self.outsideSnapPointBounds() {
             print("Using direction instead of snap point!")
-            goal = (self.route?.currentStep().goal)!
             self.lastPoint = LocationService.sharedInstance.lastLocation!
             self.getSnapPoints()
-        } else {
-            goal = self.snappedPoints[self.nextPoint]
         }
+        
+        goal = self.snappedPoints[self.nextPoint]
+        
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
         let directionVector = getVectorFromPoints(start: userLocation, end: goal)
         return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
@@ -172,6 +168,9 @@ class RouteManager {
         let signOfSigma = (sigma < 0 ? -1.0 : 1.0)
         
         let score = (angle * signOfSigma) / (-90.0)
+        
+        print("ANGLE: \(angle)")
+        print("SCORE: \(score)")
         
         return score > 0 ? min(1.0, score) : max(-1.0, score)
     }
@@ -190,5 +189,14 @@ class RouteManager {
         let newLat = CLLocationDegrees(Double(String(describing: lat))!)
         let newLong = CLLocationDegrees(Double(String(describing: long))!)
         return CLLocation(latitude: newLat, longitude: newLong)
+    }
+    
+    /*
+     *  Prints snap points in list of latitude longitude pairs
+     */
+    func printSnapPoints() {
+        for point in self.snappedPoints {
+            print("\(point.coordinate.latitude),\(point.coordinate.longitude)")
+        }
     }
 }
