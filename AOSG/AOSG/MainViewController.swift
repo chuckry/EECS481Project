@@ -144,12 +144,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // save the Navigation Path returned as an internal state
         self.route = withPath!
         Stuff.things.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
-        
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
+            // save the Navigation Path returned as an internal state
+            
             // update the UI with the current address:
             self.currentLocationLabel.text = self.route.startLocation.formatForDisplay()
             
@@ -214,12 +214,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             }
 			
             let routeManager = Stuff.things.routeManager
-			
+            routeManager.printSnapPoints()
+
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             // Handle relation to next snap point
             routeManager.moveToNextSnapPointIfClose(loc: loc!)
+            print(routeManager.distanceFromSnapPoint(loc: loc!))
 			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
 			
@@ -256,7 +258,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // achievedGoal() will return true when passed a location at most 10 meters
             // from the goal location.
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
-                routeManager.moveToNextStep()
+                routeManager.moveToNextStep(loc: loc!)
 				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
                 Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)
