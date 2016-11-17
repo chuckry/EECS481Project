@@ -73,7 +73,7 @@ class FavoritesViewController: UIViewController {
         // TODO: change this to use Stuff.things.currentSettings.voiceOn later
         if isVoiceOn {
             disableUIElements()
-            favoritesVoiceController.useVoiceControlMenu()
+           "Favorites".say(andThen: favoritesVoiceController.useVoiceControlMenu)
         } else {
             enableUIElements()
         }

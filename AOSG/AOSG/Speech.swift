@@ -44,7 +44,7 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
     }
     
     func immediatelySay(utterance text: String) {
-        print("saying \(text) now");
+        print("saying \(text)");
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = 0.6
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")

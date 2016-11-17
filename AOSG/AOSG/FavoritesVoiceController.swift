@@ -26,7 +26,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     var delegate: FavoritesVoiceControllerDelegate?
     
     struct Confirmations {
-        static let opening: String  = "Favorites. Swipe left to Cancel"
+        static let opening: String  = "Say, back to go back at any time. Say, repeat to repeat the actions you can take. Swipe left at any time to leave this menu."
         static let edit: String = "Editing"
         static let list: String = "Listing all favorites"
         static let add: String = "Adding a favorite"
@@ -40,6 +40,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         static let notAuthorized: String = "Steereo is unable to use speech recognition. Make sure you have a good internet connection and that you've granted Steereo the ability to use speech recognition in your iPhone settings."
         static let currentLocationUnknown: String = "Steereo was unable to find your current location. Make sure location services are enabled."
         static let canceledLastAction: String = "Canceled this action."
+        static let back: String = "Going back"
+        static let couldYouRepeatThat: String = "I'm sorry. Could you repeat that?"
     }
     
     struct MenuOptions {
@@ -55,7 +57,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         static let deleteConfirmPost: String = "At the tone, say, confirm, to delete this favorite. Say, back, to start over"
     }
     // Base commands
-    private var words: [String] = ["LIST", "EDIT", "ADD", "DELETE", "HERE", "DICTATE", "SAVE", "BACK", "CONFIRM"]
+    private var words: [String] = ["LIST", "EDIT", "ADD", "DELETE", "HERE", "DICTATE", "SAVE", "BACK", "CONFIRM", "REPEAT"]
     
     // Saved Favorites as commands
     private var favoritesDictionary: [String:Favorite] = [:]
@@ -154,7 +156,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         case .add1, .add3:
             // Tapped to stop dictation
             print("voiceController tapRegistered() called")
-            if waitingForSpeechRecognitionResultAvailable {
+            if waitingForSpeechRecognitionResultAvailable && self.transcription != nil {
                 self.stopRecording()
             }
         default: break
@@ -168,8 +170,10 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         if favoritesDictionary.count == 0 {
             statement = "You don't have any saved favorites"
         } else {
+            var count = 1
             for command in favoritesDictionary {
-                statement += "\(command.value.name), "
+                statement += " \(count). \(command.value.name), "
+                count += 1
             }
         }
         statement.say {
@@ -179,12 +183,9 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private func handleDictatedFavoriteName(name: String) {
         print("handling dictated name: \(name)")
-        
-        
         reloadOpenEars()
         favoriteTemplate = Favorite(withName: name, withAddress: "")
         state = .add2
-        Speech.shared.immediatelySay(utterance: "imma fuck your shit if you don't say this rn")
         (Confirmations.addName + name).say {
             MenuOptions.addStepTwo.say(andThen: self.listen)
         }
@@ -205,6 +206,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     }
     
     private func handleDictatedFavoriteAddress(address: String) {
+        print("handling dictated address: \(address)")
+        reloadOpenEars()
         if favoriteTemplate != nil {
             favoriteTemplate!.address = address
             state = .addConfirm
@@ -233,16 +236,22 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 Confirmations.edit.say {
                     MenuOptions.edit.say(andThen: self.listen)
                 }
+            } else if hypothesis! == "REPEAT" {
+                self.stopListening()
+                MenuOptions.root.say(andThen: self.listen)
             } else {
                 guard let possibleFavoriteName = hypothesis else { return }
                 if let favorite = favoritesDictionary[possibleFavoriteName] {
                     if self.delegate != nil {
-                        self.delegate?.favoritesVoiceController(selectFavorite: favorite)
+                        Confirmations.selected.say {
+                            self.delegate?.favoritesVoiceController(selectFavorite: favorite)
+                        }
                     }
                     state = .root
-                    Confirmations.selected.say {
-                        MenuOptions.root.say(andThen: self.listen)
-                    }
+                } else {
+                    // pocketsphinx can be hard of hearing sometimes
+                    self.stopListening()
+                    Confirmations.couldYouRepeatThat.say(andThen: self.listen)
                 }
             }
         // edit menu options
@@ -263,7 +272,6 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                     } else {
                         MenuOptions.addStepOne.say(andThen: self.startRecording)
                     }
-                    
                 }
             } else if hypothesis! == "DELETE" {
                 self.stopListening()
@@ -271,6 +279,19 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 Confirmations.delete.say {
                     MenuOptions.delete.say(andThen: self.listen)
                 }
+            } else if hypothesis! == "BACK" {
+                self.stopListening()
+                state = .root
+                Confirmations.back.say {
+                    MenuOptions.root.say(andThen: self.listen)
+                }
+            } else if hypothesis! == "REPEAT" {
+                self.stopListening()
+                MenuOptions.edit.say(andThen: self.listen)
+            } else {
+                // pocketsphinx can be hard of hearing sometimes
+                self.stopListening()
+                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
             }
         // trying to add, selecting current location or dictated location
         case .add2:
@@ -282,11 +303,34 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 self.stopListening()
                 state = .add3
                 waitingForSpeechRecognitionResultAvailable = true
-                notifySpeechRecognitionResultAvailable = handleDictatedFavoriteName
+                notifySpeechRecognitionResultAvailable = handleDictatedFavoriteAddress
                 openEarsEventsObserver = nil
                 Confirmations.useDictatedAddress.say {
                     MenuOptions.addStepThree.say(andThen: self.startRecording)
                 }
+            } else if hypothesis! == "BACK" {
+                self.stopListening()
+                state = .add1
+                waitingForSpeechRecognitionResultAvailable = true
+                notifySpeechRecognitionResultAvailable = handleDictatedFavoriteName
+                openEarsEventsObserver = nil
+                Confirmations.back.say {
+                    if !self.recognizitionAuthorized {
+                        self.state = .root
+                        Confirmations.notAuthorized.say {
+                            MenuOptions.root.say(andThen: self.listen)
+                        }
+                    } else {
+                        MenuOptions.addStepOne.say(andThen: self.startRecording)
+                    }
+                }
+            } else if hypothesis! == "REPEAT" {
+                self.stopListening()
+                MenuOptions.addStepTwo.say(andThen: self.listen)
+            } else {
+                // pocketsphinx can be hard of hearing sometimes
+                self.stopListening()
+                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
             }
         // trying to confirm add
         case .addConfirm:
@@ -300,23 +344,45 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 Confirmations.favoriteSaved.say {
                     MenuOptions.root.say(andThen: self.listen)
                 }
-            } else if hypothesis! == "BACK" {
+            } else if hypothesis! == "BACK" { // go back to main menu cause there's multiple ways to get here
                 self.stopListening()
                 favoriteTemplate = nil
                 state = .root
                 Confirmations.canceledLastAction.say {
                     MenuOptions.root.say(andThen: self.listen)
                 }
+            } else if hypothesis! == "REPEAT" {
+                self.stopListening()
+                MenuOptions.addConfirmPost.say(andThen: self.listen)
+            } else {
+                // pocketsphinx can be hard of hearing sometimes
+                self.stopListening()
+                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
             }
         // selected delete
         case .del:
-            guard let command = hypothesis else { return }
-            let recognizableWord = self.makeRecognizableWord(phrase: command)
-            if favoritesDictionary[recognizableWord] != nil {
+            if hypothesis! == "BACK" {
                 self.stopListening()
-                state = .delConfirm
-                favoriteTemplate = favoritesDictionary[recognizableWord]
-                (MenuOptions.deleteConfirmPre + " \(favoriteTemplate!.name). " + MenuOptions.deleteConfirmPost).say(andThen: self.listen)
+                state = .edit
+                Confirmations.back.say {
+                    MenuOptions.root.say(andThen: self.listen)
+                }
+            } else {
+                guard let command = hypothesis else { return }
+                let recognizableWord = self.makeRecognizableWord(phrase: command)
+                if favoritesDictionary[recognizableWord] != nil {
+                    self.stopListening()
+                    state = .delConfirm
+                    favoriteTemplate = favoritesDictionary[recognizableWord]
+                    (MenuOptions.deleteConfirmPre + " \(favoriteTemplate!.name). " + MenuOptions.deleteConfirmPost).say(andThen: self.listen)
+                } else if hypothesis! == "REPEAT" {
+                    self.stopListening()
+                    MenuOptions.delete.say(andThen: self.listen)
+                } else {
+                    // pocketsphinx can be hard of hearing sometimes
+                    self.stopListening()
+                    Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+                }
             }
             
         case .delConfirm:
@@ -338,6 +404,13 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 Confirmations.canceledLastAction.say {
                     MenuOptions.root.say(andThen: self.listen)
                 }
+            } else if hypothesis! == "REPEAT" {
+                self.stopListening()
+                MenuOptions.deleteConfirmPost.say(andThen: self.listen)
+            } else {
+                // pocketsphinx can be hard of hearing sometimes
+                self.stopListening()
+                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
             }
         
         default: break
@@ -368,6 +441,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private func startRecording() {
         print("setup for startRecording()")
+        transcription = nil
         // cancel the last task if any
         if recognitionTask != nil {
             recognitionTask?.cancel()
@@ -378,7 +452,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
             try audioSession.setMode(AVAudioSessionModeMeasurement)
-            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+            //try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
         } catch {
             print("failed to set audioSession properties")
         }
@@ -418,6 +492,17 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 
                 if error != nil {
                     print(error?.localizedDescription as Any)
+                    do {
+                        try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+                        try audioSession.setMode(AVAudioSessionModeDefault)
+                    } catch {
+                        print("failed to set audioSession properties")
+                    }
+                    self.reloadOpenEars()
+                    self.state = .root
+                    Confirmations.back.say {
+                        MenuOptions.root.say(andThen: self.listen)
+                    }
                 }
             }
         })
@@ -440,29 +525,6 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
        // playDaBeep()
     }
     
-
-//    func speechRecognitionTask(_ task: SFSpeechRecognitionTask, didFinishRecognition recognitionResult: SFSpeechRecognitionResult) {
-//        print("finished recognition")
-//        if recognitionResult.isFinal {
-//            audioEngine.stop()
-//            guard let inputnode = audioEngine.inputNode else {
-//                fatalError("audio engine has no input node!")
-//            }
-//            inputnode.removeTap(onBus: 0)
-//            
-//            self.recognitionRequest = nil
-//            self.recognitionTask = nil
-//            
-//            transcription = recognitionResult.bestTranscription.formattedString
-//            
-//            if waitingForSpeechRecognitionResultAvailable {
-//                waitingForSpeechRecognitionResultAvailable = false
-//                print("calling callback")
-//                notifySpeechRecognitionResultAvailable(transcription)
-//            }
-//        }
-//    }
-    
     private func stopRecording() {
         if audioEngine.isRunning {
             print("stopping recording")
@@ -472,6 +534,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
             let audioSession = AVAudioSession.sharedInstance()
             do {
                 try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+                try audioSession.setMode(AVAudioSessionModeDefault)
             } catch {
                 print("failed to set audioSession properties")
             }
