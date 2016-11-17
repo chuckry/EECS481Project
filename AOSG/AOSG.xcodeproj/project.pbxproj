@@ -652,7 +652,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.Steereo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
@@ -673,7 +673,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.self.Steereo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				SWIFT_VERSION = 3.0;

@@ -517,9 +517,15 @@
             timestampString = "500598353.591316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "viewDidAppear(_:)"
+=======
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "viewDidLoad()"
+>>>>>>> master
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -533,9 +539,15 @@
             timestampString = "500598353.591316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "57"
             endingLineNumber = "57"
             landmarkName = "speechFinished()"
+=======
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "runSpeech()"
+>>>>>>> master
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -549,9 +561,15 @@
             timestampString = "500598353.591316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "141"
             endingLineNumber = "141"
             landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
+=======
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "noop()"
+>>>>>>> master
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
