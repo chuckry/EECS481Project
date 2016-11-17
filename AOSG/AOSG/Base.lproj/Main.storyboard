@@ -342,9 +342,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Help" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwK-xi-O18">
                                                 <rect key="frame" x="8" y="34" width="91" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <gestureRecognizers/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="PgG-iw-Thx" appends="YES" id="09Y-W2-ja1"/>
+                                                </connections>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lists avaiable commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOn-6m-2eW">
                                                 <rect key="frame" x="8" y="63" width="192" height="21"/>
@@ -355,6 +359,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="PgG-iw-Thx" appends="YES" id="Pqg-CJ-JiO"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7SI-FL-sAU" userLabel="Help Border2">
                                         <rect key="frame" x="0.0" y="120" width="375" height="1"/>
@@ -505,6 +513,13 @@
                             <outletCollection property="gestureRecognizers" destination="niZ-Ul-7CX" appends="YES" id="kFp-RC-VUr"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="cancelBar" destination="vT1-ap-WwI" id="WSc-QN-Cwd"/>
+                        <outlet property="helpBar" destination="SIp-y8-gZx" id="Uvy-NV-rIT"/>
+                        <outlet property="howFarBar" destination="A6Z-ln-4fm" id="b0a-gI-Wbr"/>
+                        <outlet property="repeatBar" destination="d6H-Cf-xlk" id="959-mP-JG2"/>
+                        <outlet property="whereAmIBar" destination="kvj-in-1dc" id="aGn-OF-lHG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8i-80-RK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="PB3-5D-lND">
@@ -517,6 +532,7 @@
                         <action selector="swipeDetected:" destination="HNj-od-XMt" id="dbN-tW-2rN"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="PgG-iw-Thx"/>
             </objects>
             <point key="canvasLocation" x="701.60000000000002" y="1569.265367316342"/>
         </scene>

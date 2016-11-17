@@ -59,6 +59,15 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         synthesizer.speak(utterance)
     }
+	
+	func immediatelySayEvenIfVoiceIsOff(utterance text: String) {
+		let utterance = AVSpeechUtterance(string: text)
+		utterance.rate = speechRate
+		utterance.volume = volume
+		utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+		synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+		synthesizer.speak(utterance)
+	}
 
 	func waitToFinishSpeaking(callback: @escaping () -> Void){
 		notifyDoneSpeaking = callback
@@ -106,9 +115,9 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
 				player?.play()
 				notifyDoneSpeakingB(self.notifyDoneBeeping)
 			}
-
 		}
 	}
+	
 	func initBeep(){
 		//play beep
 		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
