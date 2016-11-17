@@ -514,26 +514,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-<<<<<<< HEAD
             timestampString = "500695363.939973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
             endingLineNumber = "75"
             landmarkName = "viewDidDisappear(_:)"
-=======
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "viewDidAppear(_:)"
-=======
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "viewDidLoad()"
->>>>>>> master
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -544,30 +530,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "speechFinished()"
-=======
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "runSpeech()"
->>>>>>> master
->>>>>>> favorites
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AOSG/PromptViewController.swift"
-<<<<<<< HEAD
             timestampString = "500695363.939973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -575,21 +537,6 @@
             endingLineNumber = "160"
             landmarkName = "PromptViewController"
             landmarkType = "3">
-=======
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
-=======
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "noop()"
->>>>>>> master
-            landmarkType = "7">
->>>>>>> favorites
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -599,21 +546,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-<<<<<<< HEAD
             timestampString = "500695363.939973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
             landmarkName = "runSpeech()"
-=======
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "speechFinished()"
->>>>>>> favorites
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -734,7 +672,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-<<<<<<< HEAD
             filePath = "AOSG/RouteManager.swift"
             timestampString = "500498870.67329"
             startingColumnNumber = "9223372036854775807"
@@ -742,15 +679,6 @@
             startingLineNumber = "78"
             endingLineNumber = "78"
             landmarkName = "getSnapPoints()"
-=======
-            filePath = "AOSG/PromptViewController.swift"
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
->>>>>>> favorites
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -760,7 +688,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-<<<<<<< HEAD
             filePath = "AOSG/RouteManager.swift"
             timestampString = "500499117.241032"
             startingColumnNumber = "9223372036854775807"
@@ -768,15 +695,6 @@
             startingLineNumber = "161"
             endingLineNumber = "161"
             landmarkName = "getNearestIntersection(loc:)"
-=======
-            filePath = "AOSG/PromptViewController.swift"
-            timestampString = "500598353.591316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
->>>>>>> favorites
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -806,15 +724,9 @@
             timestampString = "500594531.049696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
             startingLineNumber = "129"
             endingLineNumber = "129"
             landmarkName = "listen()"
-=======
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "getNearestIntersection(loc:)"
->>>>>>> favorites
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -840,7 +752,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-<<<<<<< HEAD
             filePath = "AOSG/PromptViewController.swift"
             timestampString = "500695363.939973"
             startingColumnNumber = "9223372036854775807"
@@ -865,14 +776,6 @@
             endingLineNumber = "39"
             landmarkName = "PromptViewController"
             landmarkType = "3">
-=======
-            filePath = "AOSG/SettingsViewController.swift"
-            timestampString = "500594531.049696"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129">
->>>>>>> favorites
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

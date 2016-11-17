@@ -14,13 +14,16 @@ class FavoritesViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var favorites: UITableView!
     @IBOutlet weak var tableEditButton: UIBarButtonItem!
-    @IBOutlet weak var tableAddButton: UIBarButtonItem!
     @IBAction func unwindToFavoritesList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? NewFavoriteViewController {
+            let newIndexPath = IndexPath(row: favs.count, section: 0)
             guard let f = sourceViewController.favorite else {
                 return
             }
-            addFavoriteToView(f: f)
+            favs.append(f)
+            favorites.insertRows(at: [newIndexPath], with: .bottom)
+            
+            saveFavorites()
         }
     }
     @IBAction func editOptionPressed(_ sender: UIBarButtonItem) {
@@ -34,35 +37,25 @@ class FavoritesViewController: UIViewController {
             }
         }
     }
-    @IBAction func screenWasTapped(_ sender: UITapGestureRecognizer) {
-        print("screen tapped!")
-        favoritesVoiceController.tapRegistered()
-    }
-
-
-	
+    
     var favs = [Favorite]()
-    var horizontalPageVC: HorizontalPageViewController!
-    var favoritesVoiceController: FavoritesVoiceController!
-    
-    //let isVoiceOn: Bool = true
-    
-    // MARK: View Controller Methods
+    public var horizontalPageVC: HorizontalPageViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         // populate favs here from persistent storage
+        //favs.append(Favorite(withName:"College Apartment", withAddress: "1320 South University Ave, Ann Arbor MI 48104"))
         favorites.dataSource = self
         favorites.delegate = self
         if let savedFavorites = loadFavorites() {
             favs += savedFavorites
         }
-		favoritesVoiceController = FavoritesVoiceController(withFavorites: favs)
-        favoritesVoiceController.delegate = self
-
+        
+        
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,16 +69,22 @@ class FavoritesViewController: UIViewController {
         } else {
             enableUIElements()
         }
-
     }
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-        favoritesVoiceController.stopUsingVoiceControlMenu()
-
 	}
     
-    // MARK: Favorites Methods
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
     
     func saveFavorites() {
         let isSucessfulSave = NSKeyedArchiver.archiveRootObject(favs, toFile: Favorite.archiveURL.path)
@@ -93,35 +92,10 @@ class FavoritesViewController: UIViewController {
             print("Error Saving!!")
         }
     }
+    
     func loadFavorites() -> [Favorite]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Favorite.archiveURL.path) as? [Favorite]
     }
-    
-    func addFavoriteToView(f: Favorite) {
-        let newIndexPath = IndexPath(row: favs.count, section: 0)
-        favs.append(f)
-        favorites.insertRows(at: [newIndexPath], with: .bottom)
-        saveFavorites()
-    }
-    
-    func deleteFavoriteFromView(indexPath: IndexPath) {
-        favs.remove(at: indexPath.row)
-        favorites.deleteRows(at: [indexPath], with: .fade)
-        saveFavorites()
-    }
-    
-    func disableUIElements() {
-        favorites.isUserInteractionEnabled = false
-        tableEditButton.isEnabled = false
-        tableAddButton.isEnabled = false
-    }
-    
-    func enableUIElements() {
-        favorites.isUserInteractionEnabled = true
-        tableEditButton.isEnabled = true
-        tableAddButton.isEnabled = true
-    }
-
 }
 
 extension FavoritesViewController: UITableViewDataSource {
@@ -149,7 +123,9 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             print("Deleting")
-            deleteFavoriteFromView(indexPath: indexPath)
+            favs.remove(at: indexPath.row)
+            favorites.deleteRows(at: [indexPath], with: .fade)
+            saveFavorites()
         }
     }
 }
@@ -166,28 +142,3 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-extension FavoritesViewController: FavoritesVoiceControllerDelegate {
-    func favoritesVoiceController(addNewFavorite: Favorite) {
-        addFavoriteToView(f: addNewFavorite)
-    }
-    func favoritesVoiceController(deleteFavorite: Favorite) {
-        for section in 0..<favorites.numberOfSections {
-            for row in 0..<favorites.numberOfRows(inSection: section) {
-                let indexPath = IndexPath(row: row, section: section)
-                let cell =  favorites.cellForRow(at: indexPath) as! FavoriteLocationTableViewCell
-                if cell.nameLabel!.text != nil && cell.nameLabel!.text! == deleteFavorite.name {
-                    self.deleteFavoriteFromView(indexPath: indexPath)
-                }
-            }
-        }
-    }
-    func favoritesVoiceController(selectFavorite: Favorite) {
-        Stuff.things.favoriteSelected = true
-        Stuff.things.favoriteAddress = selectFavorite.address
-        
-        horizontalPageVC.returnToMainScreen()
-    }
-}
-
-

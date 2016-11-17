@@ -199,7 +199,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 				sound.pan = balance
 				sound.volume = volume
 				sound.numberOfLoops = numLoops
-				sound.play()
+                if (Stuff.things.beepOn) { sound.play() }
 				print("playing sound")
 			}
 		}

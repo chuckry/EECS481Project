@@ -1,0 +1,565 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Speech"
+provides-nominal:
+- "C4AOSG6Speech"
+provides-member:
+- ["C4AOSG6Speech", ""]
+provides-dynamic-lookup:
+- "volume"
+- "say"
+- "speechRate"
+- "shared"
+- "immediatelySay"
+- "notifyDoneSpeaking"
+- "waitingForDoneSpeaking"
+- "speechSynthesizer"
+- "waitToFinishSpeaking"
+- "voiceOn"
+- "synthesizer"
+depends-top-level:
+- "Bool"
+- "AssignmentPrecedence"
+- !private "=="
+- !private "print"
+- "String"
+- "NSObject"
+- "Speech"
+- "AVSpeechSynthesizerDelegate"
+- !private "AVSpeechBoundary"
+- !private "!"
+- "AVSpeechUtterance"
+- !private "StringLiteralType"
+- "Void"
+- "AVSpeechSynthesizer"
+- "BooleanLiteralType"
+- "Float"
+- !private "AVSpeechSynthesisVoice"
+depends-member:
+- ["OSC16AVSpeechBoundary", "deinit"]
+- !private ["OSC16AVSpeechBoundary", "immediate"]
+- !private ["CSo22AVSpeechSynthesisVoice", "init"]
+- ["CSo19AVSpeechSynthesizer", "deinit"]
+- !private ["CSo19AVSpeechSynthesizer", "delegate"]
+- ["CSo19AVSpeechSynthesizer", "init"]
+- !private ["CSo19AVSpeechSynthesizer", "speak"]
+- !private ["CSo19AVSpeechSynthesizer", "stopSpeaking"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "AVSpeechBoundary"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "AVSpeechSynthesisVoice"]
+- ["PSo27AVSpeechSynthesizerDelegate", "AVSpeechSynthesizer"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "AVSpeechUtterance"]
+- ["PSo27AVSpeechSynthesizerDelegate", "Speech"]
+- ["PSo27AVSpeechSynthesizerDelegate", "init"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "notifyDoneSpeaking"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "print"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "shared"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "speechRate"]
+- ["PSo27AVSpeechSynthesizerDelegate", "speechSynthesizer"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "synthesizer"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "voiceOn"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "volume"]
+- !private ["PSo27AVSpeechSynthesizerDelegate", "waitingForDoneSpeaking"]
+- ["PSo27AVSpeechSynthesizerDelegate", ""]
+- ["CSo17AVSpeechUtterance", "deinit"]
+- !private ["CSo17AVSpeechUtterance", "init"]
+- !private ["CSo17AVSpeechUtterance", "rate"]
+- !private ["CSo17AVSpeechUtterance", "voice"]
+- !private ["CSo17AVSpeechUtterance", "volume"]
+- !private ["Ps9AnyObject", "AVSpeechBoundary"]
+- !private ["Ps9AnyObject", "AVSpeechSynthesisVoice"]
+- ["Ps9AnyObject", "AVSpeechSynthesizer"]
+- !private ["Ps9AnyObject", "AVSpeechUtterance"]
+- ["Ps9AnyObject", "Speech"]
+- !private ["Ps9AnyObject", "delegate"]
+- ["Ps9AnyObject", "immediatelySay"]
+- ["Ps9AnyObject", "init"]
+- ["Ps9AnyObject", "isListening"]
+- ["Ps9AnyObject", "isSpeaking"]
+- ["Ps9AnyObject", "notifyDoneSpeaking"]
+- ["Ps9AnyObject", "notifyDoneSpeaking.storage"]
+- !private ["Ps9AnyObject", "print"]
+- !private ["Ps9AnyObject", "rate"]
+- ["Ps9AnyObject", "say"]
+- ["Ps9AnyObject", "shared"]
+- !private ["Ps9AnyObject", "speak"]
+- ["Ps9AnyObject", "speechRate"]
+- ["Ps9AnyObject", "speechSynthesizer"]
+- !private ["Ps9AnyObject", "stopSpeaking"]
+- ["Ps9AnyObject", "synthesizer"]
+- !private ["Ps9AnyObject", "voice"]
+- ["Ps9AnyObject", "voiceOn"]
+- ["Ps9AnyObject", "volume"]
+- ["Ps9AnyObject", "waitToFinishSpeaking"]
+- ["Ps9AnyObject", "waitingForDoneSpeaking"]
+- ["Ps9AnyObject", ""]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- ["Sb", "deinit"]
+- !private ["Ps7CVarArg", "AVSpeechBoundary"]
+- !private ["Ps7CVarArg", "AVSpeechSynthesisVoice"]
+- ["Ps7CVarArg", "AVSpeechSynthesizer"]
+- !private ["Ps7CVarArg", "AVSpeechUtterance"]
+- ["Ps7CVarArg", "Speech"]
+- !private ["Ps7CVarArg", "delegate"]
+- ["Ps7CVarArg", "immediatelySay"]
+- ["Ps7CVarArg", "init"]
+- ["Ps7CVarArg", "isListening"]
+- ["Ps7CVarArg", "isSpeaking"]
+- ["Ps7CVarArg", "notifyDoneSpeaking"]
+- ["Ps7CVarArg", "notifyDoneSpeaking.storage"]
+- !private ["Ps7CVarArg", "print"]
+- !private ["Ps7CVarArg", "rate"]
+- ["Ps7CVarArg", "say"]
+- ["Ps7CVarArg", "shared"]
+- !private ["Ps7CVarArg", "speak"]
+- ["Ps7CVarArg", "speechRate"]
+- ["Ps7CVarArg", "speechSynthesizer"]
+- !private ["Ps7CVarArg", "stopSpeaking"]
+- ["Ps7CVarArg", "synthesizer"]
+- !private ["Ps7CVarArg", "voice"]
+- ["Ps7CVarArg", "voiceOn"]
+- ["Ps7CVarArg", "volume"]
+- ["Ps7CVarArg", "waitToFinishSpeaking"]
+- ["Ps7CVarArg", "waitingForDoneSpeaking"]
+- ["Ps7CVarArg", ""]
+- !private ["Ps10Comparable", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "AVSpeechBoundary"]
+- !private ["Ps28CustomDebugStringConvertible", "AVSpeechSynthesisVoice"]
+- ["Ps28CustomDebugStringConvertible", "AVSpeechSynthesizer"]
+- !private ["Ps28CustomDebugStringConvertible", "AVSpeechUtterance"]
+- ["Ps28CustomDebugStringConvertible", "Speech"]
+- !private ["Ps28CustomDebugStringConvertible", "delegate"]
+- ["Ps28CustomDebugStringConvertible", "immediatelySay"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- ["Ps28CustomDebugStringConvertible", "isListening"]
+- ["Ps28CustomDebugStringConvertible", "isSpeaking"]
+- ["Ps28CustomDebugStringConvertible", "notifyDoneSpeaking"]
+- ["Ps28CustomDebugStringConvertible", "notifyDoneSpeaking.storage"]
+- !private ["Ps28CustomDebugStringConvertible", "print"]
+- !private ["Ps28CustomDebugStringConvertible", "rate"]
+- ["Ps28CustomDebugStringConvertible", "say"]
+- ["Ps28CustomDebugStringConvertible", "shared"]
+- !private ["Ps28CustomDebugStringConvertible", "speak"]
+- ["Ps28CustomDebugStringConvertible", "speechRate"]
+- ["Ps28CustomDebugStringConvertible", "speechSynthesizer"]
+- !private ["Ps28CustomDebugStringConvertible", "stopSpeaking"]
+- ["Ps28CustomDebugStringConvertible", "synthesizer"]
+- !private ["Ps28CustomDebugStringConvertible", "voice"]
+- ["Ps28CustomDebugStringConvertible", "voiceOn"]
+- ["Ps28CustomDebugStringConvertible", "volume"]
+- ["Ps28CustomDebugStringConvertible", "waitToFinishSpeaking"]
+- ["Ps28CustomDebugStringConvertible", "waitingForDoneSpeaking"]
+- ["Ps28CustomDebugStringConvertible", ""]
+- !private ["Ps29CustomPlaygroundQuickLookable", "_getBuiltinLogicValue"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "init"]
+- !private ["Ps17CustomReflectable", "_getBuiltinLogicValue"]
+- !private ["Ps17CustomReflectable", "init"]
+- !private ["Ps23CustomStringConvertible", "AVSpeechBoundary"]
+- !private ["Ps23CustomStringConvertible", "AVSpeechSynthesisVoice"]
+- ["Ps23CustomStringConvertible", "AVSpeechSynthesizer"]
+- !private ["Ps23CustomStringConvertible", "AVSpeechUtterance"]
+- ["Ps23CustomStringConvertible", "Speech"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "delegate"]
+- ["Ps23CustomStringConvertible", "immediatelySay"]
+- ["Ps23CustomStringConvertible", "init"]
+- ["Ps23CustomStringConvertible", "isListening"]
+- ["Ps23CustomStringConvertible", "isSpeaking"]
+- ["Ps23CustomStringConvertible", "notifyDoneSpeaking"]
+- ["Ps23CustomStringConvertible", "notifyDoneSpeaking.storage"]
+- !private ["Ps23CustomStringConvertible", "print"]
+- !private ["Ps23CustomStringConvertible", "rate"]
+- ["Ps23CustomStringConvertible", "say"]
+- ["Ps23CustomStringConvertible", "shared"]
+- !private ["Ps23CustomStringConvertible", "speak"]
+- ["Ps23CustomStringConvertible", "speechRate"]
+- ["Ps23CustomStringConvertible", "speechSynthesizer"]
+- !private ["Ps23CustomStringConvertible", "stopSpeaking"]
+- ["Ps23CustomStringConvertible", "synthesizer"]
+- !private ["Ps23CustomStringConvertible", "voice"]
+- ["Ps23CustomStringConvertible", "voiceOn"]
+- ["Ps23CustomStringConvertible", "volume"]
+- ["Ps23CustomStringConvertible", "waitToFinishSpeaking"]
+- ["Ps23CustomStringConvertible", "waitingForDoneSpeaking"]
+- ["Ps23CustomStringConvertible", ""]
+- !private ["Ps9Equatable", "AVSpeechBoundary"]
+- !private ["Ps9Equatable", "AVSpeechSynthesisVoice"]
+- ["Ps9Equatable", "AVSpeechSynthesizer"]
+- !private ["Ps9Equatable", "AVSpeechUtterance"]
+- ["Ps9Equatable", "Speech"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "delegate"]
+- !private ["Ps9Equatable", "immediate"]
+- ["Ps9Equatable", "immediatelySay"]
+- ["Ps9Equatable", "init"]
+- ["Ps9Equatable", "isListening"]
+- ["Ps9Equatable", "isSpeaking"]
+- ["Ps9Equatable", "notifyDoneSpeaking"]
+- ["Ps9Equatable", "notifyDoneSpeaking.storage"]
+- !private ["Ps9Equatable", "print"]
+- !private ["Ps9Equatable", "rate"]
+- ["Ps9Equatable", "say"]
+- ["Ps9Equatable", "shared"]
+- !private ["Ps9Equatable", "speak"]
+- ["Ps9Equatable", "speechRate"]
+- ["Ps9Equatable", "speechSynthesizer"]
+- !private ["Ps9Equatable", "stopSpeaking"]
+- ["Ps9Equatable", "synthesizer"]
+- !private ["Ps9Equatable", "voice"]
+- ["Ps9Equatable", "voiceOn"]
+- ["Ps9Equatable", "volume"]
+- ["Ps9Equatable", "waitToFinishSpeaking"]
+- ["Ps9Equatable", "waitingForDoneSpeaking"]
+- ["Ps9Equatable", ""]
+- !private ["Ps27ExpressibleByBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps32ExpressibleByStringInterpolation", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "init"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- ["Sf", "deinit"]
+- !private ["Ps8Hashable", "AVSpeechBoundary"]
+- !private ["Ps8Hashable", "AVSpeechSynthesisVoice"]
+- ["Ps8Hashable", "AVSpeechSynthesizer"]
+- !private ["Ps8Hashable", "AVSpeechUtterance"]
+- ["Ps8Hashable", "Speech"]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "delegate"]
+- !private ["Ps8Hashable", "immediate"]
+- ["Ps8Hashable", "immediatelySay"]
+- ["Ps8Hashable", "init"]
+- ["Ps8Hashable", "isListening"]
+- ["Ps8Hashable", "isSpeaking"]
+- ["Ps8Hashable", "notifyDoneSpeaking"]
+- ["Ps8Hashable", "notifyDoneSpeaking.storage"]
+- !private ["Ps8Hashable", "print"]
+- !private ["Ps8Hashable", "rate"]
+- ["Ps8Hashable", "say"]
+- ["Ps8Hashable", "shared"]
+- !private ["Ps8Hashable", "speak"]
+- ["Ps8Hashable", "speechRate"]
+- ["Ps8Hashable", "speechSynthesizer"]
+- !private ["Ps8Hashable", "stopSpeaking"]
+- ["Ps8Hashable", "synthesizer"]
+- !private ["Ps8Hashable", "voice"]
+- ["Ps8Hashable", "voiceOn"]
+- ["Ps8Hashable", "volume"]
+- ["Ps8Hashable", "waitToFinishSpeaking"]
+- ["Ps8Hashable", "waitingForDoneSpeaking"]
+- ["Ps8Hashable", ""]
+- !private ["P4AOSG17JSONSubscriptType", "init"]
+- !private ["Ps25LosslessStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps25LosslessStringConvertible", "init"]
+- !private ["Ps10MirrorPath", "init"]
+- !private ["PSo8NSCoding", "init"]
+- !private ["PSo8NSCoding", "rate"]
+- !private ["PSo8NSCoding", "voice"]
+- !private ["PSo8NSCoding", "volume"]
+- !private ["PSo9NSCopying", "init"]
+- !private ["PSo9NSCopying", "rate"]
+- !private ["PSo9NSCopying", "voice"]
+- !private ["PSo9NSCopying", "volume"]
+- !private ["PSo16NSMutableCopying", "init"]
+- !private ["CSo8NSObject", "AVSpeechBoundary"]
+- !private ["CSo8NSObject", "AVSpeechSynthesisVoice"]
+- ["CSo8NSObject", "AVSpeechSynthesizer"]
+- ["CSo8NSObject", "AVSpeechUtterance"]
+- ["CSo8NSObject", "Bool"]
+- ["CSo8NSObject", "Float"]
+- ["CSo8NSObject", "Speech"]
+- ["CSo8NSObject", "String"]
+- ["CSo8NSObject", "Void"]
+- ["CSo8NSObject", "deinit"]
+- !private ["CSo8NSObject", "delegate"]
+- ["CSo8NSObject", "immediatelySay"]
+- ["CSo8NSObject", "init"]
+- ["CSo8NSObject", "isListening"]
+- ["CSo8NSObject", "isSpeaking"]
+- ["CSo8NSObject", "notifyDoneSpeaking"]
+- ["CSo8NSObject", "notifyDoneSpeaking.storage"]
+- !private ["CSo8NSObject", "print"]
+- !private ["CSo8NSObject", "rate"]
+- ["CSo8NSObject", "say"]
+- ["CSo8NSObject", "shared"]
+- !private ["CSo8NSObject", "speak"]
+- ["CSo8NSObject", "speechRate"]
+- ["CSo8NSObject", "speechSynthesizer"]
+- !private ["CSo8NSObject", "stopSpeaking"]
+- ["CSo8NSObject", "synthesizer"]
+- !private ["CSo8NSObject", "voice"]
+- ["CSo8NSObject", "voiceOn"]
+- ["CSo8NSObject", "volume"]
+- ["CSo8NSObject", "waitToFinishSpeaking"]
+- ["CSo8NSObject", "waitingForDoneSpeaking"]
+- ["CSo8NSObject", ""]
+- !private ["PSo16NSObjectProtocol", "AVSpeechBoundary"]
+- !private ["PSo16NSObjectProtocol", "AVSpeechSynthesisVoice"]
+- ["PSo16NSObjectProtocol", "AVSpeechSynthesizer"]
+- !private ["PSo16NSObjectProtocol", "AVSpeechUtterance"]
+- ["PSo16NSObjectProtocol", "Speech"]
+- !private ["PSo16NSObjectProtocol", "delegate"]
+- ["PSo16NSObjectProtocol", "immediatelySay"]
+- ["PSo16NSObjectProtocol", "init"]
+- ["PSo16NSObjectProtocol", "isListening"]
+- ["PSo16NSObjectProtocol", "isSpeaking"]
+- ["PSo16NSObjectProtocol", "notifyDoneSpeaking"]
+- ["PSo16NSObjectProtocol", "notifyDoneSpeaking.storage"]
+- !private ["PSo16NSObjectProtocol", "print"]
+- !private ["PSo16NSObjectProtocol", "rate"]
+- ["PSo16NSObjectProtocol", "say"]
+- ["PSo16NSObjectProtocol", "shared"]
+- !private ["PSo16NSObjectProtocol", "speak"]
+- ["PSo16NSObjectProtocol", "speechRate"]
+- ["PSo16NSObjectProtocol", "speechSynthesizer"]
+- !private ["PSo16NSObjectProtocol", "stopSpeaking"]
+- ["PSo16NSObjectProtocol", "synthesizer"]
+- !private ["PSo16NSObjectProtocol", "voice"]
+- ["PSo16NSObjectProtocol", "voiceOn"]
+- ["PSo16NSObjectProtocol", "volume"]
+- ["PSo16NSObjectProtocol", "waitToFinishSpeaking"]
+- ["PSo16NSObjectProtocol", "waitingForDoneSpeaking"]
+- ["PSo16NSObjectProtocol", ""]
+- !private ["PSo14NSSecureCoding", "init"]
+- !private ["PSo14NSSecureCoding", "rate"]
+- !private ["PSo14NSSecureCoding", "voice"]
+- !private ["PSo14NSSecureCoding", "volume"]
+- !private ["CSo8NSString", "init"]
+- ["Sq", "deinit"]
+- !private ["Ps16RawRepresentable", "immediate"]
+- !private ["C4AOSG6Speech", "AVSpeechBoundary"]
+- !private ["C4AOSG6Speech", "AVSpeechSynthesisVoice"]
+- ["C4AOSG6Speech", "AVSpeechSynthesizer"]
+- ["C4AOSG6Speech", "AVSpeechUtterance"]
+- ["C4AOSG6Speech", "Bool"]
+- ["C4AOSG6Speech", "Float"]
+- ["C4AOSG6Speech", "Speech"]
+- ["C4AOSG6Speech", "String"]
+- ["C4AOSG6Speech", "Void"]
+- ["C4AOSG6Speech", "deinit"]
+- ["C4AOSG6Speech", "immediatelySay"]
+- ["C4AOSG6Speech", "init"]
+- !private ["C4AOSG6Speech", "isListening"]
+- !private ["C4AOSG6Speech", "isSpeaking"]
+- ["C4AOSG6Speech", "notifyDoneSpeaking"]
+- !private ["C4AOSG6Speech", "notifyDoneSpeaking.storage"]
+- !private ["C4AOSG6Speech", "print"]
+- ["C4AOSG6Speech", "say"]
+- ["C4AOSG6Speech", "shared"]
+- ["C4AOSG6Speech", "speechRate"]
+- ["C4AOSG6Speech", "speechSynthesizer"]
+- ["C4AOSG6Speech", "synthesizer"]
+- ["C4AOSG6Speech", "voiceOn"]
+- ["C4AOSG6Speech", "volume"]
+- ["C4AOSG6Speech", "waitToFinishSpeaking"]
+- ["C4AOSG6Speech", "waitingForDoneSpeaking"]
+- ["SS", "deinit"]
+- !private ["SS", "init"]
+- !private ["Ps16TextOutputStream", "init"]
+- !private ["Ps20TextOutputStreamable", "init"]
+- !private ["Ps35_ExpressibleByBuiltinBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "init"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "init"]
+- !private ["Ps9_Hashable", "AVSpeechBoundary"]
+- !private ["Ps9_Hashable", "AVSpeechSynthesisVoice"]
+- ["Ps9_Hashable", "AVSpeechSynthesizer"]
+- !private ["Ps9_Hashable", "AVSpeechUtterance"]
+- ["Ps9_Hashable", "Speech"]
+- !private ["Ps9_Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps9_Hashable", "delegate"]
+- !private ["Ps9_Hashable", "immediate"]
+- ["Ps9_Hashable", "immediatelySay"]
+- ["Ps9_Hashable", "init"]
+- ["Ps9_Hashable", "isListening"]
+- ["Ps9_Hashable", "isSpeaking"]
+- ["Ps9_Hashable", "notifyDoneSpeaking"]
+- ["Ps9_Hashable", "notifyDoneSpeaking.storage"]
+- !private ["Ps9_Hashable", "print"]
+- !private ["Ps9_Hashable", "rate"]
+- ["Ps9_Hashable", "say"]
+- ["Ps9_Hashable", "shared"]
+- !private ["Ps9_Hashable", "speak"]
+- ["Ps9_Hashable", "speechRate"]
+- ["Ps9_Hashable", "speechSynthesizer"]
+- !private ["Ps9_Hashable", "stopSpeaking"]
+- ["Ps9_Hashable", "synthesizer"]
+- !private ["Ps9_Hashable", "voice"]
+- ["Ps9_Hashable", "voiceOn"]
+- ["Ps9_Hashable", "volume"]
+- ["Ps9_Hashable", "waitToFinishSpeaking"]
+- ["Ps9_Hashable", "waitingForDoneSpeaking"]
+- ["Ps9_Hashable", ""]
+- !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "init"]
+depends-nominal:
+- "OSC16AVSpeechBoundary"
+- !private "CSo22AVSpeechSynthesisVoice"
+- "CSo19AVSpeechSynthesizer"
+- "PSo27AVSpeechSynthesizerDelegate"
+- "CSo17AVSpeechUtterance"
+- "Ps9AnyObject"
+- "Sb"
+- "Ps7CVarArg"
+- !private "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- !private "Ps29CustomPlaygroundQuickLookable"
+- !private "Ps17CustomReflectable"
+- "Ps23CustomStringConvertible"
+- "Ps9Equatable"
+- !private "Ps27ExpressibleByBooleanLiteral"
+- !private "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- !private "Ps32ExpressibleByStringInterpolation"
+- !private "Ps26ExpressibleByStringLiteral"
+- !private "Ps33ExpressibleByUnicodeScalarLiteral"
+- "Sf"
+- "Ps8Hashable"
+- !private "P4AOSG17JSONSubscriptType"
+- !private "Ps25LosslessStringConvertible"
+- !private "Ps10MirrorPath"
+- !private "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- !private "PSo16NSMutableCopying"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "CSo8NSString"
+- "Sq"
+- !private "Ps16RawRepresentable"
+- "C4AOSG6Speech"
+- "SS"
+- !private "Ps16TextOutputStream"
+- !private "Ps20TextOutputStreamable"
+- !private "Ps35_ExpressibleByBuiltinBooleanLiteral"
+- !private "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- !private "Ps34_ExpressibleByBuiltinStringLiteral"
+- !private "Ps39_ExpressibleByBuiltinUTF16StringLiteral"
+- !private "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- !private "Ps35_HasCustomAnyHashableRepresentation"
+- "Ps9_Hashable"
+- !private "Ps21_ObjectiveCBridgeable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/OpenEarsHeader.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEPocketsphinxController.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEEventsObserver.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEContinuousModel.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEContinuousAudioUnit.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreMedia.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OESmartCMN.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/prim_type.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/sphinx_config.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OENotification.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OELanguageModelGenerator.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEGrammarDefinitions.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEGrammarGenerator.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEFliteController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/flite.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_string.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_regex.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_file.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_error.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_alloc.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val_defs.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_val_const.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_features.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_item.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_relation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_utterance.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_wave.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_endian.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_track.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_cart.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_phoneset.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_voice.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_audio.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_hrg.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_utt_utils.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_lexicon.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_lts.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_synth.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_tokenstream.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_units.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/cst_sts.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEFliteVoice.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/Slt.framework/Headers/Slt.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OELogging.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Framework/OpenEars.framework/Headers/OEAcousticModel.h"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreLocation.swiftmodule"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMapsBase/GMSCoordinateBounds.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMapsBase/GMSCompatabilityMacros.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Base/Frameworks/GoogleMapsBase.framework/Headers/GoogleMapsBase.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Base/Frameworks/GoogleMapsBase.framework/Modules/module.modulemap"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSURLTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSSyncTileLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSServices.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPolyline.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPolygon.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaView.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaService.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaLink.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaCameraUpdate.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanoramaCamera.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPanorama.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSOrientation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMutablePath.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMarkerLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMarker.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSUISettings.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapView.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapView+Animation.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapStyle.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSMapLayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorLevel.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorDisplay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSIndoorBuilding.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGroundOverlay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSPath.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGeometryUtils.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSGeocoder.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSProjection.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCoordinateBounds+GoogleMaps.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSOverlay.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCircle.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCameraUpdate.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCameraPosition.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSCALayer.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSDeprecationMacros.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GoogleMaps/GoogleMaps/GMSAddress.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Headers/GoogleMaps.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Modules/module.modulemap"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSUserAddedPlace.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacesErrors.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacesClient.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceTypes.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacePhotoMetadataList.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlacePhotoMetadata.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceLikelihoodList.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlaceLikelihood.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteViewController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteTableDataSource.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSPlace.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteResultsViewController.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompletePrediction.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteMatchFragment.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteFilter.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAutocompleteFetcher.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/Headers/Public/GooglePlaces/GooglePlaces/GMSAddressComponent.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GooglePlaces/Frameworks/GooglePlaces.framework/Headers/GooglePlaces.h"
+- "/Users/carolinegluck/EECS481Project/AOSG/Pods/GooglePlaces/Frameworks/GooglePlaces.framework/Modules/module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
+interface-hash: "2eeb066b61c5cec45defcd8627d5b261"
