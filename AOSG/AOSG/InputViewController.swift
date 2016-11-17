@@ -14,7 +14,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var inputDestinationTextField: UITextField!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    let mainViewController: MainViewController!
+   // let mainViewController: MainViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +52,10 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         inputDestinationTextField.isUserInteractionEnabled = false
         spinner.startAnimating()
-        LocationService.sharedInstance.waitForLocationToBeAvailable(callback: MainViewController.initialLocationKnown)
+       // LocationService.sharedInstance.waitForLocationToBeAvailable(callback: MainViewController.initialLocationKnown)
     }
     
-    func startNavigation
+    //func startNavigation
     
     func disableUIElements() {
         inputDestinationTextField.isUserInteractionEnabled = false

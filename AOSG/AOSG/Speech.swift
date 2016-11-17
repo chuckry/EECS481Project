@@ -9,6 +9,17 @@
 import Foundation
 import AVFoundation
 
+// Extension makes strings sayable using speech class
+extension String {
+    func say() {
+        Speech.shared.immediatelySay(utterance: self)
+    }
+    func say(andThen callback: @escaping ()->Void) {
+        Speech.shared.waitToFinishSpeaking(callback: callback)
+        Speech.shared.immediatelySay(utterance: self)
+    }
+}
+
 class Speech: NSObject, AVSpeechSynthesizerDelegate {
     
     // singleton pattern
