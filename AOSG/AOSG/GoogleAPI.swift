@@ -9,6 +9,59 @@
 import Foundation
 import CoreLocation
 
+var abbreviationsToText: [String : String] = ["St" : "Street", "Ave": "Avenue", "Dr" : "Drive", "Blvd" : "Boulevard", "Rd" : "Road", "Ln" : "Lane", "Mt" : "Mount" , "N" : "North", "S" : "South", "E" : "East", "W" : "West", "Rte" : "Route", "Ct" : "Court"]
+var setOfAbbreviations = ["St", "Ave", "Dr", "Blvd", "Rd", "Ln", "Mt", "N", "S", "E", "W", "Rte", "Ct"]
+var statesDictionary: [String : String]
+    = ["AL":"Alabama",
+       "AK":"Alaska",
+       "AZ":"Arizona",
+       "AR":"Arkansas",
+       "CA":"California",
+       "CO":"Colorado",
+       "CT":"Connecticut",
+       "DE":"Delaware",
+       "FL":"Florida",
+       "GA":"Georgia",
+       "HI":"Hawaii",
+       "ID":"Idaho",
+       "IL":"Illinois",
+       "IN":"Indiana",
+       "IA":"Iowa",
+       "KS":"Kansas",
+       "KY":"Kentucky",
+       "LA":"Louisiana",
+       "ME":"Maine",
+       "MD":"Maryland",
+       "MA":"Massachusetts",
+       "MI":"Michigan",
+       "MN":"Minnesota",
+       "MS":"Mississippi",
+       "MO":"Missouri",
+       "MT":"Montana",
+       "NE":"Nebraska",
+       "NV":"Nevada",
+       "NH":"New Hampshire",
+       "NJ":"New Jersey",
+       "NM":"New Mexico",
+       "NY":"New York",
+       "NC":"North Carolina",
+       "ND":"North Dakota",
+       "OH":"Ohio",
+       "OK":"Oklahoma",
+       "OR":"Oregon",
+       "PA":"Pennsylvania",
+       "RI":"Rhode Island",
+       "SC":"South Carolina",
+       "SD":"South Dakota",
+       "TN":"Tennessee",
+       "TX":"Texas",
+       "UT":"Utah",
+       "VT":"Vermont",
+       "VA":"Virginia",
+       "WA":"Washington",
+       "WV":"West Virginia",
+       "WI":"Wisconsin",
+       "WY":"Wyoming"]
 
 /// Describes a Navigation path consisting Navigation Steps. Manages step completion
 class NavigationPath {
@@ -120,10 +173,7 @@ struct NavigationStep {
     // radius of "error" considered to be within the goal location
     static var GOAL_ACHIEVED_DISTANCE: Double = 10.0 // (in meters)
 	var currentFormattedDescription: String? //for current location label and read aloud
-    var abbreviationsToText: [String : String] = ["St" : "Street", "Ave": "Avenue", "Dr" : "Drive", "Blvd" : "Boulevard", "Rd" : "Road", "Ln" : "Lane", "Mt" : "Mount" , "N" : "North", "S" : "South", "E" : "East", "W" : "West", "Rte" : "Route"]
-    
-    var setOfAbbreviations = ["St", "Ave", "Dr", "Blvd", "Rd", "Ln", "Mt",
-                                     "N", "S", "E", "W", "Rte"]
+
     // initialize a Navigation Step
     init (goal_lat: CLLocationDegrees, goal_lng: CLLocationDegrees, dist: Double, dur: Double, desc: String) {
         goal = CLLocation(latitude: goal_lat, longitude: goal_lng)
@@ -233,6 +283,27 @@ struct GeocodingResponse {
     // Sends back a formatted String
     func formatForDisplay() -> String {
         return address
+    }
+    
+    func formatForReading() -> String {
+        var wholeAddress : [String] = address.components(separatedBy:", ")
+        var streetAddress : [String] = wholeAddress[0].components(separatedBy:" ")
+        
+        wholeAddress.remove(at: wholeAddress.count-1)
+        
+        
+        for (index, word) in streetAddress.enumerated() {
+            if setOfAbbreviations.contains(word) {
+                streetAddress[index] = abbreviationsToText[word]!
+            }
+        }
+        wholeAddress[0] = streetAddress.joined(separator: " ")
+        
+        var token : [String] = wholeAddress[2].components(separatedBy:" ")
+        wholeAddress[2] = token[0]
+        wholeAddress[2] = statesDictionary[wholeAddress[2]]!
+        
+        return wholeAddress.joined(separator: " ")
     }
 }
 
