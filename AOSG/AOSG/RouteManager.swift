@@ -25,12 +25,11 @@ class RouteManager {
         self.snappedPoints = []
         self.route = nil
     }
-    
-    init(currentLocation: CLLocation, path: NavigationPath) {
-        self.lastPoint = currentLocation
+
+    convenience init(path: NavigationPath) {
+        self.init()
+        self.lastPoint = locManager.lastLocation!
         self.route = path
-        self.route?.nextStep()
-        self.snappedPoints = []
         self.getSnapPoints()
     }
 
@@ -39,6 +38,7 @@ class RouteManager {
      *  complex geography.
      */
     func getSnapPoints() {
+        var isGettingSnapPoints = false
         let currLat = self.lastPoint.coordinate.latitude
         let currLong = self.lastPoint.coordinate.longitude
         
@@ -55,29 +55,32 @@ class RouteManager {
         request.httpMethod = "GET"
         
         DispatchQueue.main.async {
-            let task = URLSession.shared.dataTask(with: request) {
-                (data, response, error) -> Void in
-                if error != nil {
-                    print("ERROR: \(error)")
-                    return
+            while !isGettingSnapPoints {
+                isGettingSnapPoints = true
+                let task = URLSession.shared.dataTask(with: request) {
+                    (data, response, error) -> Void in
+                    if error != nil {
+                        print("ERROR: \(error)")
+                        return
+                    }
+                    
+                    let json = JSON(data: data!)
+                    guard let points = json["snappedPoints"].array else {
+                        print(response!)
+                        print("Could not get Snapped Points.")
+                        return
+                    }
+                    
+                    // Extract location data from snap point
+                    self.snappedPoints = []
+                    for point in points {
+                        let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
+                        self.snappedPoints.append(loc)
+                    }
+                    self.nextPoint = 0
                 }
-                
-                let json = JSON(data: data!)
-                guard let points = json["snappedPoints"].array else {
-                    print(response!)
-                    print("Could not get Snapped Points.")
-                    return
-                }
-                
-                // Extract location data from snap point
-                self.snappedPoints = []
-                for point in points {
-                    let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
-                    self.snappedPoints.append(loc)
-                }
-                self.nextPoint = 0
+                task.resume()
             }
-            task.resume()
         }
     }
     
@@ -88,8 +91,10 @@ class RouteManager {
         return self.nextPoint >= self.snappedPoints.count
     }
     
+    /*
+     *  Returns distance between current location and next snap point.
+     */
     func distanceFromSnapPoint(loc: CLLocation) -> Double {
-        
         return loc.distance(from: self.snappedPoints[self.nextPoint])
     }
     

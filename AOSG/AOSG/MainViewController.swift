@@ -145,7 +145,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.route = withPath!
-        Stuff.things.routeManager = RouteManager(currentLocation: self.locationService.lastLocation!, path: self.route)
+        Stuff.things.routeManager = RouteManager(path: self.route)
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
             // save the Navigation Path returned as an internal state
@@ -214,6 +214,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             }
 			
             let routeManager = Stuff.things.routeManager
+            
+            while routeManager.snappedPoints.isEmpty {}
             routeManager.printSnapPoints()
 
             // Pause significant location changes while we compute/send user output
@@ -221,7 +223,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Handle relation to next snap point
             routeManager.moveToNextSnapPointIfClose(loc: loc!)
-            print(routeManager.distanceFromSnapPoint(loc: loc!))
+            print("DISTANCE: \(routeManager.distanceFromSnapPoint(loc: loc!)) meters.")
 			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
 			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
 			
