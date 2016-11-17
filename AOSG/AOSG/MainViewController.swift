@@ -174,7 +174,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.locationService.distanceFilter = Stuff.things.getDistanceFilterValue()
             print ("new heading filter = ", self.locationService.headingFilter)
             
-            let start_text = "All set with direction to " + self.route.endLocation.formatForDisplay() + ". To begin,  " + self.route.currentStep().readingDescription
+            let start_text = "All set with direction to " + self.route.endLocation.formatForReading() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)
             
             
