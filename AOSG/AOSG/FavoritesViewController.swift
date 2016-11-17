@@ -45,7 +45,7 @@ class FavoritesViewController: UIViewController {
     var horizontalPageVC: HorizontalPageViewController!
     var favoritesVoiceController: FavoritesVoiceController!
     
-    let isVoiceOn: Bool = true
+    //let isVoiceOn: Bool = true
     
     // MARK: View Controller Methods
     
@@ -70,8 +70,7 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // TODO: change this to use Stuff.things.currentSettings.voiceOn later
-        if isVoiceOn {
+        if Speech.shared.voiceOn {
             disableUIElements()
            "Favorites".say(andThen: favoritesVoiceController.useVoiceControlMenu)
         } else {
