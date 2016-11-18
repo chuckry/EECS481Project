@@ -23,6 +23,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
+    
 	var sound: AVAudioPlayer!
     var settingsViewController : SettingsViewController!
     var loadedSettings = true
@@ -83,7 +84,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        Speech.shared.immediatelySay(utterance: "Navigation")
+        Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Navigation")
         
         if Stuff.things.favoriteSelected {
             Stuff.things.favoriteSelected = false
@@ -97,7 +98,26 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 	}
-	
+    
+    @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
+    @IBAction func toggleVoiceAction(_ sender: Any) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            print ("tap toggled voice on/off")
+            if Speech.shared.voiceOn {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+            else {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+        }
+    }
+    
+    
+    
     // MARK: UITextFieldDelegate Handlers
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -255,14 +275,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     // Reads direction and announcing upcoming direction
     func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
         DispatchQueue.main.async {
-			
+            
             if loc == nil || heading == nil {
                 return
             }
-			
-            let routeManager = Stuff.things.routeManager
             
-            while routeManager.snappedPoints.isEmpty {}
+            let routeManager = Stuff.things.routeManager
             routeManager.printSnapPoints()
 
             // Pause significant location changes while we compute/send user output
@@ -271,43 +289,35 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // Handle relation to next snap point
             routeManager.moveToNextSnapPointIfClose(loc: loc!)
             print("DISTANCE: \(routeManager.distanceFromSnapPoint(loc: loc!)) meters.")
-			Stuff.things.stepSizeEst = self.route.pedometer.stepSize
-			self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
-			
-			
-			Stuff.things.currentStepDescription = self.currentStepLabel.text!
-			Stuff.things.stepPace = self.route.pedometer.stepPaceEst
+            Stuff.things.stepSizeEst = self.route.pedometer.stepSize
+            self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
+            
+            
+            Stuff.things.currentStepDescription = self.currentStepLabel.text!
+            Stuff.things.stepPace = self.route.pedometer.stepPaceEst
             
             if (self.route.arrivedAtDestination()) {
                 Speech.shared.say(utterance: "You have arrived at destination")
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
-			if (self.route.cancelledNavigation()) {
-				Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
-				print ("You have cancelled navigation ")
-				self.currentStepLabel.text = ""
-				self.currentLocationLabel.text = ""
-				self.destinationLocationLabel.text = ""
-				self.directionList.text = ""
-				
-				return // Returning here permanently stops location change updates
-			}
-			
-            // TODO: Change so that routeManager owns the memory associated with the path
-            // right now, ViewController and RouteManager are both maintaining it.
-            // Could we just put the navigationDriver under the RouteManager?
-			
-            // TODO: Move navigationDriver to RouteManager
-			
-            // achievedGoal uses a heuristic in NavigationStep.GOAL_ACHIEVED_DISTANCE
-            // to actually determine a radius region around the goal coordinates
-            // If NavigationStep.GOAL_ACHIEVED_DISTANCE is set to 10.0, 
-            // achievedGoal() will return true when passed a location at most 10 meters
-            // from the goal location.
+
+            if (self.route.cancelledNavigation()) {
+                Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
+                print ("You have cancelled navigation ")
+                self.currentStepLabel.text = "--"
+               // self.destinationText.text = ""
+                self.currentLocationLabel.text = "--"
+                self.destinationLocationLabel.text = "--"
+                self.directionList.text = ""
+                
+                return // Returning here permanently stops location change updates
+            }
+            
+
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 routeManager.moveToNextStep(loc: loc!)
-				Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
+                Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
                 Speech.shared.say(utterance: self.route.currentStep().readingDescription)
                 print(self.route.currentStep().currentFormattedDescription!)
             } else {

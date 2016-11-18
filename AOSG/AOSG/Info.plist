@@ -77,7 +77,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>YES</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Need to know what you&apos;re trying to say</string>
+	<string>Need to know what you're trying to say</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

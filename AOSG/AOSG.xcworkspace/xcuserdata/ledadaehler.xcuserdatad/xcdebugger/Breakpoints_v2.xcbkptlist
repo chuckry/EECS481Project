@@ -487,8 +487,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
             endingLineNumber = "46"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            landmarkName = "MainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -583,7 +583,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
             endingLineNumber = "260"
-            landmarkName = "navigationDriver(loc:heading:)"
+            landmarkName = "playFeedback(balance:volume:numLoops:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -599,7 +599,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
             endingLineNumber = "261"
-            landmarkName = "navigationDriver(loc:heading:)"
+            landmarkName = "playFeedback(balance:volume:numLoops:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -710,7 +710,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "235"
             endingLineNumber = "235"
-            landmarkName = "playFeedback(balance:volume:numLoops:)"
+            landmarkName = "initializeRouteGuidance(withPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1056,7 +1056,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
             endingLineNumber = "234"
-            landmarkName = "playFeedback(balance:volume:numLoops:)"
+            landmarkName = "initializeRouteGuidance(withPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
