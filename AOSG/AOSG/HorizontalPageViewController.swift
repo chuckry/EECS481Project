@@ -23,6 +23,7 @@ class HorizontalPageViewController: UIPageViewController {
         favorites.horizontalPageVC = self
         let input = orderedViewControllers[0] as! InputViewController
         input.horizontalPageVC = self
+        input.mainViewController = vertical.orderedViewControllers[1] as! MainViewController
     }
 
     override func didReceiveMemoryWarning() {

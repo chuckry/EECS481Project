@@ -102,12 +102,15 @@ class FavoritesViewController: UIViewController {
         favs.append(f)
         favorites.insertRows(at: [newIndexPath], with: .bottom)
         saveFavorites()
+        favoritesVoiceController.addToDictionary(favorites: favs)
     }
     
     func deleteFavoriteFromView(indexPath: IndexPath) {
+        favoritesVoiceController.removeFromDictionary(favorite: favs[indexPath.row])
         favs.remove(at: indexPath.row)
         favorites.deleteRows(at: [indexPath], with: .fade)
         saveFavorites()
+        
     }
     
     func disableUIElements() {

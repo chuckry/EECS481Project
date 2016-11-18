@@ -23,7 +23,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
-    private var transcription: String?
+    private var recognitionAuthorized: Bool!
     
     private lazy var notifySpeechRecognitionResultAvailable: (String) -> Void = {arg in}
     private var waitingForSpeechRecognitionResultAvailable: Bool = false
@@ -32,6 +32,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        inputDestinationTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +43,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Speech.shared.voiceOn {
+            getSpeechRecognitionPermissions()
             disableUIElements()
             "New Destination".say(andThen: startVoiceInteraction)
         } else {
@@ -59,7 +61,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
-        if(waitingForSpeechRecognitionResultAvailable && transcription != nil) {
+        if(waitingForSpeechRecognitionResultAvailable && inputDestinationTextField?.text != nil) {
             stopRecording()
         }
     }
@@ -78,8 +80,15 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     func startNavigation(destination: String) {
         mainViewController.destinationText = destination
         inputDestinationTextField?.text = nil
-        horizontalPageVC.moveToMainScreen()
-        LocationService.sharedInstance.waitForLocationToBeAvailable(callback: mainViewController.initialLocationKnown)
+        if Speech.shared.voiceOn {
+            "Ok, please wait...".say {
+                self.horizontalPageVC.moveToMainScreen()
+                LocationService.sharedInstance.waitForLocationToBeAvailable(callback: self.mainViewController.initialLocationKnown)
+            }
+        } else {
+            self.horizontalPageVC.moveToMainScreen()
+            LocationService.sharedInstance.waitForLocationToBeAvailable(callback: self.mainViewController.initialLocationKnown)
+        }
     }
     
     func disableUIElements() {
@@ -98,7 +107,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     
     private func startRecording() {
         print("setup for startRecording()")
-        transcription = nil
+        inputDestinationTextField?.text = nil
         // cancel the last task if any
         if recognitionTask != nil {
             recognitionTask?.cancel()
@@ -136,8 +145,8 @@ class InputViewController: UIViewController, UITextFieldDelegate {
             
             if result != nil {
                 isFinal = (result?.isFinal)!
-                self.transcription = result!.bestTranscription.formattedString
-                print("set transcription to: \(self.transcription)")
+                self.inputDestinationTextField?.text = result!.bestTranscription.formattedString
+                print("set transcription to: \(self.inputDestinationTextField?.text)")
             }
             
             if error != nil || isFinal {
@@ -192,9 +201,22 @@ class InputViewController: UIViewController, UITextFieldDelegate {
                 print("failed to set audioSession properties")
             }
             recognitionTask = nil
-            if self.waitingForSpeechRecognitionResultAvailable && transcription != nil {
+            if self.waitingForSpeechRecognitionResultAvailable && self.inputDestinationTextField?.text != nil {
                 self.waitingForSpeechRecognitionResultAvailable = false
-                self.notifySpeechRecognitionResultAvailable(self.transcription!)
+                self.notifySpeechRecognitionResultAvailable((inputDestinationTextField?.text)!)
+            }
+        }
+    }
+    
+    private func getSpeechRecognitionPermissions() {
+        if SFSpeechRecognizer.authorizationStatus() != SFSpeechRecognizerAuthorizationStatus.authorized {
+            SFSpeechRecognizer.requestAuthorization { (SFSpeechRecognizerAuthorizationStatus) in
+                switch SFSpeechRecognizerAuthorizationStatus {
+                case .authorized:
+                    self.recognizitionAuthorized = true
+                case .denied, .notDetermined, .restricted:
+                    self.recognizitionAuthorized = false
+                }
             }
         }
     }

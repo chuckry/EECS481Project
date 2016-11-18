@@ -67,13 +67,6 @@
 			remoteGlobalIDString = 41952C371DA81D56001B237A;
 			remoteInfo = AOSG;
 		};
-		BAF73AA91DDB9530008C69A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 608CAEE8A239C1F31FE917F0CA39B7F8;
-			remoteInfo = "Pods-AOSG";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -122,7 +115,6 @@
 		BA7753F11DC783470051EE3B /* VerticalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalPageViewController.swift; sourceTree = "<group>"; };
 		BA90DC271DD78C8500AF8B2E /* FavoritesVoiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesVoiceController.swift; sourceTree = "<group>"; };
 		BAE5F04F1DB00152009DCA26 /* GoogleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
-		BAF73AA51DDB9530008C69A4 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AOSG.release.xcconfig"; path = "Pods/Target Support Files/Pods-AOSG/Pods-AOSG.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				14D576301DD65613002E5609 /* Pods.xcodeproj */,
-
 				54B090B9025B44EE60582F8F /* Pods-AOSG.debug.xcconfig */,
 				D1AD2E98C4BC3506A5F71D2E /* Pods-AOSG.release.xcconfig */,
 			);
@@ -272,14 +263,6 @@
 				05B1F36661E3DE80E21475B9 /* libPods-AOSG.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BAF73AA61DDB9530008C69A4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BAF73AAA1DDB9530008C69A4 /* libPods-AOSG.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -677,7 +660,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.Steereo-";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../AOSG/OpenEarsHeader.h;
@@ -698,7 +681,7 @@
 				);
 				INFOPLIST_FILE = AOSG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.Steereo-";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.umich.AOSG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = all;
 				SWIFT_VERSION = 3.0;

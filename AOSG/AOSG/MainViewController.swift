@@ -17,7 +17,6 @@ import AVFoundation
 class MainViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
-    @IBOutlet weak var destinationTextField: UITextField!
     var destinationText: String?
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
@@ -38,7 +37,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
         locationService.delegateView = self
-        destinationTextField.delegate = self
         locationService.waitForHeadingToBeAvailable(callback: { _ in } )
         
         // Start up location services, or ask user for these permissions as soon as
@@ -58,8 +56,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         if Stuff.things.favoriteSelected {
             Stuff.things.favoriteSelected = false
-            destinationTextField.text = Stuff.things.favoriteAddress
+            destinationText = Stuff.things.favoriteAddress
             locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            //destinationTextField.text = Stuff.things.favoriteAddress
+            //locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
 	
@@ -90,13 +90,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // don't let the user modify location while we are working... (need constant)
             // this prevents entering an unexpected user state
-            destinationTextField.isUserInteractionEnabled = false
             
             // show a spinner to show user we are searching...
             spinner.startAnimating()
             
             // wait for a location to be available
-            locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            //locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
     
@@ -110,12 +109,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
             return
         }
-        "Navigating to \(destinationAddress)".say {
-            print("ASKING GOOGLE API")
-            
-            // ask the google API to compute a route. handle response in a callback
-            self.googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        if Speech.shared.voiceOn {
+            "Navigating to \(destinationAddress)".say()
         }
+        spinner.startAnimating()
+        print("ASKING GOOGLE API")
+        
+        // ask the google API to compute a route. handle response in a callback
+        self.googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
@@ -138,10 +139,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 self.spinner.stopAnimating()
                 
                 // Clear the destinationTextField
-                self.destinationTextField.text = ""
+                
                 
                 // Re-enable the text field for editing
-                self.destinationTextField.isUserInteractionEnabled = true
             }
             return
         }
@@ -166,7 +166,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Re-enable the destinationTextField
             // MARK: Do we really want to do this?
-            self.destinationTextField.isUserInteractionEnabled = true
             
             
             // Beging naviation and read first direction outloud
@@ -239,10 +238,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 			if (self.route.cancelledNavigation()) {
 				Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
 				print ("You have cancelled navigation ")
-				self.currentStepLabel.text = "--"
-				self.destinationTextField.text = ""
-				self.currentLocationLabel.text = "--"
-				self.destinationLocationLabel.text = "--"
+				self.currentStepLabel.text = ""
+				self.currentLocationLabel.text = ""
+				self.destinationLocationLabel.text = ""
 				self.directionList.text = ""
 				
 				return // Returning here permanently stops location change updates
