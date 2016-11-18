@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -150,7 +150,7 @@
                                 <rect key="frame" x="269" y="258" width="90" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Expand Arrow-100.png" translatesAutoresizingMaskIntoConstraints="NO" id="SNY-iC-jwu">
+                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="down2.png" translatesAutoresizingMaskIntoConstraints="NO" id="SNY-iC-jwu">
                                 <rect key="frame" x="112" y="557" width="150" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -261,9 +261,9 @@
                         <outlet property="rightArrow" destination="igk-NX-mDZ" id="t0A-7a-l9z"/>
                         <outlet property="settingsLabel" destination="frN-Om-MTX" id="SfN-mD-aor"/>
                         <outlet property="spinner" destination="y5B-7W-j2F" id="rB9-de-wJd"/>
+                        <outlet property="toggleVoiceOnOff" destination="nwr-aF-iTq" id="pwr-RI-hMB"/>
                         <outlet property="upArrow" destination="32R-PT-oVk" id="ETG-UJ-yVC"/>
                         <outlet property="voiceCommandLabel" destination="cUZ-cL-b70" id="qNo-fU-pvc"/>
-                        <outlet property="toggleVoiceOnOff" destination="nwr-aF-iTq" id="pwr-RI-hMB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -905,6 +905,10 @@
         <scene sceneID="EN9-0K-My4">
             <objects>
                 <viewController id="x7U-sG-w3q" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yXn-eg-z4z"/>
+                        <viewControllerLayoutGuide type="bottom" id="aX8-EF-691"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="68l-Ja-uWt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -916,7 +920,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Expand Arrow-100.png" width="100" height="100"/>
+        <image name="down2.png" width="100" height="100"/>
         <image name="left2.png" width="100" height="100"/>
         <image name="right2.png" width="100" height="100"/>
         <image name="up2.png" width="100" height="100"/>
