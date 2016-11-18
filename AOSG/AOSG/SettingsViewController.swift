@@ -235,21 +235,19 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     @IBAction func voiceSwitchToggle(_ sender: AnyObject) {
         if voiceSwitch.isOn {
             voiceSwitchLabel.text = "Voice: ON"
+            toggleButtons(on_off : false)
+            currentSettings.voiceOn = voiceSwitch.isOn
+            Speech.shared.voiceOn = voiceSwitch.isOn
+            saveSettings()
+            runOpeningSpeech()
+
         } else {
             voiceSwitchLabel.text = "Voice: OFF"
-        }
-        
-        currentSettings.voiceOn = voiceSwitch.isOn
-        Speech.shared.voiceOn = voiceSwitch.isOn
-        
-        if (currentSettings.voiceOn) {
-            toggleButtons(on_off : false)
-        }
-        else {
             toggleButtons(on_off : true)
+            currentSettings.voiceOn = voiceSwitch.isOn
+            Speech.shared.voiceOn = voiceSwitch.isOn
+            saveSettings()
         }
-        
-        saveSettings()
     }
     
     
