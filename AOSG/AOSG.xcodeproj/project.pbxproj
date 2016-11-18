@@ -12,6 +12,10 @@
 		414FA2421DBA69490032397E /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA23F1DBA69490032397E /* RouteManager.swift */; };
 		414FA2431DBA69490032397E /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414FA2401DBA69490032397E /* VectorMath.swift */; };
 		414FA2441DBA69490032397E /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 414FA2411DBA69490032397E /* alert.mp3 */; };
+		415078AA1DDE9D8500853AA3 /* left2.png in Resources */ = {isa = PBXBuildFile; fileRef = 415078A91DDE9D8500853AA3 /* left2.png */; };
+		415078AE1DDE9DD200853AA3 /* down2.png in Resources */ = {isa = PBXBuildFile; fileRef = 415078AB1DDE9DD200853AA3 /* down2.png */; };
+		415078AF1DDE9DD200853AA3 /* right2.png in Resources */ = {isa = PBXBuildFile; fileRef = 415078AC1DDE9DD200853AA3 /* right2.png */; };
+		415078B01DDE9DD200853AA3 /* up2.png in Resources */ = {isa = PBXBuildFile; fileRef = 415078AD1DDE9DD200853AA3 /* up2.png */; };
 		41622E081DD670610079D43B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41622E071DD670610079D43B /* Settings.swift */; };
 		41952C3C1DA81D56001B237A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3B1DA81D56001B237A /* AppDelegate.swift */; };
 		41952C3E1DA81D56001B237A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41952C3D1DA81D56001B237A /* MainViewController.swift */; };
@@ -77,6 +81,10 @@
 		414FA23F1DBA69490032397E /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		414FA2401DBA69490032397E /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		414FA2411DBA69490032397E /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		415078A91DDE9D8500853AA3 /* left2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left2.png; sourceTree = "<group>"; };
+		415078AB1DDE9DD200853AA3 /* down2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down2.png; sourceTree = "<group>"; };
+		415078AC1DDE9DD200853AA3 /* right2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right2.png; sourceTree = "<group>"; };
+		415078AD1DDE9DD200853AA3 /* up2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up2.png; sourceTree = "<group>"; };
 		41622E071DD670610079D43B /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		41952C381DA81D56001B237A /* AOSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AOSG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41952C3B1DA81D56001B237A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -195,7 +203,11 @@
 			isa = PBXGroup;
 			children = (
 				41DC98B31DD429D5004D47D6 /* beep.wav */,
+				415078A91DDE9D8500853AA3 /* left2.png */,
 				14D576511DDBDE26002E5609 /* logo.png */,
+				415078AB1DDE9DD200853AA3 /* down2.png */,
+				415078AC1DDE9DD200853AA3 /* right2.png */,
+				415078AD1DDE9DD200853AA3 /* up2.png */,
 				BA35D99F1DCFF85700BCDFA1 /* NewFavoriteViewController.swift */,
 				BA35D9991DCFAC4600BCDFA1 /* FavoriteLocationTableViewCell.swift */,
 				414FA23F1DBA69490032397E /* RouteManager.swift */,
@@ -400,13 +412,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415078B01DDE9DD200853AA3 /* up2.png in Resources */,
 				41952C461DA81D56001B237A /* LaunchScreen.storyboard in Resources */,
 				41952C431DA81D56001B237A /* Assets.xcassets in Resources */,
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
+				415078AA1DDE9D8500853AA3 /* left2.png in Resources */,
 				41DC98B41DD429D5004D47D6 /* beep.wav in Resources */,
 				14D576521DDBDE26002E5609 /* logo.png in Resources */,
 				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
+				415078AE1DDE9DD200853AA3 /* down2.png in Resources */,
 				414FA2441DBA69490032397E /* alert.mp3 in Resources */,
+				415078AF1DDE9DD200853AA3 /* right2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

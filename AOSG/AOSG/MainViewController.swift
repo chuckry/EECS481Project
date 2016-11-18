@@ -27,6 +27,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     var settingsViewController : SettingsViewController!
     var loadedSettings = true
 	
+	@IBOutlet var upArrow: UIImageView!
+	@IBOutlet var rightArrow: UIImageView!
+	@IBOutlet var downArrow: UIImageView!
+	@IBOutlet var leftArrow: UIImageView!
+	@IBOutlet var settingsLabel: UILabel!
+	@IBOutlet var inputLabel: UILabel!
+	@IBOutlet var favoritesLabel: UILabel!
+	@IBOutlet var voiceCommandLabel: UILabel!
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
     let googleAPI = GoogleAPI.sharedInstance
@@ -62,7 +70,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             else {
                 print("didnt grab past settings")
             }
-
+		
+		let mainStatement: String = "Welcome to Steereo. This application works best with headphones and when your phone is held face up at a 90 degree angle to your body. Swipe right to input a new destination. Swipe left to route to a favorite destination. Swipe up to adjust settings. Swipe down to access voice commands. "
+		Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: mainStatement)
 
 	}
     
@@ -172,7 +182,22 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
             // save the Navigation Path returned as an internal state
-            
+			
+			//show/hide UI features
+			self.settingsLabel.isHidden = true
+			self.voiceCommandLabel.isHidden = true
+			self.inputLabel.isHidden = true
+			self.favoritesLabel.isHidden = true
+			self.upArrow.isHidden = true
+			self.downArrow.isHidden = true
+			self.rightArrow.isHidden = true
+			self.leftArrow.isHidden = true
+			
+			self.currentLocationLabel.isHidden = false
+			self.destinationLocationLabel.isHidden = false
+			self.directionList.isHidden = false
+			self.currentStepLabel.isHidden = false
+			
             // update the UI with the current address:
             self.currentLocationLabel.text = self.route.startLocation.formatForDisplay()
             
