@@ -281,7 +281,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
                 print ("You have cancelled navigation ")
                 self.currentStepLabel.text = "--"
-                //self.destinationTextField.text = ""
+                self.destinationText.text = ""
                 self.currentLocationLabel.text = "--"
                 self.destinationLocationLabel.text = "--"
                 self.directionList.text = ""
