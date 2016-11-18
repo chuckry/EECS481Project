@@ -70,11 +70,11 @@ class RouteManager {
                         print("Could not get Snapped Points.")
                         return
                     }
-                    
                     // Extract location data from snap point
                     self.snappedPoints = []
                     for point in points {
                         let loc = self.getLocationFromJSON(lat: point["location"]["latitude"], long: point["location"]["longitude"])
+                        
                         self.snappedPoints.append(loc)
                     }
                     self.nextPoint = 0
