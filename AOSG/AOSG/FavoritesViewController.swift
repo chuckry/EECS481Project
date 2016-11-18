@@ -35,6 +35,23 @@ class FavoritesViewController: UIViewController {
         }
     }
 
+    @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
+    @IBAction func toggleVoiceAction(_ sender: Any) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            print ("tap toggled voice on/off")
+            if Speech.shared.voiceOn {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+            else {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         favorites.touchesBegan(touches, with: event)
@@ -75,6 +92,7 @@ class FavoritesViewController: UIViewController {
             disableUIElements()
            "Favorites".say(andThen: favoritesVoiceController.useVoiceControlMenu)
         } else {
+            Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Favorites")
             enableUIElements()
         }
 

@@ -23,6 +23,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
+    
 	var sound: AVAudioPlayer!
     var settingsViewController : SettingsViewController!
     var loadedSettings = true
@@ -73,7 +74,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        Speech.shared.immediatelySay(utterance: "Navigation")
+        Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Navigation")
         
         if Stuff.things.favoriteSelected {
             Stuff.things.favoriteSelected = false
@@ -87,7 +88,26 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 	}
-	
+    
+    @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
+    @IBAction func toggleVoiceAction(_ sender: Any) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            print ("tap toggled voice on/off")
+            if Speech.shared.voiceOn {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+            else {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+        }
+    }
+    
+    
+    
     // MARK: UITextFieldDelegate Handlers
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -47,6 +47,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
             disableUIElements()
             "New Destination".say(andThen: startVoiceInteraction)
         } else {
+            Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Input")
             enableUIElements()
         }
         
@@ -57,6 +58,8 @@ class InputViewController: UIViewController, UITextFieldDelegate {
         waitingForSpeechRecognitionResultAvailable = false
         stopRecording()
 	}
+    
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

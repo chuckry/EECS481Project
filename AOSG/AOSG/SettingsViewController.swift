@@ -40,7 +40,7 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     
 	//voice control variables
 	var words: Array<String> = ["VOLUME","VOICE", "VOICEON", "VOICEOFF", "SPEECHRATE", "SPEECHSPEED", "RATE", "VIBRATIONON", "VIBRATION", "VIBRATIONOFF", "BEEP", "BEEPFREQUENCY", "FREQUENCY"] //array of words to be recognized. Remove spaces in multiple word phrases.
-	let openingStatement:String = "Settings. At the tone, speak the name of the setting you would like to edit. Or say, help, to read all available settings. Swipe down to cancel. "
+	let openingStatement:String = "At the tone, speak the name of the setting you would like to edit. Or say, help, to read all available settings. Swipe down to cancel. "
 	let helpStatement:String = "You said help. You are on the Settings Page. On this page you can change the following settings: volume, voice on/off, voice speed, vibration on/off, beep frequency. To adjust one of these settings please say the desired setting name after the tone then wait for further instructions."
 
     var openEarsEventsObserver: OEEventsObserver?
@@ -59,6 +59,11 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
             saveSettings()
         }
         print ("Saved voice speed = ", currentSettings.voiceSpeed)
+        
+        if (Speech.shared.voiceChanged == true) {
+            currentSettings.voiceOn = Speech.shared.voiceOn
+        }
+        
         
         // Initilize Speech Settings
         Speech.shared.volume = currentSettings.volume
@@ -113,6 +118,23 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
 
     }
     
+    @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
+    @IBAction func toggleVoiceAction(_ sender: Any) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            print ("tap toggled voice on/off")
+            if Speech.shared.voiceOn {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+            else {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -121,7 +143,18 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 		loadOpenEars()
+        Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Settings")
 		runOpeningSpeech() // what the page should repeatedly say at opening and after other events
+        if (Speech.shared.voiceChanged == true) {
+            currentSettings.voiceOn = Speech.shared.voiceOn
+            voiceSwitch.isOn = currentSettings.voiceOn
+            if voiceSwitch.isOn {
+                voiceSwitchLabel.text = "Voice: ON"
+            }
+            else {
+                voiceSwitchLabel.text = "Voice: OFF"
+            }
+        }
     }
 	
 	override func viewDidDisappear(_ animated: Bool) {
