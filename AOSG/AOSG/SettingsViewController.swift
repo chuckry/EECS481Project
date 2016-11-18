@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
     
-    var currentSettings: Settings = Settings(volumeIn: 10, vibrationOnIn: true, voiceOnIn: true, voiceSpeedIn: 5, beepOnIn: true, beepFrequencyIn: 5)
+    var currentSettings: Settings = Settings(volumeIn: 10, vibrationOnIn: true, voiceOnIn: true, voiceSpeedIn: 2, beepOnIn: true, beepFrequencyIn: 5)
     var settingToChange : String = ""
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!

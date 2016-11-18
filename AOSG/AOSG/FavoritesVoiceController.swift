@@ -102,6 +102,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         super.init()
         reloadOpenEars()
         speechRecognizer.delegate = self
+        getSpeechRecognitionPermissions()
         recognizitionAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
     }
     
@@ -109,6 +110,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         super.init()
         addToDictionary(favorites: favorites)
         speechRecognizer.delegate = self
+        getSpeechRecognitionPermissions()
         recognizitionAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
     }
     
