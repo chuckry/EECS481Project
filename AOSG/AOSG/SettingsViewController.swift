@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SettingsViewController: UIViewController, OEEventsObserverDelegate {
+class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     
     //TODO: implement beep frequency and vibration switch
     // maybe beep frequency coorelates to signifigant change distance?
@@ -64,6 +64,13 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         Speech.shared.volume = currentSettings.volume
         Speech.shared.voiceOn = currentSettings.voiceOn
         Speech.shared.speechRate = currentSettings.voiceSpeed
+        
+        if (currentSettings.voiceOn) {
+            toggleButtons(on_off : false)
+        }
+        else {
+            toggleButtons(on_off : true)
+        }
         
         // Load Volume
         volumeChange.value = Double((currentSettings.volume)*10.0)
@@ -235,6 +242,13 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
         currentSettings.voiceOn = voiceSwitch.isOn
         Speech.shared.voiceOn = voiceSwitch.isOn
         
+        if (currentSettings.voiceOn) {
+            toggleButtons(on_off : false)
+        }
+        else {
+            toggleButtons(on_off : true)
+        }
+        
         saveSettings()
     }
     
@@ -299,42 +313,36 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
 			self.stopListening()
 			Speech.shared.immediatelySay(utterance: volumeHelpStatement)
             self.settingToChange = "VOLUME"
-            toggleButtons(on_off: false)
 		}
         else if (hypothesis == "VIBRATION" || hypothesis == "VIBRATIONON" || hypothesis == "VIBRATIONOFF"){
             print("HEARD VIBRATION")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: vibrationHelpStatement)
             self.settingToChange = "VIBRATION"
-            toggleButtons(on_off: false)
         }
         else if (hypothesis == "VOICE" || hypothesis == "VOICEON" || hypothesis == "VOICEOFF"){
             print("HEARD VOICE")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: voiceHelpStatement)
             self.settingToChange = "VOICE"
-            toggleButtons(on_off: false)
         }
         else if (hypothesis == "SPEECHSPEED" || hypothesis == "SPEECHRATE" || hypothesis == "RATE"){
             print("HEARD SPEECHRATE")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: voiceSpeedHelpStatement)
             self.settingToChange = "SPEECHSPEED"
-            toggleButtons(on_off: false)
         }
         else if (hypothesis == "BEEP"){
             print("HEARD BEEP")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: beepHelpStatement)
             self.settingToChange = "BEEP"
-            toggleButtons(on_off: false)
         }
         else if (hypothesis == "BEEPFREQUENCY" || hypothesis == "FREQUENCY"){
             print("HEARD BEEPFREQUENCY")
             self.stopListening()
             Speech.shared.immediatelySay(utterance: beepFrequencyHelpStatement)
             self.settingToChange = "BEEPFREQUENCY"
-            toggleButtons(on_off: false)
         }
 	}
 	
@@ -461,7 +469,6 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
                 voiceSwitch.isOn = false
                 voiceSwitchLabel.text = "Voice: OFF"
                 Speech.shared.say(utterance: "Voice Off")
-
                 currentSettings.voiceOn = false
             }
             else {
@@ -476,6 +483,14 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate {
             settingToChange = ""
             saveSettings()
             Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+            
+            if (currentSettings.voiceOn) {
+                toggleButtons(on_off : false)
+            }
+            else {
+                toggleButtons(on_off : true)
+            }
+            
         }
         else if (settingToChange == "SPEECHSPEED") {
             if (tapGesture.location(in: self.inputView).y < (UIScreen.main.bounds.maxY / 2)) {
