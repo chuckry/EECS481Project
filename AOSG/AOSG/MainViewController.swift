@@ -24,6 +24,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
 	var sound: AVAudioPlayer!
+    var settingsViewController : SettingsViewController!
+    var loadedSettings = true
 	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
@@ -49,10 +51,29 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         // Wait for a location to be available and save it
         locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            if let savedSettings = loadSettings() {
+                print ("successfully loaded settings")
+                Speech.shared.volume = savedSettings.volume
+                Speech.shared.voiceOn = savedSettings.voiceOn
+                Speech.shared.speechRate = savedSettings.voiceSpeed
+                Stuff.things.beepFrequency = savedSettings.beepFrequency
+                Stuff.things.beepOn = savedSettings.beepOn
+                Stuff.things.vibrationOn = savedSettings.vibrationOn
+            }
+            else {
+                print("didnt grab past settings")
+            }
+
+
 	}
-	
+    
+    func loadSettings() -> Settings? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as? Settings
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         Speech.shared.immediatelySay(utterance: "Navigation")
         
         if Stuff.things.favoriteSelected {
