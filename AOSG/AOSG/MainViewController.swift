@@ -182,26 +182,18 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             // see: http://stackoverflow.com/questions/27841228/ios-label-does-not-update-text-with-function-in-swift
             // start a dispatch to the main thread to update UI
             DispatchQueue.main.async {
-                // TODO: Implement an error enum pattern that can be used to
-                // provide feedback to the user
-                
-                // Clean up
-                // Hide the spinner
                 self.spinner.stopAnimating()
-                
-                // Clear the destinationTextField
-                
-                
-                // Re-enable the text field for editing
             }
             return
         }
         
         self.route = withPath!
         Stuff.things.routeManager = RouteManager(path: self.route)
+        
+        // Start playing sound now
+        
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
-            // save the Navigation Path returned as an internal state
 			
 			//show/hide UI features
 			self.settingsLabel.isHidden = true
@@ -253,23 +245,24 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     func playFeedback(balance: Float, volume: Float, numLoops: Int) {
 
 		let soundURL: NSURL = Bundle.main.url(forResource: "alert", withExtension: "mp3")! as NSURL
-		
-		// TODO: Needs to be played less frequently and/or with shorter sound.
         do {
             if (Stuff.things.vibrationOn) {
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.warning)
             }
             
-			sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
-			if sound != nil {
-				sound.pan = balance
-				sound.volume = volume
-				sound.numberOfLoops = numLoops
-                if (Stuff.things.beepOn) { sound.play() }
-				print("playing sound")
-			}
-		}
+            self.sound = try! AVAudioPlayer(contentsOf: soundURL as URL)
+            if self.sound != nil {
+                self.sound.pan = balance
+                self.sound.volume = volume
+                self.sound.numberOfLoops = numLoops
+                if (Stuff.things.beepOn) {
+                    self.sound.prepareToPlay()
+                    self.sound.play()
+                }
+                print("playing sound")
+            }
+        }
     }
 
     // Reads direction and announcing upcoming direction
@@ -279,16 +272,18 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             if loc == nil || heading == nil {
                 return
             }
-            
             let routeManager = Stuff.things.routeManager
-            routeManager.printSnapPoints()
+            
+            if routeManager.snappedPoints.isEmpty {
+                self.navigationDriver(loc: loc, heading: heading)
+                return
+            }
 
             // Pause significant location changes while we compute/send user output
             self.locationService.stopWaitingForSignificantLocationChanges()
             
             // Handle relation to next snap point
             routeManager.moveToNextSnapPointIfClose(loc: loc!)
-            print("DISTANCE: \(routeManager.distanceFromSnapPoint(loc: loc!)) meters.")
             Stuff.things.stepSizeEst = self.route.pedometer.stepSize
             self.currentStepLabel.text = self.route.currentStep().createCurrentFormattedString(currentLocation: self.locationService.lastLocation!, stepSizeEst: self.route.pedometer.stepSize)
             

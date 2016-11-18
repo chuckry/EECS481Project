@@ -174,9 +174,6 @@ class RouteManager {
         
         let score = (angle * signOfSigma) / (-90.0)
         
-        print("ANGLE: \(angle)")
-        print("SCORE: \(score)")
-        
         return score > 0 ? min(1.0, score) : max(-1.0, score)
     }
     
