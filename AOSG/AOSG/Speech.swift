@@ -20,8 +20,8 @@ extension String {
     }
 }
 
-class Speech: NSObject, AVSpeechSynthesizerDelegate {
-    
+class Speech: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
+	
     // singleton pattern
     static let shared = Speech()
     let synthesizer = AVSpeechSynthesizer()
@@ -29,6 +29,13 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	private var isListening:Bool = false
 	var waitingForDoneSpeaking:Bool = false
 	lazy var notifyDoneSpeaking: () -> Void = {arg in}
+	lazy var notifyDoneSpeakingB: (@escaping() -> Void) -> Void = {arg in}
+	var player: AVAudioPlayer?
+	var waitingForDoneBeeping:Bool = false
+	lazy var notifyDoneBeeping: () -> Void = {arg in}
+	var askedForBeepAfterSpeech:Bool = true
+	
+	
     public var speechRate : Float = 0.5
     public var voiceOn : Bool = true
     public var volume : Float = 1
@@ -36,6 +43,8 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
 	override init() {
 		super.init()
 		synthesizer.delegate = self
+		self.initBeep()
+		player?.delegate = self
 	}
 	
     func say(utterance text: String) {
@@ -60,22 +69,78 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate {
         synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         synthesizer.speak(utterance)
     }
+	
+	func immediatelySayEvenIfVoiceIsOff(utterance text: String) {
+		let utterance = AVSpeechUtterance(string: text)
+		utterance.rate = speechRate
+		utterance.volume = volume
+		utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+		synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+		synthesizer.speak(utterance)
+	}
 
 	func waitToFinishSpeaking(callback: @escaping () -> Void){
 		notifyDoneSpeaking = callback
 		waitingForDoneSpeaking = true
-		print("done speaking 3")
+		askedForBeepAfterSpeech = false
+	}
+	
+	//version for beep that takes a callback that takes a callback...yeah
+	func waitToFinishSpeakingB(callback: @escaping (_ callbackB: @escaping() -> Void  ) -> Void){
+		print("setting the callback")
+		notifyDoneSpeakingB = callback
+		waitingForDoneSpeaking = true
+	}
+	
+	func waitToFinishSpeakingThenBeep(callback: @escaping () -> Void){
+		print("setting the callback")
+		notifyDoneSpeakingB = waitToFinishBeeping
+		notifyDoneBeeping = callback
+		waitingForDoneSpeaking = true
+		waitingForDoneBeeping = false
+		askedForBeepAfterSpeech = true
+	}
+	
+	func waitToFinishBeeping(callback: @escaping () -> Void){
+		print("setting the callback beep")
+		waitingForDoneBeeping = true
+	}
+	
+	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+		if (self.waitingForDoneBeeping == true){
+			self.waitingForDoneBeeping = false
+			print("notify that we're done beeping")
+			notifyDoneBeeping()
+		}
 	}
 	
 	func speechSynthesizer(_ synth: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-		print("done speaking 1")
 		if (Speech.shared.waitingForDoneSpeaking == true){
-			print("done speaking 2")
 			Speech.shared.waitingForDoneSpeaking = false
-			notifyDoneSpeaking()
+			if (!askedForBeepAfterSpeech){
+				notifyDoneSpeaking()
+			}
+			else {
+				player?.play()
+				notifyDoneSpeakingB(self.notifyDoneBeeping)
+			}
+		}
+	}
+	
+	func initBeep(){
+		//play beep
+		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
+		
+		do {
+			self.player = try AVAudioPlayer(contentsOf: url)
+			guard let player = self.player else { return }
+			player.prepareToPlay()
+		} catch let error {
+			print(error.localizedDescription)
 		}
 	}
 }
+
 
 
 

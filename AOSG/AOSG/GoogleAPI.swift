@@ -288,10 +288,9 @@ struct GeocodingResponse {
     func formatForReading() -> String {
         var wholeAddress : [String] = address.components(separatedBy:", ")
         var streetAddress : [String] = wholeAddress[0].components(separatedBy:" ")
-        
+
         wholeAddress.remove(at: wholeAddress.count-1)
-        
-        
+
         for (index, word) in streetAddress.enumerated() {
             if setOfAbbreviations.contains(word) {
                 streetAddress[index] = abbreviationsToText[word]!

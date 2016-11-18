@@ -12,19 +12,20 @@ import CoreLocation
 import AVFoundation
 
 
-class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate{
-	
+class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestureRecognizerDelegate {
+		
 	static let shared = PromptViewController()
     let locationManager = LocationService.sharedInstance
 	var words: Array<String> = ["CANCEL", "REPEAT", "HELP", "WHEREAMI", "HOWFAR"]
 	let openingStatement:String = "Voice Commands. At the tone, speak your voice command. Or say ,help, to read all available prompts. Swipe down to cancel. "
-	let helpStatement:String = "Help. Say , Where am I, to tell you the current city and nearest intersection. Say, How far, to tell distance and time to final destination. Say, repeat, to repeat the last navigation direction. Say, cancel, to stop navigation. "
+	let helpStatement:String = "Help. Say, repeat, to repeat the last navigation direction. Say, How far, to tell distance and time to final destination. Say , Where am I, to tell you the current city and nearest intersection. Say, cancel, to stop navigation. "
+	let helpStatementText:String = "Repeat: Repeat the last navigation direction.\n How far: Tell distance and time to final destination.\n Where am I: Tell you the current city and nearest intersection. \n Cancel: Stop navigation."
 	let verifyCancelStatement:String = "Are you sure you would like to cancel your route? Double tap the screen to confirm or swipe right to continue navigation. "
+	let verifyCancelStatementText:String = "Are you sure you would like to cancel your route?"
 	let navErrorStatement: String = "Navigation has not yet begun. "
 	let cancelDeclinedStatement: String = "Not cancelling route. "
 	var howFarStatement: String = ""
 	
-	var player: AVAudioPlayer?
 	var wordGuess:String = ""
 	var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
@@ -32,12 +33,143 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	var dicPath: String!
 	var previouslyHeardCancel:Bool = false;
 
+	@IBOutlet var helpBar: UIView!
+	@IBOutlet var repeatBar: UIView!
+	@IBOutlet var howFarBar: UIView!
+	@IBOutlet var whereAmIBar: UIView!
+	@IBOutlet var cancelBar: UIView!
 	
 	public var verticalPageVC:VerticalPageViewController!
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
+		let tapHelp = UITapGestureRecognizer(target: self, action: #selector(didTapHelp))
+		self.helpBar.addGestureRecognizer(tapHelp)
+		
+		let tapRepeat = UITapGestureRecognizer(target: self, action: #selector(didTapRepeat))
+		self.repeatBar.addGestureRecognizer(tapRepeat)
+		
+		let tapHowFar = UITapGestureRecognizer(target: self, action: #selector(didTapHowFar))
+		self.howFarBar.addGestureRecognizer(tapHowFar)
+		
+		let tapWhereAmI = UITapGestureRecognizer(target: self, action: #selector(didTapWhereAmI))
+		self.whereAmIBar.addGestureRecognizer(tapWhereAmI)
+		
+		let tapCancel = UITapGestureRecognizer(target: self, action: #selector(didTapCancel))
+		self.cancelBar.addGestureRecognizer(tapCancel)
 	}
+	
+	
+	
+	/*Tap functions for visual-only usage*/
+	func didTapHelp(tapHelp: UITapGestureRecognizer) {
+		if(Speech.shared.voiceOn){
+			return
+		}
+	    //create the alert
+		let alert = UIAlertController(title: "Help", message: helpStatementText, preferredStyle: UIAlertControllerStyle.alert)
+		// add an action (button)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+		
+		// show the alert
+		self.present(alert, animated: true, completion: nil)
+
+		print("tapped help")
+	}
+	func didTapRepeat(tapRepeat: UITapGestureRecognizer) {
+		if(Speech.shared.voiceOn){
+			return
+		}
+		var repeatStatementText = ""
+		if (Stuff.things.currentStepDescription == ""){
+			repeatStatementText = self.navErrorStatement
+		}
+		else{
+			repeatStatementText = Stuff.things.currentStepDescription
+		}
+
+		//create the alert
+		let alert = UIAlertController(title: "Repeat", message: repeatStatementText, preferredStyle: UIAlertControllerStyle.alert)
+		// add an action (button)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+		
+		// show the alert
+		self.present(alert, animated: true, completion: nil)
+		
+		print("tapped repeat")
+	}
+	func didTapHowFar(tapHowFar: UITapGestureRecognizer) {
+		if(Speech.shared.voiceOn){
+			return
+		}
+		var howFarStatementText = ""
+		if (Stuff.things.currentStepDescription == ""){
+			howFarStatementText = self.navErrorStatement
+		}
+		else{
+			howFarStatementText = calcHowFar()
+		}
+		
+		//create the alert
+		let alert = UIAlertController(title: "How Far?", message: howFarStatementText, preferredStyle: UIAlertControllerStyle.alert)
+		// add an action (button)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+		
+		// show the alert
+		self.present(alert, animated: true, completion: nil)
+
+		print("tapped howfar")
+	}
+	func didTapWhereAmI(tapWhereAmI: UITapGestureRecognizer) {
+		if(Speech.shared.voiceOn){
+			return
+		}
+		var whereAmIStatementText = ""
+		let intersection = self.whereAmI()
+		
+		if (intersection == nil){
+			whereAmIStatementText = "Sorry. I could not find the nearest intersection."
+		}
+		else {
+			whereAmIStatementText = intersection!
+		}
+		
+		let alert = UIAlertController(title: "Where Am I?", message: whereAmIStatementText, preferredStyle: UIAlertControllerStyle.alert)
+		// add an action (button)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+		
+		// show the alert
+		self.present(alert, animated: true, completion: nil)
+
+		print("tapped whereami")
+	}
+	func didTapCancel(tapCancel: UITapGestureRecognizer) {
+		if(Speech.shared.voiceOn){
+			return
+		}
+		var cancelStatementText = ""
+		var alert:UIAlertController? = nil
+		
+		if (Stuff.things.currentStepDescription == ""){
+			cancelStatementText = self.navErrorStatement
+			alert = UIAlertController(title: "Cancel", message: cancelStatementText, preferredStyle: UIAlertControllerStyle.alert)
+			alert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+		}
+		else{
+			cancelStatementText = self.verifyCancelStatementText
+			alert = UIAlertController(title: "Cancel", message: cancelStatementText, preferredStyle: UIAlertControllerStyle.alert)
+			alert?.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
+			Stuff.things.cancelled = true
+			self.verticalPageVC.returnToMainScreen()
+			}))
+			alert?.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+		}
+		// show the alert
+		self.present(alert!, animated: true, completion: nil)
+		print("tapped cancel")
+	}
+	
+	/*Gesture functions for confirm/cancel*/
 	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
 		print("tapped")
 		if (previouslyHeardCancel == true){
@@ -45,6 +177,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			verticalPageVC.returnToMainScreen()
 		}
 	}
+	
 	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
 		print("swiped")
 		if (previouslyHeardCancel == true){
@@ -57,10 +190,15 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	
 	//play opening message everytime page is opened
 	override func viewDidAppear(_ animated: Bool) {
-		previouslyHeardCancel = false;
+		previouslyHeardCancel = false
 		super.viewDidAppear(animated)
-		loadOpenEars()
-		runSpeech()
+		if (Speech.shared.voiceOn){
+			loadOpenEars()
+			runSpeech()
+		}
+		else {
+			Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Commands")
+		}
 	}
 	
 	//stop listening and cancel callback when we leave the view
@@ -74,24 +212,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	func runSpeech(){
 		print("running speech")
 		Speech.shared.immediatelySay(utterance: self.openingStatement)
-		Speech.shared.waitToFinishSpeaking(callback: self.speechFinished)
-	}
-	
-	//runs when initial speech is finished
-	func speechFinished(){
-
-		//plap beep
-		let url = Bundle.main.url(forResource: "beep", withExtension: "wav")!
-
-		do {
-			self.player = try AVAudioPlayer(contentsOf: url)
-			guard let player = self.player else { return }
-			player.prepareToPlay()
-			player.play()
-		} catch let error {
-			print(error.localizedDescription)
-		}
-		self.startListening()
+		Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -153,6 +274,25 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 		print("noop")
 	}
 	
+	func calcHowFar() -> String{
+		var dist = Stuff.things.sumDists() //m
+		let pace = Stuff.things.getPace() //s/m
+		var timeEst = dist*pace //s
+		dist = dist * 0.000621371 //miles
+		
+		var arrivalTime = Date()
+		let cal = NSCalendar.current
+		arrivalTime = cal.date(byAdding: .second, value:Int(timeEst), to: Date())!
+		let formatter = DateFormatter()
+		formatter.dateFormat = "h:mm a"
+		formatter.amSymbol = "AM"
+		formatter.pmSymbol = "PM"
+		
+		timeEst = timeEst/60 //minutes
+		self.howFarStatement = "You will arrive at your destination in \(Double(round(10*dist)/10)) miles at \(formatter.string(from: arrivalTime)) in \(Int(round(1*timeEst)/1)) minutes"
+		return self.howFarStatement
+	}
+	
 /////////////////////// openears interface functions///////////////////////
 	
 	//what happens when each phrase is heard
@@ -190,7 +330,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			}
 			else {
 				Speech.shared.immediatelySay(utterance: self.verifyCancelStatement)
-				Speech.shared.waitToFinishSpeaking(callback: self.noop)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.noop)
 			
 				self.previouslyHeardCancel = true;
 				//allows gesture recognizers to be triggered
@@ -216,22 +356,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 				Speech.shared.immediatelySay(utterance: self.navErrorStatement)
 			}
 			else {
-				var dist = Stuff.things.sumDists() //m
-				let pace = Stuff.things.getPace() //s/m
-				var timeEst = dist*pace //s
-				dist = dist * 0.000621371 //miles
-				
-				var arrivalTime = Date()
-				let cal = NSCalendar.current
-				arrivalTime = cal.date(byAdding: .second, value:Int(timeEst), to: Date())!
-				let formatter = DateFormatter()
-				formatter.dateFormat = "h:mm a"
-				formatter.amSymbol = "AM"
-				formatter.pmSymbol = "PM"
-				
-				timeEst = timeEst/60 //minutes
-				self.howFarStatement = "You will arrive at your destination in \(Double(round(10*dist)/10)) miles at \(formatter.string(from: arrivalTime)) in \(Int(round(1*timeEst)/1)) minutes"
-				print(howFarStatement)
+				self.howFarStatement = calcHowFar()
 				Speech.shared.immediatelySay(utterance: self.howFarStatement)
 			}
 			Speech.shared.waitToFinishSpeaking(callback: self.runSpeech)
