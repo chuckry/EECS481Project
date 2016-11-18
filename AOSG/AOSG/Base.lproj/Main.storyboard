@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R35-sL-vJi" id="nZW-Ke-wj9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-E1-FSa">
@@ -82,9 +82,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="z1W-ay-o5N" appends="YES" id="eK3-sx-SBN"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="favorites" destination="FFi-nu-sZ2" id="XYE-bq-vi8"/>
@@ -93,11 +90,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PK3-gd-Wkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="z1W-ay-o5N">
-                    <connections>
-                        <action selector="screenWasTapped:" destination="iut-zU-Gs2" id="pMq-tc-zqT"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="z1W-ay-o5N"/>
             </objects>
             <point key="canvasLocation" x="-82.400000000000006" y="841.52923538230891"/>
         </scene>

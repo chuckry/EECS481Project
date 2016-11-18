@@ -34,12 +34,13 @@ class FavoritesViewController: UIViewController {
             }
         }
     }
-    @IBAction func screenWasTapped(_ sender: UITapGestureRecognizer) {
-        print("screen tapped!")
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        favorites.touchesBegan(touches, with: event)
+        print("screen tapped")
         favoritesVoiceController.tapRegistered()
     }
-
-
 	
     var favs = [Favorite]()
     var horizontalPageVC: HorizontalPageViewController!
