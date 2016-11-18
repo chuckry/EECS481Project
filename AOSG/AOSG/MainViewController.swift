@@ -17,13 +17,15 @@ import AVFoundation
 class MainViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
-    @IBOutlet weak var destinationTextField: UITextField!
+    var destinationText: String?
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 	@IBOutlet weak var directionList: UITextView!
 	@IBOutlet weak var currentStepLabel: UILabel!
 	var sound: AVAudioPlayer!
+    var settingsViewController : SettingsViewController!
+    var loadedSettings = true
 	
     // shared instances for interfaces
     let locationService = LocationService.sharedInstance
@@ -37,7 +39,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
         locationService.delegateView = self
-        destinationTextField.delegate = self
         locationService.waitForHeadingToBeAvailable(callback: { _ in } )
         
         // Start up location services, or ask user for these permissions as soon as
@@ -49,16 +50,37 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         // Wait for a location to be available and save it
         locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            if let savedSettings = loadSettings() {
+                print ("successfully loaded settings")
+                Speech.shared.volume = savedSettings.volume
+                Speech.shared.voiceOn = savedSettings.voiceOn
+                Speech.shared.speechRate = savedSettings.voiceSpeed
+                Stuff.things.beepFrequency = savedSettings.beepFrequency
+                Stuff.things.beepOn = savedSettings.beepOn
+                Stuff.things.vibrationOn = savedSettings.vibrationOn
+            }
+            else {
+                print("didnt grab past settings")
+            }
+
+
 	}
-	
+    
+    func loadSettings() -> Settings? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Settings.archiveURL.path) as? Settings
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         Speech.shared.immediatelySay(utterance: "Navigation")
         
         if Stuff.things.favoriteSelected {
             Stuff.things.favoriteSelected = false
-            destinationTextField.text = Stuff.things.favoriteAddress
+            destinationText = Stuff.things.favoriteAddress
             locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            //destinationTextField.text = Stuff.things.favoriteAddress
+            //locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
 	
@@ -89,13 +111,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // don't let the user modify location while we are working... (need constant)
             // this prevents entering an unexpected user state
-            destinationTextField.isUserInteractionEnabled = false
             
             // show a spinner to show user we are searching...
             spinner.startAnimating()
             
             // wait for a location to be available
-            locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+            //locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
         }
     }
     
@@ -104,16 +125,19 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     func initialLocationKnown(location: CLLocation) {
         
         // retrieve the destination as an address
-        guard let destinationAddress = destinationTextField.text, !(destinationTextField.text?.isEmpty)! else {
+        guard let destinationAddress = destinationText else {
             print("ERROR: destinationTextField value is unavailable")
             // TODO: Have some remidiation for the user to retry. Currently no feedback is sent
             return
         }
-        
+        if Speech.shared.voiceOn {
+            "Navigating to \(destinationAddress)".say()
+        }
+        spinner.startAnimating()
         print("ASKING GOOGLE API")
         
         // ask the google API to compute a route. handle response in a callback
-        googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        self.googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
@@ -136,10 +160,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 self.spinner.stopAnimating()
                 
                 // Clear the destinationTextField
-                self.destinationTextField.text = ""
+                
                 
                 // Re-enable the text field for editing
-                self.destinationTextField.isUserInteractionEnabled = true
             }
             return
         }
@@ -164,7 +187,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             
             // Re-enable the destinationTextField
             // MARK: Do we really want to do this?
-            self.destinationTextField.isUserInteractionEnabled = true
             
             
             // Beging naviation and read first direction outloud
@@ -234,6 +256,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 print ("You have arrived at destination")
                 return; // Returning here permanently stops loaction change updates
             }
+
             if (self.route.cancelledNavigation()) {
                 Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
                 print ("You have cancelled navigation ")
@@ -246,6 +269,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 return // Returning here permanently stops location change updates
             }
             
+
             if ((self.route.currentStep().achievedGoal(location: loc!))) {
                 routeManager.moveToNextStep(loc: loc!)
                 Stuff.things.currentStepDescription = self.route.currentStep().currentFormattedDescription!
