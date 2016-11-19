@@ -13,8 +13,9 @@ import UIKit
 
 
 class RouteManager {
-    var route: NavigationPath?
     let locManager = LocationService.sharedInstance
+    let soundManager: SoundManager = SoundManager(fileName: "hum", ext: "mp3")
+    var route: NavigationPath?
     var lastPoint: CLLocation
     var nextPoint = 0
     var snappedPoints: [CLLocation]
@@ -38,6 +39,7 @@ class RouteManager {
      *  complex geography.
      */
     func getSnapPoints() {
+        soundManager.beginPlayingSound()
         var isGettingSnapPoints = false
         let currLat = self.lastPoint.coordinate.latitude
         let currLong = self.lastPoint.coordinate.longitude
@@ -104,15 +106,19 @@ class RouteManager {
      *  Otherwise, gather snap points and move to next one if we're within
      *  a 3 meter radius
      */
-    func moveToNextSnapPointIfClose(loc: CLLocation) {
+    func moveToNextSnapPointIfClose(loc: CLLocation, heading: CLHeading) {
         if (self.route?.currentStep().achievedGoal(location: loc))! {
             self.moveToNextStep(loc: loc)
+            Stuff.things.currentStepDescription = (self.route?.currentStep().currentFormattedDescription!)!
+            Speech.shared.say(utterance: (self.route?.currentStep().readingDescription)!)
+            print((self.route?.currentStep().currentFormattedDescription!)!)
         } else {
             if self.outsideSnapPointBounds() {
                 print("Outside Bounds!")
                 self.lastPoint = loc
                 self.getSnapPoints()
             }
+            self.soundManager.changeFeedback(balance: self.calculateSoundBalance(userLocation: loc, userHeading: heading.trueHeading), volume: 1, numLoops: 1)
             if self.snappedPoints[self.nextPoint].distance(from: loc) <= 15 {
                 self.nextPoint += 1
                 Speech.shared.immediatelySay(utterance: "Moving to next snap point!")
@@ -132,15 +138,15 @@ class RouteManager {
         self.route?.nextStep()
         self.getSnapPoints()
     }
-    
+
     /*
      *  Use the user's location and heading to get sound balance ratio.
      *
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
-    func calculateSoundRatio(userLocation: CLLocation, userHeading: Double) -> Float {
+    func calculateSoundBalance(userLocation: CLLocation, userHeading: Double) -> Float {
         let trig = getTrig(userLocation, userHeading)
-        return Float(getSoundScore(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2))
+        return Float(self.soundManager.getSoundBalance(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2))
     }
     
     /*
@@ -149,32 +155,19 @@ class RouteManager {
      *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2)? {
-        let goal: CLLocation
+        
         while self.outsideSnapPointBounds() {
             print("Using direction instead of snap point!")
             self.lastPoint = LocationService.sharedInstance.lastLocation!
             self.getSnapPoints()
         }
         
+        let goal: CLLocation
         goal = self.snappedPoints[self.nextPoint]
         
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
         let directionVector = getVectorFromPoints(start: userLocation, end: goal)
         return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
-    }
-    
-    /*  
-     *  Calculates sound ratio based on angle between current position and expected position
-     *  Inspired by: http://stackoverflow.com/questions/13221873/determining-if-one-2d-vector-is-to-the-right-or-left-of-another
-     */
-    func getSoundScore(angle: Double, directionVector: Vector2, userVector: Vector2) -> Double {
-        let rotatedUserVector = Vector2(-userVector.y, userVector.x)
-        let sigma = directionVector.dot(rotatedUserVector) * -1.0
-        let signOfSigma = (sigma < 0 ? -1.0 : 1.0)
-        
-        let score = (angle * signOfSigma) / (-90.0)
-        
-        return score > 0 ? min(1.0, score) : max(-1.0, score)
     }
     
     /*
@@ -199,6 +192,52 @@ class RouteManager {
     func printSnapPoints() {
         for point in self.snappedPoints {
             print("\(point.coordinate.latitude),\(point.coordinate.longitude)")
+        }
+    }
+    
+    // Reads direction and announcing upcoming direction
+    func navigationDriver(loc: CLLocation?, heading: CLHeading?) {
+        DispatchQueue.main.async {
+            
+            if loc == nil || heading == nil {
+                return
+            }
+            
+            if self.snappedPoints.isEmpty {
+                self.navigationDriver(loc: loc, heading: heading)
+                return
+            }
+            
+            // Pause significant location changes while we compute/send user output
+            self.locManager.stopWaitingForSignificantLocationChanges()
+            
+            // Handle relation to next snap point
+            self.moveToNextSnapPointIfClose(loc: loc!, heading: heading!)
+            Stuff.things.stepSizeEst = (self.route?.pedometer.stepSize)!
+            Stuff.things.currentStepLabel.text = (self.route?.currentStep().createCurrentFormattedString(currentLocation: self.locManager.lastLocation!, stepSizeEst: (self.route?.pedometer.stepSize)!))!
+            
+            
+            Stuff.things.currentStepDescription = Stuff.things.currentStepLabel.text!
+            Stuff.things.stepPace = (self.route?.pedometer.stepPaceEst)!
+            
+            if ((self.route?.arrivedAtDestination())!) {
+                Speech.shared.say(utterance: "You have arrived at destination")
+                print ("You have arrived at destination")
+                return
+            }
+            
+            if ((self.route?.cancelledNavigation())!) {
+                Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
+                print ("You have cancelled navigation ")
+                Stuff.things.currentStepLabel.text = "--"
+                Stuff.things.currentLocationLabel.text = "--"
+                Stuff.things.destinationLocationLabel.text = "--"
+                Stuff.things.directionList.text = ""
+                
+                return
+            }
+            
+            self.locManager.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
     }
 }
