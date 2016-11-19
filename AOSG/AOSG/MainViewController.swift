@@ -177,18 +177,19 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         self.route = withPath!
         Stuff.things.routeManager = RouteManager(path: self.route)
         
-        Stuff.things.currentStepLabel = self.currentStepLabel
-        Stuff.things.currentLocationLabel = self.currentLocationLabel
-        Stuff.things.destinationLocationLabel = self.destinationLocationLabel
-        Stuff.things.directionList = self.directionList
-        
-        self.currentStepLabel.text = "--"
-        self.currentLocationLabel.text = "--"
-        self.destinationLocationLabel.text = "--"
-        self.directionList.text = ""
-        
         // Start a dispatch to the main thread (see link above)
         DispatchQueue.main.async {
+            
+            Stuff.things.currentStepLabel = self.currentStepLabel
+            Stuff.things.currentLocationLabel = self.currentLocationLabel
+            Stuff.things.destinationLocationLabel = self.destinationLocationLabel
+            Stuff.things.directionList = self.directionList
+            
+            self.currentStepLabel.text = "--"
+            self.currentLocationLabel.text = "--"
+            self.destinationLocationLabel.text = "--"
+            self.directionList.text = ""
+
 			
 			//show/hide UI features
 			self.settingsLabel.isHidden = true

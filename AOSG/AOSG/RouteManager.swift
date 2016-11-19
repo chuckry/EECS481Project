@@ -39,24 +39,24 @@ class RouteManager {
      *  complex geography.
      */
     func getSnapPoints() {
-        soundManager.beginPlayingSound()
-        var isGettingSnapPoints = false
-        let currLat = self.lastPoint.coordinate.latitude
-        let currLong = self.lastPoint.coordinate.longitude
-        
-        var path = "\(currLat),\(currLong)"
-        for step in (self.route?.path)! {
-            path += "|\(step.goal.coordinate.latitude),\(step.goal.coordinate.longitude)"
-        }
-        
-        let URLEndPoint = "https://roads.googleapis.com/v1/snapToRoads?"
-        let params = "path=\(path)&interpolate=true".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        let URLString = "\(URLEndPoint)\(params!)&key=\(GoogleAPI.sharedInstance.API_KEY)"
-        let requestURL = URL(string: URLString)
-        var request = URLRequest(url: requestURL!)
-        request.httpMethod = "GET"
-        
         DispatchQueue.main.async {
+            self.soundManager.beginPlayingSound()
+            var isGettingSnapPoints = false
+            let currLat = self.lastPoint.coordinate.latitude
+            let currLong = self.lastPoint.coordinate.longitude
+            
+            var path = "\(currLat),\(currLong)"
+            for step in (self.route?.path)! {
+                path += "|\(step.goal.coordinate.latitude),\(step.goal.coordinate.longitude)"
+            }
+            
+            let URLEndPoint = "https://roads.googleapis.com/v1/snapToRoads?"
+            let params = "path=\(path)&interpolate=true".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+            let URLString = "\(URLEndPoint)\(params!)&key=\(GoogleAPI.sharedInstance.API_KEY)"
+            let requestURL = URL(string: URLString)
+            var request = URLRequest(url: requestURL!)
+            request.httpMethod = "GET"
+        
             while !isGettingSnapPoints {
                 isGettingSnapPoints = true
                 let task = URLSession.shared.dataTask(with: request) {
@@ -156,7 +156,7 @@ class RouteManager {
      */
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2)? {
         
-        while self.outsideSnapPointBounds() {
+        if self.outsideSnapPointBounds() {
             print("Using direction instead of snap point!")
             self.lastPoint = LocationService.sharedInstance.lastLocation!
             self.getSnapPoints()
@@ -208,13 +208,13 @@ class RouteManager {
                 return
             }
             
+            self.printSnapPoints()
+            
             // Pause significant location changes while we compute/send user output
             self.locManager.stopWaitingForSignificantLocationChanges()
             
-            // Handle relation to next snap point
-            self.moveToNextSnapPointIfClose(loc: loc!, heading: heading!)
             Stuff.things.stepSizeEst = (self.route?.pedometer.stepSize)!
-            Stuff.things.currentStepLabel.text = (self.route?.currentStep().createCurrentFormattedString(currentLocation: self.locManager.lastLocation!, stepSizeEst: (self.route?.pedometer.stepSize)!))!
+            Stuff.things.currentStepLabel.text = (self.route?.currentStep().createCurrentFormattedString(currentLocation: loc!, stepSizeEst: (self.route?.pedometer.stepSize)!))!
             
             
             Stuff.things.currentStepDescription = Stuff.things.currentStepLabel.text!
@@ -228,7 +228,7 @@ class RouteManager {
             
             if ((self.route?.cancelledNavigation())!) {
                 Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
-                print ("You have cancelled navigation ")
+                print("You have cancelled navigation ")
                 Stuff.things.currentStepLabel.text = "--"
                 Stuff.things.currentLocationLabel.text = "--"
                 Stuff.things.destinationLocationLabel.text = "--"
@@ -236,6 +236,9 @@ class RouteManager {
                 
                 return
             }
+            
+            // Handle relation to next snap point
+            self.moveToNextSnapPointIfClose(loc: loc!, heading: heading!)
             
             self.locManager.waitForSignificantLocationChanges(callback: self.navigationDriver)
         }
