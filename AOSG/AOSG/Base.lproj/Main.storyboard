@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -82,15 +82,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="hnR-Lg-0It" appends="YES" id="gqT-6v-XZS"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="favorites" destination="FFi-nu-sZ2" id="XYE-bq-vi8"/>
                         <outlet property="tableAddButton" destination="U0Q-Yf-21G" id="U5q-xE-jE6"/>
                         <outlet property="tableEditButton" destination="Ell-Bx-MH7" id="ll1-Gv-IPU"/>
+                        <outlet property="toggleVoiceOnOff" destination="hnR-Lg-0It" id="aDI-Qi-x5A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PK3-gd-Wkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="z1W-ay-o5N"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3" id="hnR-Lg-0It">
+                    <connections>
+                        <action selector="toggleVoiceAction:" destination="iut-zU-Gs2" id="470-8n-X4O"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-82.400000000000006" y="841.52923538230891"/>
         </scene>
@@ -594,6 +603,7 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="PB3-5D-lND" appends="YES" id="TwR-IH-eRO"/>
                             <outletCollection property="gestureRecognizers" destination="niZ-Ul-7CX" appends="YES" id="kFp-RC-VUr"/>
+                            <outletCollection property="gestureRecognizers" destination="fYH-nu-IOB" appends="YES" id="WPg-KE-yeO"/>
                         </connections>
                     </view>
                     <connections>
@@ -601,6 +611,7 @@
                         <outlet property="helpBar" destination="SIp-y8-gZx" id="Uvy-NV-rIT"/>
                         <outlet property="howFarBar" destination="A6Z-ln-4fm" id="b0a-gI-Wbr"/>
                         <outlet property="repeatBar" destination="d6H-Cf-xlk" id="959-mP-JG2"/>
+                        <outlet property="toggleVoiceOnOff" destination="fYH-nu-IOB" id="q1u-Vf-6l0"/>
                         <outlet property="whereAmIBar" destination="kvj-in-1dc" id="aGn-OF-lHG"/>
                     </connections>
                 </viewController>
@@ -616,6 +627,11 @@
                     </connections>
                 </swipeGestureRecognizer>
                 <tapGestureRecognizer id="PgG-iw-Thx"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3" id="fYH-nu-IOB">
+                    <connections>
+                        <action selector="toggleVoiceAction:" destination="HNj-od-XMt" id="yuV-6j-vP7"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="701.60000000000002" y="1569.265367316342"/>
         </scene>
@@ -819,6 +835,7 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="lfO-cX-aYz" appends="YES" id="qtf-II-MV6"/>
+                            <outletCollection property="gestureRecognizers" destination="HPP-Uv-VYJ" appends="YES" id="Xjv-hd-bIX"/>
                         </connections>
                     </view>
                     <connections>
@@ -827,6 +844,7 @@
                         <outlet property="beepSwitch" destination="MfA-W5-XQM" id="Ag0-HJ-Lvq"/>
                         <outlet property="beepSwitchLabel" destination="pOl-EK-XW3" id="GX6-Ug-nYb"/>
                         <outlet property="tapGesture" destination="lfO-cX-aYz" id="ljt-sS-GrT"/>
+                        <outlet property="toggleVoiceOnOff" destination="HPP-Uv-VYJ" id="iWn-8a-cQO"/>
                         <outlet property="vibrationSwitch" destination="zwm-zw-VJ7" id="HWq-MQ-49t"/>
                         <outlet property="vibrationSwitchLabel" destination="vlq-0g-YXa" id="Ygg-Ii-FwK"/>
                         <outlet property="voiceChange" destination="FyR-yn-uAn" id="Nk1-wu-3io"/>
@@ -843,6 +861,11 @@
                         <action selector="tapToChangeSettings:" destination="lnx-WB-Ijr" id="bjZ-Md-GYw"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3" id="HPP-Uv-VYJ">
+                    <connections>
+                        <action selector="toggleVoiceAction:" destination="lnx-WB-Ijr" id="Qe7-uD-YIQ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="702" y="134"/>
         </scene>
@@ -884,12 +907,21 @@
                             <constraint firstItem="46f-zK-lhh" firstAttribute="leading" secondItem="8pb-oE-pvj" secondAttribute="leading" id="maN-WL-z7z"/>
                             <constraint firstAttribute="trailing" secondItem="46f-zK-lhh" secondAttribute="trailing" id="vcI-rE-siI"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4pw-cz-s0e" appends="YES" id="PPF-vn-xkn"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="inputDestinationTextField" destination="Xz9-gy-LAY" id="lF8-YI-3Py"/>
+                        <outlet property="toggleVoiceOnOff" destination="4pw-cz-s0e" id="Pl7-HJ-gIq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTY-7S-eGd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="3" id="4pw-cz-s0e">
+                    <connections>
+                        <action selector="toggleVoiceAction:" destination="kqF-mc-uBX" id="7T3-eq-e99"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1517.5999999999999" y="841.52923538230891"/>
         </scene>

@@ -219,6 +219,29 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
 	}
 
     
+    @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
+    @IBAction func toggleVoiceAction(_ sender: Any) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            print ("tap toggled voice on/off")
+            if Speech.shared.voiceOn {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+                voiceSwitchLabel.text = "Voice: OFF"
+                voiceSwitch.isOn = false
+                toggleButtons(on_off: true)
+            }
+            else {
+                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
+                Speech.shared.voiceOn = false
+                Speech.shared.voiceChanged = true
+                voiceSwitchLabel.text = "Voice: ON"
+                voiceSwitch.isOn = true
+                toggleButtons(on_off: false)
+            }
+        }
+    }
+    
     @IBAction func volumeChangeControl(_ sender: AnyObject) {
         currentSettings.volume = Float(volumeChange.value/10)
         Speech.shared.volume = Float(volumeChange.value)

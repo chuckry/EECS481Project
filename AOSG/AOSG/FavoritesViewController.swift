@@ -37,7 +37,7 @@ class FavoritesViewController: UIViewController {
 
     @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
     @IBAction func toggleVoiceAction(_ sender: Any) {
-        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
             print ("tap toggled voice on/off")
             if Speech.shared.voiceOn {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
@@ -103,6 +103,7 @@ class FavoritesViewController: UIViewController {
         favoritesVoiceController.stopUsingVoiceControlMenu()
 
 	}
+    
     
     // MARK: Favorites Methods
     
