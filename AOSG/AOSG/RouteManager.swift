@@ -118,7 +118,8 @@ class RouteManager {
                 self.lastPoint = loc
                 self.getSnapPoints()
             }
-            self.soundManager.changeFeedback(balance: self.calculateSoundBalance(userLocation: loc, userHeading: heading.trueHeading), volume: 1, numLoops: 1)
+            let trig = getTrig(loc, heading.trueHeading)
+            self.soundManager.changeFeedback(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2)
             if self.snappedPoints[self.nextPoint].distance(from: loc) <= 15 {
                 self.nextPoint += 1
                 Speech.shared.immediatelySay(utterance: "Moving to next snap point!")
@@ -140,19 +141,7 @@ class RouteManager {
     }
 
     /*
-     *  Use the user's location and heading to get sound balance ratio.
-     *
-     *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
-     */
-    func calculateSoundBalance(userLocation: CLLocation, userHeading: Double) -> Float {
-        let trig = getTrig(userLocation, userHeading)
-        return Float(self.soundManager.getSoundBalance(angle: trig!.0, directionVector: trig!.1, userVector: trig!.2))
-    }
-    
-    /*
      *  Calculates the angle between where the user is facing and where they should be facing.
-     *
-     *  TODO: Upon moving navigationDriver to RouteManager, will no longer need userLocation param.
      */
     func getTrig(_ userLocation: CLLocation, _ userHeading: Double) -> (Double, Vector2, Vector2)? {
         
@@ -162,11 +151,11 @@ class RouteManager {
             self.getSnapPoints()
         }
         
-        let goal: CLLocation
-        goal = self.snappedPoints[self.nextPoint]
+        let goal = self.snappedPoints[self.nextPoint]
         
         let userVector = Vector2(cos(Float(userHeading) * Scalar.radiansPerDegree), sin(Float(userHeading) * Scalar.radiansPerDegree))
         let directionVector = getVectorFromPoints(start: userLocation, end: goal)
+        
         return (Double(acos(userVector.dot(directionVector) / directionVector.length) * Scalar.degreesPerRadian), directionVector, userVector)
     }
     
