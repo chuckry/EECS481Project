@@ -197,8 +197,6 @@ class RouteManager {
                 return
             }
             
-            self.printSnapPoints()
-            
             // Pause significant location changes while we compute/send user output
             self.locManager.stopWaitingForSignificantLocationChanges()
             
