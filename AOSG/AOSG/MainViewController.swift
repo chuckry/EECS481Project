@@ -110,7 +110,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             }
             else {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
-                Speech.shared.voiceOn = false
+                Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
             }
         }
