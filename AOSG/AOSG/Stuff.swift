@@ -30,6 +30,11 @@ class Stuff {
     public var beepFrequency:Float = 1
     public var beepOn:Bool = true
     
+    public var currentStepLabel = UILabel()
+    public var currentLocationLabel = UILabel()
+    public var destinationLocationLabel = UILabel()
+    public var directionList = UITextView()
+
 	private init(){
 
 	}
