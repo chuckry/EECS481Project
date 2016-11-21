@@ -286,17 +286,24 @@ struct GeocodingResponse {
     }
     
     func formatForReading() -> String {
+        print ("Address before: ", address)
         var wholeAddress : [String] = address.components(separatedBy:", ")
-        var streetAddress : [String] = wholeAddress[0].components(separatedBy:" ")
+        
+        var streetIndex : Int = -1
+        if wholeAddress.count == 4 { streetIndex = 0 }
+        else if wholeAddress.count == 5 { streetIndex = 1 }
+        else { return address }
+        
+        var streetAddress : [String] = wholeAddress[streetIndex].components(separatedBy:" ")
 
         wholeAddress.remove(at: wholeAddress.count-1)
-
+        
         for (index, word) in streetAddress.enumerated() {
             if setOfAbbreviations.contains(word) {
                 streetAddress[index] = abbreviationsToText[word]!
             }
         }
-        wholeAddress[0] = streetAddress.joined(separator: " ")
+        wholeAddress[streetIndex] = streetAddress.joined(separator: " ")
         
         var token : [String] = wholeAddress[2].components(separatedBy:" ")
         wholeAddress[2] = token[0]
