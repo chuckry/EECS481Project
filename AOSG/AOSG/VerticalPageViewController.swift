@@ -39,6 +39,8 @@ class VerticalPageViewController: UIPageViewController {
 	
 	public func returnToMainScreen() {
 		setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
+        currentPage = 1
+        horizontalPageVC.enableScrolling()
 	}
 	
     /*
