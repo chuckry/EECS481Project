@@ -64,7 +64,3 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 *.xcuserstate
-
-AOSG/AOSG.xcodeproj/project.pbxproj
-
-AOSG/AOSG.xcodeproj/project.xcworkspace/xcuserdata/gapoorva.xcuserdatad/UserInterfaceState.xcuserstate
