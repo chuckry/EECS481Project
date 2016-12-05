@@ -146,12 +146,22 @@ class FavoritesViewController: UIViewController {
         favorites.isUserInteractionEnabled = false
         tableEditButton.isEnabled = false
         tableAddButton.isEnabled = false
+        for row in 0..<favorites.numberOfRows(inSection: 0) {
+            let indexPath = IndexPath(row: row, section: 0)
+            let cell =  favorites.cellForRow(at: indexPath) as! FavoriteLocationTableViewCell
+            cell.disable()
+        }
     }
     
     func enableUIElements() {
         favorites.isUserInteractionEnabled = true
         tableEditButton.isEnabled = true
         tableAddButton.isEnabled = true
+        for row in 0..<favorites.numberOfRows(inSection: 0) {
+            let indexPath = IndexPath(row: row, section: 0)
+            let cell =  favorites.cellForRow(at: indexPath) as! FavoriteLocationTableViewCell
+            cell.enable()
+        }
     }
 
 }
