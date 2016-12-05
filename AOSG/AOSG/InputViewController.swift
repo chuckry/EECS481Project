@@ -45,7 +45,12 @@ class InputViewController: UIViewController, UITextFieldDelegate {
         if Speech.shared.voiceOn {
             getSpeechRecognitionPermissions()
             disableUIElements()
-            "New Destination".say(andThen: startVoiceInteraction)
+			//"New Destination".say(andThen: startVoiceInteraction)
+			waitingForSpeechRecognitionResultAvailable = true
+			notifySpeechRecognitionResultAvailable = startNavigation
+			Speech.shared.immediatelySay(utterance: "New Destination. Tell me the address you'd like go to. When you're done, tap the screen.")
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: startRecording)
+
         } else {
             Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Input")
             enableUIElements()
@@ -119,12 +124,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
     func enableUIElements() {
         inputDestinationTextField.isUserInteractionEnabled = true
     }
-    
-    func startVoiceInteraction() {
-        waitingForSpeechRecognitionResultAvailable = true
-        notifySpeechRecognitionResultAvailable = startNavigation
-        "Tell me the address you'd like go to.".say(andThen: startRecording)
-    }
+	
     
     
     private func startRecording() {

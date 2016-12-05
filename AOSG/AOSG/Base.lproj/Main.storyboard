@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -520,17 +520,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvj-in-1dc" userLabel="Where">
                                         <rect key="frame" x="0.0" y="361" width="375" height="119"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tells nearest intersection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-ti-8iy">
-                                                <rect key="frame" x="8" y="63" width="191" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where Am I?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKR-cm-FTx">
                                                 <rect key="frame" x="8" y="34" width="142" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tells nearest intersection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5X-ti-8iy">
+                                                <rect key="frame" x="8" y="63" width="191" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -608,11 +608,21 @@
                     </view>
                     <connections>
                         <outlet property="cancelBar" destination="vT1-ap-WwI" id="WSc-QN-Cwd"/>
+                        <outlet property="cancelLabel" destination="a75-4F-Mqd" id="65b-98-wRZ"/>
+                        <outlet property="cancelLabelSub" destination="PYn-ga-N6t" id="hqF-R2-nq7"/>
                         <outlet property="helpBar" destination="SIp-y8-gZx" id="Uvy-NV-rIT"/>
+                        <outlet property="helpLabel" destination="SwK-xi-O18" id="eMl-Eu-DzC"/>
+                        <outlet property="helpLabelSub" destination="OOn-6m-2eW" id="LRw-W5-iv4"/>
                         <outlet property="howFarBar" destination="A6Z-ln-4fm" id="b0a-gI-Wbr"/>
+                        <outlet property="howFarLabel" destination="GZ8-3W-CY2" id="oDD-da-7Pb"/>
+                        <outlet property="howFarLabelSub" destination="zmr-lA-LzN" id="wgh-rK-oM7"/>
                         <outlet property="repeatBar" destination="d6H-Cf-xlk" id="959-mP-JG2"/>
+                        <outlet property="repeatLabel" destination="An4-lI-mkC" id="Vqp-Jv-MYE"/>
+                        <outlet property="repeatLabelSub" destination="BNo-yj-wmU" id="H32-Hz-EWR"/>
                         <outlet property="toggleVoiceOnOff" destination="fYH-nu-IOB" id="q1u-Vf-6l0"/>
                         <outlet property="whereAmIBar" destination="kvj-in-1dc" id="aGn-OF-lHG"/>
+                        <outlet property="whereLabel" destination="JKR-cm-FTx" id="gO4-Lk-zUU"/>
+                        <outlet property="whereLabelSub" destination="z5X-ti-8iy" id="96J-6R-C70"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U8i-80-RK0" userLabel="First Responder" sceneMemberID="firstResponder"/>

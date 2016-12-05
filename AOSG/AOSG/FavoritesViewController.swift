@@ -49,6 +49,7 @@ class FavoritesViewController: UIViewController {
                 Speech.shared.voiceChanged = true
                 tableAddButton.isEnabled = true
                 tableEditButton.isEnabled = true
+				enableUIElements()
             }
             else {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
@@ -56,6 +57,7 @@ class FavoritesViewController: UIViewController {
                 Speech.shared.voiceChanged = true
                 tableAddButton.isEnabled = false
                 tableEditButton.isEnabled = false
+				disableUIElements()
 
             }
         }

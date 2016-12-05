@@ -38,6 +38,16 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	@IBOutlet var howFarBar: UIView!
 	@IBOutlet var whereAmIBar: UIView!
 	@IBOutlet var cancelBar: UIView!
+	@IBOutlet var helpLabel: UILabel!
+	@IBOutlet var helpLabelSub: UILabel!
+	@IBOutlet var repeatLabel: UILabel!
+	@IBOutlet var repeatLabelSub: UILabel!
+	@IBOutlet var howFarLabel: UILabel!
+	@IBOutlet var howFarLabelSub: UILabel!
+	@IBOutlet var whereLabelSub: UILabel!
+	@IBOutlet var whereLabel: UILabel!
+	@IBOutlet var cancelLabel: UILabel!
+	@IBOutlet var cancelLabelSub: UILabel!
 	
 	public var verticalPageVC:VerticalPageViewController!
 	
@@ -53,11 +63,13 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
                 Speech.shared.voiceOn = false
                 Speech.shared.voiceChanged = true
+				enableUIElements()
             }
             else {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
+				disableUIElements()
             }
         }
     }
@@ -215,10 +227,12 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 		super.viewDidAppear(animated)
 		if (Speech.shared.voiceOn){
 			loadOpenEars()
+			disableUIElements()
 			runSpeech()
 		}
 		else {
 			Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Commands")
+			enableUIElements()
 		}
 	}
 	
@@ -288,6 +302,36 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 				print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
 			}
 		}
+		
+	}
+	
+	func enableUIElements(){
+		helpLabel.textColor = UIColor.black
+		helpLabelSub.textColor = UIColor.black
+		repeatLabel.textColor = UIColor.black
+		repeatLabelSub.textColor = UIColor.black
+		howFarLabel.textColor = UIColor.black
+		howFarLabelSub.textColor = UIColor.black
+		whereLabel.textColor = UIColor.black
+		whereLabelSub.textColor = UIColor.black
+		cancelLabel.textColor = UIColor.black
+		cancelLabelSub.textColor = UIColor.black
+		
+
+	}
+	
+	func disableUIElements(){
+		helpLabel.textColor = UIColor.lightGray
+		helpLabelSub.textColor = UIColor.lightGray
+		repeatLabel.textColor = UIColor.lightGray
+		repeatLabelSub.textColor = UIColor.lightGray
+		howFarLabel.textColor = UIColor.lightGray
+		howFarLabelSub.textColor = UIColor.lightGray
+		whereLabel.textColor = UIColor.lightGray
+		whereLabelSub.textColor = UIColor.lightGray
+		cancelLabel.textColor = UIColor.lightGray
+		cancelLabelSub.textColor = UIColor.lightGray
+		
 		
 	}
 	
