@@ -26,7 +26,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     var delegate: FavoritesVoiceControllerDelegate?
     
     struct Confirmations {
-        static let opening: String  = "Say, back to go back at any time. Say, repeat to repeat the actions you can take. Swipe left at any time to leave this menu."
+        static let opening: String  = "Say, help for instructions."
+        static let help: String = "At the tone, say the name of a favorite destination, or say, list, to read saved favorites. Say, edit, to add or delete saved favorites."
         static let edit: String = "Editing"
         static let list: String = "Listing all favorites"
         static let add: String = "Adding a favorite"
@@ -45,7 +46,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     }
     
     struct MenuOptions {
-        static let root: String = "At the tone, say the name of a favorite destination, or say, list, to read saved favorites. Say, edit, to add or delete saved favorites."
+        static let root: String = "Say a voice command"
         static let edit: String = "At the tone say, add, to add a new favorite. Or say, delete, to delete a saved favorite"
         static let addStepOne: String = "First, At the tone, say a short, unique name for your favorite location. When you're done, tap the screen."
         static let addStepTwo: String = "Next, at the tone, say, here, if you want to save your current address. Say, dictate, if you want to save another address."
@@ -57,7 +58,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         static let deleteConfirmPost: String = "At the tone, say, confirm, to delete this favorite. Say, back, to start over"
     }
     // Base commands
-    private var words: [String] = ["LIST", "EDIT", "ADD", "DELETE", "HERE", "DICTATE", "SAVE", "BACK", "CONFIRM", "REPEAT"]
+    private var words: [String] = ["LIST", "EDIT", "ADD", "DELETE", "HERE", "DICTATE", "SAVE", "BACK", "CONFIRM", "REPEAT", "HELP"]
     
     // Saved Favorites as commands
     private var favoritesDictionary: [String:Favorite] = [:]
@@ -231,7 +232,12 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         switch state {
         // root menu options
         case .root:
-            if hypothesis! == "LIST"{
+            if hypothesis! == "HELP" {
+                self.stopListening()
+                Confirmations.help.say {
+                    MenuOptions.root.say(andThen: self.startListening)
+                }
+            } else if hypothesis! == "LIST"{
                 self.stopListening()
                 Confirmations.list.say(andThen: self.playListFavorites)
             } else if hypothesis! == "EDIT"{
