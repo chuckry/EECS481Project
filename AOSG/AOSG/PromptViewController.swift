@@ -192,8 +192,8 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 			cancelStatementText = self.verifyCancelStatementText
 			alert = UIAlertController(title: "Cancel", message: cancelStatementText, preferredStyle: UIAlertControllerStyle.alert)
 			alert?.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
-			Stuff.things.cancelled = true
-			self.verticalPageVC.returnToMainScreen()
+				Stuff.things.cancelled = true
+				self.verticalPageVC.returnToMainScreen()
 			}))
 			alert?.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
 		}
@@ -206,6 +206,7 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
 		print("tapped")
 		if (previouslyHeardCancel == true){
+			previouslyHeardCancel = false
 			Stuff.things.cancelled = true
 			verticalPageVC.returnToMainScreen()
 		}

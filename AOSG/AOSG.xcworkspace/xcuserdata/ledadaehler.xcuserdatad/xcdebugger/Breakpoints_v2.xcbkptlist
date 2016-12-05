@@ -482,11 +482,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501130364.764209"
+            timestampString = "502664514.747359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "MainViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -498,11 +498,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501130364.764209"
+            timestampString = "502664514.747359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -514,7 +514,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "204"
@@ -530,11 +530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "startListening()"
             landmarkType = "7">
          </BreakpointContent>
@@ -546,11 +546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "swipeDetected(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -578,7 +578,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501131197.324149"
+            timestampString = "502664941.544211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
@@ -592,7 +592,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501131197.324149"
+            timestampString = "502664941.544211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
@@ -669,11 +669,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/RouteManager.swift"
-            timestampString = "500498870.67329"
+            timestampString = "502664514.747359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "getSnapPoints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -685,13 +685,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/RouteManager.swift"
-            timestampString = "500499117.241032"
+            timestampString = "502664514.747359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "getTrig(_:_:)"
-            landmarkType = "7">
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "RouteManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -701,11 +701,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501131197.324149"
+            timestampString = "502664941.544211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "initializeRouteGuidance(withPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -733,11 +733,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "calcHowFar()"
             landmarkType = "7">
          </BreakpointContent>
@@ -749,11 +749,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -829,11 +829,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502661941.04535"
+            timestampString = "502663322.482617"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -918,22 +918,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AOSG/MainViewController.swift"
-            timestampString = "501131197.324149"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "initializeRouteGuidance(withPath:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AOSG/GoogleAPI.swift"
             timestampString = "501120608.620987"
             startingColumnNumber = "9223372036854775807"
@@ -999,11 +983,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501130364.764209"
+            timestampString = "502664514.747359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1015,11 +999,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "501131197.324149"
+            timestampString = "502664941.544211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "initializeRouteGuidance(withPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1037,6 +1021,86 @@
             startingLineNumber = "100"
             endingLineNumber = "100"
             landmarkName = "viewDidAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/PromptViewController.swift"
+            timestampString = "502663012.971974"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "didTapCancel(tapCancel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/PromptViewController.swift"
+            timestampString = "502663015.777083"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "didTapCancel(tapCancel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/PromptViewController.swift"
+            timestampString = "502663020.653794"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "didTapWhereAmI(tapWhereAmI:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/PromptViewController.swift"
+            timestampString = "502663029.153204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "didTapHowFar(tapHowFar:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/RouteManager.swift"
+            timestampString = "502664514.747359"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "navigationDriver(loc:heading:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

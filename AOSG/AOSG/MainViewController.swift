@@ -16,7 +16,6 @@ import AVFoundation
 
 class MainViewController: UIViewController, UITextFieldDelegate {
     
-    // MARK: Properties
     var destinationText: String?
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var destinationLocationLabel: UILabel!
@@ -188,7 +187,16 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             Stuff.things.currentLocationLabel = self.currentLocationLabel
             Stuff.things.destinationLocationLabel = self.destinationLocationLabel
             Stuff.things.directionList = self.directionList
-            
+			
+			Stuff.things.upArrow = self.upArrow
+			Stuff.things.downArrow = self.downArrow
+			Stuff.things.leftArrow = self.leftArrow
+			Stuff.things.rightArrow = self.rightArrow
+			Stuff.things.settingsLabel = self.settingsLabel
+			Stuff.things.inputLabel = self.inputLabel
+			Stuff.things.favoritesLabel = self.favoritesLabel
+			Stuff.things.voiceCommandLabel = self.voiceCommandLabel
+
             self.currentStepLabel.text = "--"
             self.currentLocationLabel.text = "--"
             self.destinationLocationLabel.text = "--"
@@ -196,19 +204,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
 			
 			//show/hide UI features
-			self.settingsLabel.isHidden = true
-			self.voiceCommandLabel.isHidden = true
-			self.inputLabel.isHidden = true
-			self.favoritesLabel.isHidden = true
-			self.upArrow.isHidden = true
-			self.downArrow.isHidden = true
-			self.rightArrow.isHidden = true
-			self.leftArrow.isHidden = true
 			
-			self.currentLocationLabel.isHidden = false
-			self.destinationLocationLabel.isHidden = false
-			self.directionList.isHidden = false
-			self.currentStepLabel.isHidden = false
+			Stuff.things.showLabelsHideArrows()
 			
             // update the UI with the current address:
             self.currentLocationLabel.text = self.route.startLocation.formatForDisplay()
@@ -220,6 +217,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.directionList.text = directions.joined(separator: "\n\n")
             self.spinner.stopAnimating()
    
+			Stuff.things.cancelled = false
             // Begin naviation and read first direction outloud
             // TODO: give capability to change rate in settings
             print ("old heading filter = ", self.locationService.headingFilter)
@@ -235,6 +233,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.locationService.waitForSignificantLocationChanges(callback: Stuff.things.routeManager.navigationDriver)
         }
     }
+	
+
 }
 
 

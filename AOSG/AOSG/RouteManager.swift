@@ -20,7 +20,9 @@ class RouteManager {
     var nextPoint = 0
     var snappedPoints: [CLLocation]
     var nearestIntersection: String = ""
-    
+	var mainViewController: MainViewController!
+
+	
     init() {
         self.lastPoint = CLLocation()
         self.snappedPoints = []
@@ -216,11 +218,15 @@ class RouteManager {
             if ((self.route?.cancelledNavigation())!) {
                 Speech.shared.immediatelySay(utterance: "You have cancelled navigation")
                 print("You have cancelled navigation ")
+				Stuff.things.showArrowsHideLabels()
+				
                 Stuff.things.currentStepLabel.text = "--"
                 Stuff.things.currentLocationLabel.text = "--"
                 Stuff.things.destinationLocationLabel.text = "--"
                 Stuff.things.directionList.text = ""
-                
+				
+				Stuff.things.resetPromptInfo()
+				
                 return
             }
             

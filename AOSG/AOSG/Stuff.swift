@@ -34,6 +34,17 @@ class Stuff {
     public var currentLocationLabel = UILabel()
     public var destinationLocationLabel = UILabel()
     public var directionList = UITextView()
+	
+	public var upArrow = UIImageView()
+	public var rightArrow = UIImageView()
+	public var downArrow = UIImageView()
+	public var leftArrow = UIImageView()
+	public var settingsLabel = UILabel()
+	public var inputLabel = UILabel()
+	public var favoritesLabel = UILabel()
+	public var voiceCommandLabel = UILabel()
+
+	
 
 	private init(){
 
@@ -66,4 +77,41 @@ class Stuff {
 		}
 		return stepPace
 	}
+	
+	func showLabelsHideArrows(){
+		self.settingsLabel.isHidden = true
+		self.voiceCommandLabel.isHidden = true
+		self.inputLabel.isHidden = true
+		self.favoritesLabel.isHidden = true
+		self.upArrow.isHidden = true
+		self.downArrow.isHidden = true
+		self.rightArrow.isHidden = true
+		self.leftArrow.isHidden = true
+		
+		self.currentLocationLabel.isHidden = false
+		self.destinationLocationLabel.isHidden = false
+		self.directionList.isHidden = false
+		self.currentStepLabel.isHidden = false
+	}
+	
+	func showArrowsHideLabels(){
+		self.settingsLabel.isHidden = false
+		self.voiceCommandLabel.isHidden = false
+		self.inputLabel.isHidden = false
+		self.favoritesLabel.isHidden = false
+		self.upArrow.isHidden = false
+		self.downArrow.isHidden = false
+		self.rightArrow.isHidden = false
+		self.leftArrow.isHidden = false
+		
+		self.currentLocationLabel.isHidden = true
+		self.destinationLocationLabel.isHidden = true
+		self.directionList.isHidden = true
+		self.currentStepLabel.isHidden = true
+	}
+	
+	func resetPromptInfo(){
+		Stuff.things.currentStepDescription = ""
+	}
+	
 }
