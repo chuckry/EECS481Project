@@ -38,14 +38,14 @@ class NewFavoriteViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         nameTextField.text = ""
         addressTextField.text = ""
-        useCurrentLocationSwitch.isOn = true
-        addressTextField.isEnabled = false
+        useCurrentLocationSwitch.isOn = false
+        addressTextField.isEnabled = true
         saveButton.isEnabled = false
         favorite = nil
         currentAddress = nil
-        locationSearchStatusLabel.isHidden = false
+        locationSearchStatusLabel.isHidden = true
         locationSearchStatusLabel.text = "Searching for your location..."
-        locationManager.waitForAddressToBeAvailable(callback: addressAvailable)
+        //locationManager.waitForAddressToBeAvailable(callback: addressAvailable)
     }
 
     override func didReceiveMemoryWarning() {
