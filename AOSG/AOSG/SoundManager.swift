@@ -35,8 +35,16 @@ class SoundManager {
             self.audioPlayer.play()
             print("Starting to play!")
         }
-    }
-    
+	}
+	
+	func stopPlayingSound() {
+		if (Stuff.things.beepOn) {
+			self.audioPlayer.stop()
+			print("Stopping sound!")
+		}
+	}
+
+	
     /*
      *  Update sound balance and volume
      */

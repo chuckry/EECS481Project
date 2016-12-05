@@ -226,6 +226,7 @@ class RouteManager {
                 Stuff.things.directionList.text = ""
 				
 				Stuff.things.resetPromptInfo()
+				self.soundManager.stopPlayingSound()
 				
                 return
             }
