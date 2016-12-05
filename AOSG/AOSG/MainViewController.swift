@@ -103,6 +103,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
     @IBAction func toggleVoiceAction(_ sender: Any) {
         if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+            
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            
             print ("tap toggled voice on/off")
             if Speech.shared.voiceOn {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")

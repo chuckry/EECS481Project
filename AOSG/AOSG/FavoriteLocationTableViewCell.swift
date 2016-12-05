@@ -23,5 +23,14 @@ class FavoriteLocationTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    public func disable() {
+        nameLabel.isEnabled = false
+        addressLabel.isEnabled = false
+    }
+    
+    public func enable() {
+        nameLabel.isEnabled = true
+        addressLabel.isEnabled = true
+    }
 }
