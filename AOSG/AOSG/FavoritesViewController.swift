@@ -39,6 +39,10 @@ class FavoritesViewController: UIViewController {
     @IBAction func toggleVoiceAction(_ sender: Any) {
             if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
             print ("tap toggled voice on/off")
+            
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+                
             if Speech.shared.voiceOn {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
                 Speech.shared.voiceOn = false
