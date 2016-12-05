@@ -182,14 +182,10 @@ struct NavigationStep {
         rawDescription = desc
 
         formattedDescription = desc.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
-        let openBracketIndex = formattedDescription.range(of: "<div");
-        let closedBracketDiv = formattedDescription.range(of: ">");
-        let openBracketIndex2 = formattedDescription.range(of: "</div>")
-        if openBracketIndex != nil && closedBracketDiv != nil && openBracketIndex2 != nil {
-            formattedNote = formattedDescription.substring(with: (closedBracketDiv?.upperBound)!..<(openBracketIndex2?.lowerBound)!)
-            formattedDescription.removeSubrange((openBracketIndex?.lowerBound)!..<(openBracketIndex2?.upperBound)!)
-        }
-        //formattedDescription += " Distance: \(totalDistance), Time: \(totalDuration), "
+        
+        let regex : NSRegularExpression = try! NSRegularExpression(pattern: "<.*?>", options: NSRegularExpression.Options.caseInsensitive)
+        let range = NSMakeRange(0, rawDescription.characters.count)
+        formattedDescription = regex.stringByReplacingMatches(in: rawDescription, options: .anchored, range: range, withTemplate: "")
         totalHumanSteps = 0
         
         var myArray : [String] = formattedDescription.components(separatedBy:" ")
