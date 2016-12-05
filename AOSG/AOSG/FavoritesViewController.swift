@@ -94,8 +94,9 @@ class FavoritesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Speech.shared.voiceOn {
-            disableUIElements()
-           "Favorites".say(andThen: favoritesVoiceController.useVoiceControlMenu)
+			disableUIElements()
+			Speech.shared.immediatelySay(utterance: favoritesVoiceController.openingStatement)
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: favoritesVoiceController.startListening)
         } else {
             Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Favorites")
             enableUIElements()

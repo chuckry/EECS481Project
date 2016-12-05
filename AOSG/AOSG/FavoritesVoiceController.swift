@@ -79,6 +79,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private lazy var notifySpeechRecognitionResultAvailable: (String) -> Void = {arg in}
     private var waitingForSpeechRecognitionResultAvailable: Bool = false
+	
+	public var openingStatement = "Favorites" + Confirmations.opening + MenuOptions.root
     
 //    private lazy var notifyTapOccurred: () -> Void = {arg in}
 //    private var waitingForTapOccurred: Bool = false
@@ -136,13 +138,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         }
         reloadOpenEars()
     }
-    
-    public func useVoiceControlMenu() {
-        // Start shit up here
-        Confirmations.opening.say {
-            MenuOptions.root.say(andThen: self.listen)
-        }
-    }
+
     
     public func stopUsingVoiceControlMenu() {
         // clean up the controls
@@ -179,7 +175,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
             }
         }
         statement.say {
-            MenuOptions.root.say(andThen: self.listen)
+			Speech.shared.immediatelySay(utterance: MenuOptions.root)
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
         }
     }
     
@@ -189,7 +186,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         favoriteTemplate = Favorite(withName: name, withAddress: "")
         state = .add2
         (Confirmations.addName + name).say {
-            MenuOptions.addStepTwo.say(andThen: self.listen)
+			Speech.shared.immediatelySay(utterance: MenuOptions.addStepTwo)
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
         }
     }
     
@@ -197,12 +195,14 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         if favoriteTemplate != nil && address != nil {
             favoriteTemplate!.address = address!
             state = .addConfirm
-            (MenuOptions.addConfirmPre + "\(favoriteTemplate!.name) is at \(favoriteTemplate!.address). " + MenuOptions.addConfirmPost).say(andThen: self.listen)
+			Speech.shared.immediatelySay(utterance: (MenuOptions.addConfirmPre + "\(favoriteTemplate!.name) is at \(favoriteTemplate!.address). " + MenuOptions.addConfirmPost))
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
         }
         if address == nil {
             state = .root
             Confirmations.currentLocationUnknown.say {
-                MenuOptions.root.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.root)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             }
         }
     }
@@ -213,7 +213,9 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         if favoriteTemplate != nil {
             favoriteTemplate!.address = address
             state = .addConfirm
-            (MenuOptions.addConfirmPre + "\(favoriteTemplate!.name) is at \(favoriteTemplate!.address). " + MenuOptions.addConfirmPost).say(andThen: self.listen)
+			Speech.shared.immediatelySay(utterance: (MenuOptions.addConfirmPre + "\(favoriteTemplate!.name) is at \(favoriteTemplate!.address). " + MenuOptions.addConfirmPost))
+			Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
+			
         }
     }
     
@@ -236,11 +238,13 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 self.stopListening()
                 state = .edit
                 Confirmations.edit.say {
-                    MenuOptions.edit.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.edit)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "REPEAT" {
                 self.stopListening()
-                MenuOptions.root.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.root)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             } else {
                 guard let possibleFavoriteName = hypothesis else { return }
                 if let favorite = favoritesDictionary[possibleFavoriteName] {
@@ -253,7 +257,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 } else {
                     // pocketsphinx can be hard of hearing sometimes
                     self.stopListening()
-                    Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             }
         // edit menu options
@@ -269,31 +274,38 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                     if !self.recognizitionAuthorized {
                         self.state = .root
                         Confirmations.notAuthorized.say {
-                            MenuOptions.root.say(andThen: self.listen)
+							Speech.shared.immediatelySay(utterance: MenuOptions.root)
+							Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                         }
                     } else {
-                        MenuOptions.addStepOne.say(andThen: self.startRecording)
+						Speech.shared.immediatelySay(utterance: MenuOptions.addStepOne)
+						Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startRecording)
+						
                     }
                 }
             } else if hypothesis! == "DELETE" {
                 self.stopListening()
                 state = .del
                 Confirmations.delete.say {
-                    MenuOptions.delete.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.delete)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "BACK" {
                 self.stopListening()
                 state = .root
                 Confirmations.back.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "REPEAT" {
                 self.stopListening()
-                MenuOptions.edit.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.edit)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             } else {
                 // pocketsphinx can be hard of hearing sometimes
                 self.stopListening()
-                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             }
         // trying to add, selecting current location or dictated location
         case .add2:
@@ -308,7 +320,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 notifySpeechRecognitionResultAvailable = handleDictatedFavoriteAddress
                 openEarsEventsObserver = nil
                 Confirmations.useDictatedAddress.say {
-                    MenuOptions.addStepThree.say(andThen: self.startRecording)
+					Speech.shared.immediatelySay(utterance: MenuOptions.addStepThree)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startRecording)
                 }
             } else if hypothesis! == "BACK" {
                 self.stopListening()
@@ -320,19 +333,23 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                     if !self.recognizitionAuthorized {
                         self.state = .root
                         Confirmations.notAuthorized.say {
-                            MenuOptions.root.say(andThen: self.listen)
+							Speech.shared.immediatelySay(utterance: MenuOptions.root)
+							Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                         }
                     } else {
-                        MenuOptions.addStepOne.say(andThen: self.startRecording)
+						Speech.shared.immediatelySay(utterance: MenuOptions.addStepOne)
+						Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                     }
                 }
             } else if hypothesis! == "REPEAT" {
                 self.stopListening()
-                MenuOptions.addStepTwo.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.addStepTwo)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             } else {
                 // pocketsphinx can be hard of hearing sometimes
                 self.stopListening()
-                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             }
         // trying to confirm add
         case .addConfirm:
@@ -344,22 +361,26 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 self.addToDictionary(favorites: [favoriteTemplate!])
                 state = .root
                 Confirmations.favoriteSaved.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "BACK" { // go back to main menu cause there's multiple ways to get here
                 self.stopListening()
                 favoriteTemplate = nil
                 state = .root
                 Confirmations.canceledLastAction.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "REPEAT" {
                 self.stopListening()
-                MenuOptions.addConfirmPost.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.addConfirmPost)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             } else {
                 // pocketsphinx can be hard of hearing sometimes
                 self.stopListening()
-                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             }
         // selected delete
         case .del:
@@ -367,7 +388,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 self.stopListening()
                 state = .edit
                 Confirmations.back.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else {
                 guard let command = hypothesis else { return }
@@ -376,14 +398,17 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                     self.stopListening()
                     state = .delConfirm
                     favoriteTemplate = favoritesDictionary[recognizableWord]
-                    (MenuOptions.deleteConfirmPre + " \(favoriteTemplate!.name). " + MenuOptions.deleteConfirmPost).say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: (MenuOptions.deleteConfirmPre + " \(favoriteTemplate!.name). " + MenuOptions.deleteConfirmPost))
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 } else if hypothesis! == "REPEAT" {
                     self.stopListening()
-                    MenuOptions.delete.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.delete)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 } else {
                     // pocketsphinx can be hard of hearing sometimes
                     self.stopListening()
-                    Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             }
             
@@ -397,22 +422,26 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                 self.removeFromDictionary(favorite: favoriteTemplate!)
                 state = .root
                 Confirmations.deleteExecuted.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "BACK" {
                 self.stopListening()
                 favoriteTemplate = nil
                 state = .root
                 Confirmations.canceledLastAction.say {
-                    MenuOptions.root.say(andThen: self.listen)
+					Speech.shared.immediatelySay(utterance: MenuOptions.root)
+					Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                 }
             } else if hypothesis! == "REPEAT" {
                 self.stopListening()
-                MenuOptions.deleteConfirmPost.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: MenuOptions.delete)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             } else {
                 // pocketsphinx can be hard of hearing sometimes
                 self.stopListening()
-                Confirmations.couldYouRepeatThat.say(andThen: self.listen)
+				Speech.shared.immediatelySay(utterance: Confirmations.couldYouRepeatThat)
+				Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
             }
         
         default: break
@@ -503,7 +532,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
                     self.reloadOpenEars()
                     self.state = .root
                     Confirmations.back.say {
-                        MenuOptions.root.say(andThen: self.listen)
+						Speech.shared.immediatelySay(utterance: MenuOptions.root)
+						Speech.shared.waitToFinishSpeakingThenBeep(callback: self.startListening)
                     }
                 }
             }
@@ -583,13 +613,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     }
     
     // MARK: Private Openears Controls
-    
-    private func listen() {
-        playDaBeep()
-        self.startListening()
-    }
-    
-    private func reloadOpenEars() {
+	private func reloadOpenEars() {
         openEarsEventsObserver = OEEventsObserver()
         openEarsEventsObserver?.delegate = self
         let filename = languageModelFileName + "_\(self.randomString(length: 20))"
@@ -599,7 +623,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         dictionaryPath = openEarsLanguageModelGenerator.pathToSuccessfullyGeneratedDictionary(withRequestedName: filename)
     }
     
-    private func startListening() {
+    func startListening() {
         do {
             try	OEPocketsphinxController.sharedInstance().setActive(true)
         } catch{
