@@ -69,7 +69,10 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
-				disableUIElements()
+                loadOpenEars()
+                disableUIElements()
+                Speech.shared.waitToFinishSpeaking(callback: runSpeech)
+                
             }
         }
     }

@@ -14,6 +14,7 @@ class NewFavoriteViewController: UIViewController {
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    @IBOutlet weak var cancelButtonObject: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
@@ -34,6 +35,26 @@ class NewFavoriteViewController: UIViewController {
         addressTextField.delegate = self
         
     }
+    
+    func enableUIElements() {
+        nameTextField.isEnabled = true
+        addressTextField.isEnabled = true
+        useCurrentLocationSwitch.isEnabled = true
+        addressTextField.isEnabled = true
+        saveButton.isEnabled = true
+        cancelButtonObject.isEnabled = true
+    }
+    
+    func disableUIElements() {
+        nameTextField.isEnabled = false
+        addressTextField.isEnabled = false
+        useCurrentLocationSwitch.isEnabled = false
+        addressTextField.isEnabled = false
+        saveButton.isEnabled = false
+        cancelButtonObject.isEnabled = false
+    }
+    
+
     
     override func viewDidAppear(_ animated: Bool) {
         nameTextField.text = ""

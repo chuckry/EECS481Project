@@ -48,7 +48,7 @@ class InputViewController: UIViewController, UITextFieldDelegate {
 			//"New Destination".say(andThen: startVoiceInteraction)
 			waitingForSpeechRecognitionResultAvailable = true
 			notifySpeechRecognitionResultAvailable = startNavigation
-			Speech.shared.immediatelySay(utterance: "New Destination. Tell me the address you'd like go to. When you're done, tap the screen.")
+			Speech.shared.immediatelySay(utterance: "New Destination--. Tell me the address you'd like go to. When you're done, tap the screen.")
 			Speech.shared.waitToFinishSpeakingThenBeep(callback: startRecording)
 
         } else {
@@ -79,11 +79,11 @@ class InputViewController: UIViewController, UITextFieldDelegate {
                 enableUIElements()
             }
             else {
-                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
-                //TODO: reprompt user
                 disableUIElements()
+                Speech.shared.immediatelySay(utterance: "Voice On--. New Destination--. Tell me the address you'd like go to. When you're done, tap the screen.")
+                Speech.shared.waitToFinishSpeakingThenBeep(callback: startRecording)
             }
         }
     }

@@ -12,6 +12,8 @@ import AVFoundation
 class FavoritesViewController: UIViewController {
 
     // MARK: Properties
+    let generator = UINotificationFeedbackGenerator()
+
     @IBOutlet weak var favorites: UITableView!
     @IBOutlet weak var tableEditButton: UIBarButtonItem!
     @IBOutlet weak var tableAddButton: UIBarButtonItem!
@@ -37,10 +39,9 @@ class FavoritesViewController: UIViewController {
 
     @IBOutlet var toggleVoiceOnOff: UILongPressGestureRecognizer!
     @IBAction func toggleVoiceAction(_ sender: Any) {
-            if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
+        if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
             print ("tap toggled voice on/off")
             
-            let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
                 
             if Speech.shared.voiceOn {
@@ -50,11 +51,17 @@ class FavoritesViewController: UIViewController {
 				enableUIElements()
             }
             else {
-                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
 				disableUIElements()
-                //TODO: reprompt user
+                Speech.shared.immediatelySay(utterance: "Voice On -- " + favoritesVoiceController.openingStatement)
+                Speech.shared.waitToFinishSpeakingThenBeep(callback: favoritesVoiceController.startListening)
+
+                
+                if favorites.isEditing {
+                    favorites.setEditing(false, animated: true)
+                    tableEditButton.title = "Edit"
+                }
 
             }
         }
@@ -115,6 +122,7 @@ class FavoritesViewController: UIViewController {
     
     
     // MARK: Favorites Methods
+    
     
     func saveFavorites() {
         let isSucessfulSave = NSKeyedArchiver.archiveRootObject(favs, toFile: Favorite.archiveURL.path)

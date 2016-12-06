@@ -26,7 +26,7 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     var delegate: FavoritesVoiceControllerDelegate?
     
     struct Confirmations {
-        static let opening: String  = "Say, help for instructions."
+        static let opening: String  = "Say, help, for instructions."
         static let help: String = "At the tone, say the name of a favorite destination, or say, list, to read saved favorites. Say, edit, to add or delete saved favorites."
         static let edit: String = "Editing"
         static let list: String = "Listing all favorites"
@@ -80,8 +80,8 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     
     private lazy var notifySpeechRecognitionResultAvailable: (String) -> Void = {arg in}
     private var waitingForSpeechRecognitionResultAvailable: Bool = false
-	
-	public var openingStatement = "Favorites" + Confirmations.opening + MenuOptions.root
+
+	public var openingStatement = "Favorites--" + Confirmations.opening + MenuOptions.root
     
 //    private lazy var notifyTapOccurred: () -> Void = {arg in}
 //    private var waitingForTapOccurred: Bool = false
