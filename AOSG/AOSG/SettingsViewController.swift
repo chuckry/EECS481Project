@@ -224,25 +224,33 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
         if (toggleVoiceOnOff.state == UIGestureRecognizerState.began) {
             print ("tap toggled voice on/off")
             
+            
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             
             if Speech.shared.voiceOn {
+                stopListening()
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
                 Speech.shared.voiceOn = false
                 Speech.shared.voiceChanged = true
                 voiceSwitchLabel.text = "Voice: OFF"
                 voiceSwitch.isOn = false
+                currentSettings.voiceOn = false
                 toggleButtons(on_off: true)
             }
             else {
-                Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
-                Speech.shared.voiceOn = false
+                Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
                 voiceSwitchLabel.text = "Voice: ON"
                 voiceSwitch.isOn = true
+                currentSettings.voiceOn = true
                 toggleButtons(on_off: false)
+                //loadOpenEars()
+                Speech.shared.say(utterance: "Voice On")
+                Speech.shared.waitToFinishSpeaking(callback: self.runOpeningSpeech)
+                // what the page should repeatedly say at opening and after other events
             }
+            saveSettings()
         }
     }
     
