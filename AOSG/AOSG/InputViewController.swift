@@ -76,11 +76,14 @@ class InputViewController: UIViewController, UITextFieldDelegate {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
                 Speech.shared.voiceOn = false
                 Speech.shared.voiceChanged = true
+                enableUIElements()
             }
             else {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
+                //TODO: reprompt user
+                disableUIElements()
             }
         }
     }

@@ -47,17 +47,14 @@ class FavoritesViewController: UIViewController {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice Off")
                 Speech.shared.voiceOn = false
                 Speech.shared.voiceChanged = true
-                tableAddButton.isEnabled = true
-                tableEditButton.isEnabled = true
 				enableUIElements()
             }
             else {
                 Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: "Voice On")
-                Speech.shared.voiceOn = false
+                Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
-                tableAddButton.isEnabled = false
-                tableEditButton.isEnabled = false
 				disableUIElements()
+                //TODO: reprompt user
 
             }
         }

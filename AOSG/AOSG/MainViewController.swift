@@ -117,6 +117,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 Speech.shared.voiceOn = true
                 Speech.shared.voiceChanged = true
             }
+            
+            
         }
     }
     
