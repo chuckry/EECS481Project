@@ -185,7 +185,7 @@ struct NavigationStep {
         
         let regex : NSRegularExpression = try! NSRegularExpression(pattern: "<.*?>", options: NSRegularExpression.Options.caseInsensitive)
         let range = NSMakeRange(0, rawDescription.characters.count)
-        formattedDescription = regex.stringByReplacingMatches(in: rawDescription, options: .anchored, range: range, withTemplate: "")
+        formattedDescription = regex.stringByReplacingMatches(in: rawDescription, options: .withoutAnchoringBounds, range: range, withTemplate: "")
         totalHumanSteps = 0
         
         var myArray : [String] = formattedDescription.components(separatedBy:" ")
