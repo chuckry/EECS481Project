@@ -61,7 +61,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             Speech.shared.volume = savedSettings.volume
             Speech.shared.voiceOn = savedSettings.voiceOn
             Speech.shared.speechRate = savedSettings.voiceSpeed
-            Stuff.things.beepFrequency = savedSettings.beepFrequency
             Stuff.things.beepOn = savedSettings.beepOn
             Stuff.things.vibrationOn = savedSettings.vibrationOn
         }
@@ -220,12 +219,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.spinner.stopAnimating()
    
 			Stuff.things.cancelled = false
-            // Begin naviation and read first direction outloud
-            // TODO: give capability to change rate in settings
-            print ("old heading filter = ", self.locationService.headingFilter)
-            self.locationService.headingFilter = Stuff.things.getHeaderFilterValue()
-            self.locationService.distanceFilter = Stuff.things.getDistanceFilterValue()
-            print ("new heading filter = ", self.locationService.headingFilter)
             
             let start_text = "All set with direction to " + self.route.endLocation.formatForReading() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)
