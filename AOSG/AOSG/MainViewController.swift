@@ -62,7 +62,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             Speech.shared.voiceOn = savedSettings.voiceOn
             Speech.shared.speechRate = savedSettings.voiceSpeed
             Stuff.things.beepOn = savedSettings.beepOn
-            Stuff.things.vibrationOn = savedSettings.vibrationOn
         }
         else {
             print("didnt grab past settings")

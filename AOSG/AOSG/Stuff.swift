@@ -26,7 +26,6 @@ class Stuff {
 	public var stepSizeEst: Double = 0
 	public var stepPace: Double = 0
     
-    public var vibrationOn:Bool = true
     public var beepOn:Bool = true
     
     public var currentStepLabel = UILabel()
