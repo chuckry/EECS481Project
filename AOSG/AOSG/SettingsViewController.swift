@@ -36,8 +36,8 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
     //array of words to be recognized. Remove spaces in multiple word phrases.
 	var words: Array<String> = ["VOLUME","VOICE", "VOICEON", "VOICEOFF", "SPEECHRATE", "SPEECHSPEED", "RATE", "BEEP"]
     
-	let openingStatement:String = "Settings. At the tone, speak the name of the setting you would like to edit. Or say, help, to read all available settings. Swipe down to cancel. "
-	let helpStatement:String = "You said help. You are on the Settings Page. On this page you can change the following settings: volume, voice on/off, voice speed, vibration on/off, beep frequency. To adjust one of these settings please say the desired setting name after the tone then wait for further instructions."
+	let openingStatement:String = "Settings. For instructions say, help."
+	let helpStatement:String = "You are on the Settings Page. On this page you can change the following settings: volume, voice controls, voice speed. To adjust one of these settings, please say the desired setting name after the tone."
 
     var openEarsEventsObserver: OEEventsObserver?
 	var startFailedDueToLackOfPermissions = Bool()
