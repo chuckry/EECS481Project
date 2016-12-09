@@ -68,7 +68,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Wait for a location to be available and save it
-        locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+        locationService.waitForLocationToBeAvailable {
+            (location: CLLocation) -> Void in
+            // don't do anything. Purpose of this is to get location services out and about
+        }
 		
 		let mainStatement: String = "Welcome to Steereo. This application works best with headphones, and when your phone is held face up at a 90 degree angle to your body. Swipe right to input a new destination. Swipe left to route to a favorite destination. Swipe up to adjust settings. Swipe down to access voice commands. "
 		Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: mainStatement)
