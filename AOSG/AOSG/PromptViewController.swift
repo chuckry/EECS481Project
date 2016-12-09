@@ -280,6 +280,16 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
 		catch{
 			print ("fail")
 		}
+		// create a audio session
+		let audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession.setCategory(AVAudioSessionCategoryRecord)
+			try audioSession.setMode(AVAudioSessionModeMeasurement)
+			//try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+		} catch {
+			print("failed to set audioSession properties")
+		}
+
 		print("Starting listening")
 		OEPocketsphinxController.sharedInstance().startListeningWithLanguageModel(atPath: lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"), languageModelIsJSGF: false)
 	}
@@ -298,6 +308,14 @@ class PromptViewController: UIViewController, OEEventsObserverDelegate,  UIGestu
     }
 
 	func stopListening() {
+		let audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+			try audioSession.setMode(AVAudioSessionModeDefault)
+		} catch {
+			print("failed to set audioSession properties")
+		}
+
 		print("Stopping listening")
 		//Speech.shared.synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
 		if (OEPocketsphinxController.sharedInstance().isListening){

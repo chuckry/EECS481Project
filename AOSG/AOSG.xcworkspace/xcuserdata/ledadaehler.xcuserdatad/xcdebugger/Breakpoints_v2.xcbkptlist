@@ -298,8 +298,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "VerticalPageViewController"
-            landmarkType = "4">
+            landmarkName = "pageViewController(_:willTransitionTo:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -514,13 +514,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "PromptViewController"
-            landmarkType = "3">
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "didTapCancel(tapCancel:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -530,11 +530,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503005609.088878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "startListening()"
             landmarkType = "7">
          </BreakpointContent>
@@ -546,11 +546,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "swipeDetected(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -578,11 +578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "502664941.544211"
+            timestampString = "503004638.379366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260">
+            startingLineNumber = "279"
+            endingLineNumber = "279">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -592,11 +592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "502664941.544211"
+            timestampString = "503004638.379366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261">
+            startingLineNumber = "280"
+            endingLineNumber = "280">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -701,13 +701,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "502664941.544211"
+            timestampString = "503004638.379366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "initializeRouteGuidance(withPath:)"
-            landmarkType = "7">
+            startingLineNumber = "252"
+            endingLineNumber = "252">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -733,12 +731,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503005609.088878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
-            landmarkName = "calcHowFar()"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
+            landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -749,11 +747,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503005609.088878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -781,11 +779,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/FavoritesVoiceController.swift"
-            timestampString = "502654486.5568"
+            timestampString = "503003089.836645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "pocketsphinxDidReceiveHypothesis(_:recognitionScore:utteranceID:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -829,11 +827,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/PromptViewController.swift"
-            timestampString = "502663322.482617"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -845,11 +843,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/Speech.swift"
-            timestampString = "501119771.312804"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "initBeep()"
             landmarkType = "7">
          </BreakpointContent>
@@ -861,11 +859,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/Speech.swift"
-            timestampString = "501119771.312804"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147">
+            startingLineNumber = "153"
+            endingLineNumber = "153">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -875,11 +873,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/Speech.swift"
-            timestampString = "501119771.312804"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163">
+            startingLineNumber = "169"
+            endingLineNumber = "169">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -889,11 +887,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/Speech.swift"
-            timestampString = "501119771.312804"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164">
+            startingLineNumber = "170"
+            endingLineNumber = "170">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -903,11 +901,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/Speech.swift"
-            timestampString = "501119771.312804"
+            timestampString = "503004135.397226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "audioPlayerDidFinishPlaying(_:successfully:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -983,11 +981,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "502664514.747359"
+            timestampString = "503004638.379366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -999,13 +997,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AOSG/MainViewController.swift"
-            timestampString = "502664941.544211"
+            timestampString = "503004638.379366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "initializeRouteGuidance(withPath:)"
-            landmarkType = "7">
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "MainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1020,7 +1018,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
             endingLineNumber = "100"
-            landmarkName = "viewDidAppear(_:)"
+            landmarkName = "didReceiveMemoryWarning()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1036,7 +1034,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "180"
             endingLineNumber = "180"
-            landmarkName = "didTapCancel(tapCancel:)"
+            landmarkName = "didTapWhereAmI(tapWhereAmI:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1117,6 +1115,100 @@
             startingLineNumber = "114"
             endingLineNumber = "114"
             landmarkName = "moveToNextSnapPointIfClose(loc:heading:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/PromptViewController.swift"
+            timestampString = "503003845.081619"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "PromptViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.toggleVoiceOnOff.getter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILongPressGestureRecognizer&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "503003845.52983"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.toggleVoiceOnOff.setter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILongPressGestureRecognizer&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "503003845.533757"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AOSG.PromptViewController"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "503003845.536677"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "1692">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AOSG.PromptViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AOSG.PromptViewController&gt;"
+                  moduleName = "AOSG"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ledadaehler/Desktop/Fall%202016/EECS481/EECS481Project/AOSG/AOSG/PromptViewController.swift"
+                  timestampString = "503003845.539656"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "1632">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AOSG/Speech.swift"
+            timestampString = "503004431.031393"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "immediatelySayEvenIfVoiceIsOff(utterance:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

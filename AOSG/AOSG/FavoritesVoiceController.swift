@@ -635,6 +635,16 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
         } catch{
             print ("fail")
         }
+		// create a audio session
+		let audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession.setCategory(AVAudioSessionCategoryRecord)
+			try audioSession.setMode(AVAudioSessionModeMeasurement)
+			//try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+		} catch {
+			print("failed to set audioSession properties")
+		}
+
         print("Starting listening")
         OEPocketsphinxController.sharedInstance().startListeningWithLanguageModel(atPath: languageModelPath, dictionaryAtPath: dictionaryPath, acousticModelAtPath: OEAcousticModel.path(toModel: "AcousticModelEnglish"), languageModelIsJSGF: false)
     }
@@ -642,6 +652,14 @@ class FavoritesVoiceController: NSObject, OEEventsObserverDelegate, SFSpeechReco
     private func stopListening() {
         print("Stopping listening")
         if(OEPocketsphinxController.sharedInstance().isListening){
+			let audioSession = AVAudioSession.sharedInstance()
+			do {
+				try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+				try audioSession.setMode(AVAudioSessionModeDefault)
+			} catch {
+				print("failed to set audioSession properties")
+			}
+
             let stopListeningError: Error! = OEPocketsphinxController.sharedInstance().stopListening() // React to it by telling Pocketsphinx to stop listening since there is no available input (but only if we are listening).
             if(stopListeningError != nil) {
                 print("Error while stopping listening in audioInputDidBecomeUnavailable: \(stopListeningError)")
