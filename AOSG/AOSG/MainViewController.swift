@@ -61,16 +61,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             Speech.shared.volume = savedSettings.volume
             Speech.shared.voiceOn = savedSettings.voiceOn
             Speech.shared.speechRate = savedSettings.voiceSpeed
-            Stuff.things.beepFrequency = savedSettings.beepFrequency
             Stuff.things.beepOn = savedSettings.beepOn
-            Stuff.things.vibrationOn = savedSettings.vibrationOn
         }
         else {
             print("didnt grab past settings")
         }
         
         // Wait for a location to be available and save it
-        locationService.waitForLocationToBeAvailable(callback: self.initialLocationKnown)
+        locationService.waitForLocationToBeAvailable {
+            (location: CLLocation) -> Void in
+            // don't do anything. Purpose of this is to get location services out and about
+        }
 		
 		let mainStatement: String = "Welcome to Steereo. This application works best with headphones, and when your phone is held face up at a 90 degree angle to your body. Swipe right to input a new destination. Swipe left to route to a favorite destination. Swipe up to adjust settings. Swipe down to access voice commands. "
 		Speech.shared.immediatelySayEvenIfVoiceIsOff(utterance: mainStatement)
@@ -220,12 +221,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             self.spinner.stopAnimating()
    
 			Stuff.things.cancelled = false
-            // Begin naviation and read first direction outloud
-            // TODO: give capability to change rate in settings
-            print ("old heading filter = ", self.locationService.headingFilter)
-            self.locationService.headingFilter = Stuff.things.getHeaderFilterValue()
-            self.locationService.distanceFilter = Stuff.things.getDistanceFilterValue()
-            print ("new heading filter = ", self.locationService.headingFilter)
             
             let start_text = "All set with direction to " + self.route.endLocation.formatForReading() + ". To begin,  " + self.route.currentStep().readingDescription
             Speech.shared.say(utterance: start_text)

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iVe-tL-pzX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R35-sL-vJi" id="nZW-Ke-wj9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-E1-FSa">
@@ -354,6 +354,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="KKd-SL-cch" firstAttribute="leading" secondItem="V0M-ur-mul" secondAttribute="leadingMargin" id="0vr-HN-gow"/>
                             <constraint firstItem="wn2-gM-2A3" firstAttribute="top" secondItem="CL4-rb-NzN" secondAttribute="bottom" constant="8" id="9pq-SC-FgW"/>
@@ -388,6 +389,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressTextField" destination="JLV-QU-juj" id="7Jp-n4-diK"/>
+                        <outlet property="cancelButtonObject" destination="h3j-GS-Oh5" id="g6G-QL-ahO"/>
                         <outlet property="locationAddressLabel" destination="oXX-Gr-1Eh" id="dcc-rc-8f5"/>
                         <outlet property="locationSearchStatusLabel" destination="rq3-rD-JdH" id="IJB-LL-MFl"/>
                         <outlet property="nameTextField" destination="KKd-SL-cch" id="Osz-iM-e6A"/>
@@ -665,57 +667,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="359-SE-DgT">
-                                <rect key="frame" x="0.0" y="138" width="375" height="608"/>
-                            </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOX-ff-wmt" userLabel="VolumeBox">
-                                <rect key="frame" x="0.0" y="59" width="375" height="98"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Volume" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fdh-Jl-z8d">
-                                        <rect key="frame" x="8" y="36" width="257" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="10" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="rTV-kl-VeJ">
-                                        <rect key="frame" x="273" y="37" width="94" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="volumeChangeControl:" destination="lnx-WB-Ijr" eventType="valueChanged" id="Iq7-iB-cnQ"/>
-                                        </connections>
-                                    </stepper>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yy-og-0nX" userLabel="VibrationOnOffBox">
-                                <rect key="frame" x="0.0" y="161" width="375" height="98"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vibration: ON/OFF" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vlq-0g-YXa">
-                                        <rect key="frame" x="8" y="35" width="168" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwm-zw-VJ7">
-                                        <rect key="frame" x="318" y="35" width="51" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="vibrationSwitchToggle:" destination="lnx-WB-Ijr" eventType="valueChanged" id="hhI-pM-elv"/>
-                                        </connections>
-                                    </switch>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evs-YC-Hcb" userLabel="VoiceOnOffBox">
-                                <rect key="frame" x="0.0" y="263" width="375" height="98"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="evs-YC-Hcb" userLabel="VoiceOnOffBox">
+                                <rect key="frame" x="0.0" y="210" width="375" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Voice: ON/OFF" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XJ7-l9-Qd2">
-                                        <rect key="frame" x="8" y="35" width="137" height="30"/>
+                                        <rect key="frame" x="8" y="56" width="137" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -723,7 +680,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9M-hu-14a">
-                                        <rect key="frame" x="318" y="34" width="51" height="31"/>
+                                        <rect key="frame" x="318" y="56" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -736,18 +693,19 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="91P-ia-HdA" userLabel="VoiceSpeedBox">
-                                <rect key="frame" x="0.0" y="365" width="375" height="98"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91P-ia-HdA" userLabel="VoiceSpeedBox">
+                                <rect key="frame" x="0.0" y="361" width="375" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="FyR-yn-uAn">
-                                        <rect key="frame" x="273" y="36" width="94" height="29"/>
+                                        <rect key="frame" x="273" y="56" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="voiceChangeController:" destination="lnx-WB-Ijr" eventType="valueChanged" id="M9L-bH-YYy"/>
                                         </connections>
                                     </stepper>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Speech Rate" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="avO-PX-uYC">
-                                        <rect key="frame" x="8" y="36" width="245" height="30"/>
+                                        <rect key="frame" x="8" y="55" width="245" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -757,11 +715,41 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94p-S7-P2r" userLabel="BeepOnOffBox">
-                                <rect key="frame" x="0.0" y="467" width="375" height="98"/>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sid-4a-qez">
+                                <rect key="frame" x="0.0" y="15" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Settings" id="dlV-PQ-UTr"/>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cOX-ff-wmt" userLabel="VolumeBox">
+                                <rect key="frame" x="0.0" y="59" width="375" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" value="10" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="rTV-kl-VeJ">
+                                        <rect key="frame" x="273" y="57" width="94" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="volumeChangeControl:" destination="lnx-WB-Ijr" eventType="valueChanged" id="Iq7-iB-cnQ"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Volume" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fdh-Jl-z8d">
+                                        <rect key="frame" x="8" y="56" width="257" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94p-S7-P2r" userLabel="BeepOnOffBox">
+                                <rect key="frame" x="0.0" y="513" width="375" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Beep: ON/OFF" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pOl-EK-XW3">
-                                        <rect key="frame" x="8" y="35" width="168" height="30"/>
+                                        <rect key="frame" x="8" y="56" width="168" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -769,94 +757,29 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MfA-W5-XQM">
-                                        <rect key="frame" x="318" y="35" width="51" height="31"/>
+                                        <rect key="frame" x="318" y="56" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="beepSwitchToggle:" destination="lnx-WB-Ijr" eventType="valueChanged" id="AOP-Bp-iL5"/>
-                                            <action selector="vibrationSwitchToggle:" destination="lnx-WB-Ijr" eventType="valueChanged" id="uW1-AY-LYu"/>
                                         </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcD-bX-f8b" userLabel="BeepFrequencyBox">
-                                <rect key="frame" x="0.0" y="569" width="375" height="98"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Beep Frequency" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y4H-NL-NRy">
-                                        <rect key="frame" x="8" y="36" width="250" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Ji-pM-cZD">
-                                        <rect key="frame" x="273" y="37" width="94" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="beepChangeControl:" destination="lnx-WB-Ijr" eventType="valueChanged" id="MAv-4P-by7"/>
-                                        </connections>
-                                    </stepper>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sid-4a-qez">
-                                <rect key="frame" x="0.0" y="15" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Settings" id="dlV-PQ-UTr"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="94p-S7-P2r" firstAttribute="top" secondItem="91P-ia-HdA" secondAttribute="bottom" constant="4" id="0Oq-Qd-9Jz"/>
-                            <constraint firstItem="91P-ia-HdA" firstAttribute="top" secondItem="evs-YC-Hcb" secondAttribute="bottom" constant="4" id="4a6-1m-z1r"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="evs-YC-Hcb" secondAttribute="trailing" id="7Ux-X4-YiU"/>
-                            <constraint firstAttribute="trailing" secondItem="359-SE-DgT" secondAttribute="trailing" id="BOi-13-jzY"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="91P-ia-HdA" secondAttribute="leading" id="GZ7-cd-RlP"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="2yy-og-0nX" secondAttribute="trailing" id="J7M-Yj-GfI"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="359-SE-DgT" secondAttribute="leading" id="LNo-4B-yru"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="top" secondItem="dQZ-zu-rZL" secondAttribute="topMargin" constant="15" id="LmT-a4-cZr"/>
-                            <constraint firstItem="evs-YC-Hcb" firstAttribute="top" secondItem="2yy-og-0nX" secondAttribute="bottom" constant="4" id="MUK-o3-xEf"/>
-                            <constraint firstItem="2yy-og-0nX" firstAttribute="top" secondItem="cOX-ff-wmt" secondAttribute="bottom" constant="4" id="Qmt-Lc-MHs"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="rcD-bX-f8b" secondAttribute="trailing" id="Uqe-Ka-AiU"/>
-                            <constraint firstItem="2yy-og-0nX" firstAttribute="top" secondItem="dQZ-zu-rZL" secondAttribute="top" constant="161" id="WJE-8u-5aA"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="bottom" secondItem="cOX-ff-wmt" secondAttribute="top" id="WU6-2k-exu"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="359-SE-DgT" secondAttribute="trailing" id="WaH-aF-5VX"/>
-                            <constraint firstItem="91P-ia-HdA" firstAttribute="top" secondItem="dQZ-zu-rZL" secondAttribute="top" constant="365" id="XK9-qw-prs"/>
-                            <constraint firstItem="evs-YC-Hcb" firstAttribute="top" secondItem="dQZ-zu-rZL" secondAttribute="top" constant="263" id="ZrM-bY-efb"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="359-SE-DgT" secondAttribute="bottom" constant="-79" id="bjH-Of-Uy9"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="91P-ia-HdA" secondAttribute="trailing" id="bqb-b3-LFT"/>
-                            <constraint firstItem="rcD-bX-f8b" firstAttribute="bottom" secondItem="8We-rJ-jhb" secondAttribute="top" id="d8T-Iy-szE"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="94p-S7-P2r" secondAttribute="trailing" id="e49-qr-MWy"/>
-                            <constraint firstItem="rcD-bX-f8b" firstAttribute="top" secondItem="94p-S7-P2r" secondAttribute="bottom" constant="4" id="eO3-R6-y6r"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="evs-YC-Hcb" secondAttribute="leading" id="gRi-ay-WtG"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="trailing" secondItem="cOX-ff-wmt" secondAttribute="trailing" id="iB9-MS-Oiq"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="cOX-ff-wmt" secondAttribute="leading" id="ih6-28-as5"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="2yy-og-0nX" secondAttribute="leading" id="jlG-Zv-eBU"/>
-                            <constraint firstItem="359-SE-DgT" firstAttribute="leading" secondItem="dQZ-zu-rZL" secondAttribute="leading" id="kWl-Xs-Oyn"/>
-                            <constraint firstAttribute="bottom" secondItem="94p-S7-P2r" secondAttribute="bottom" constant="102" id="ln9-Qp-BAU"/>
-                            <constraint firstItem="359-SE-DgT" firstAttribute="top" secondItem="Sid-4a-qez" secondAttribute="bottom" constant="79" id="m5v-5t-77w"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="rcD-bX-f8b" secondAttribute="leading" id="txt-UX-9wk"/>
-                            <constraint firstItem="Sid-4a-qez" firstAttribute="leading" secondItem="94p-S7-P2r" secondAttribute="leading" id="uh1-Ah-bjq"/>
-                            <constraint firstAttribute="bottom" secondItem="91P-ia-HdA" secondAttribute="bottom" constant="204" id="wt3-6z-Gs4"/>
-                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="lfO-cX-aYz" appends="YES" id="qtf-II-MV6"/>
                             <outletCollection property="gestureRecognizers" destination="HPP-Uv-VYJ" appends="YES" id="Xjv-hd-bIX"/>
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="beepChange" destination="4Ji-pM-cZD" id="12B-5P-vKX"/>
-                        <outlet property="beepChangeLabel" destination="y4H-NL-NRy" id="JRC-vm-npb"/>
                         <outlet property="beepSwitch" destination="MfA-W5-XQM" id="Ag0-HJ-Lvq"/>
                         <outlet property="beepSwitchLabel" destination="pOl-EK-XW3" id="GX6-Ug-nYb"/>
                         <outlet property="tapGesture" destination="lfO-cX-aYz" id="ljt-sS-GrT"/>
                         <outlet property="toggleVoiceOnOff" destination="HPP-Uv-VYJ" id="iWn-8a-cQO"/>
-                        <outlet property="vibrationSwitch" destination="zwm-zw-VJ7" id="HWq-MQ-49t"/>
-                        <outlet property="vibrationSwitchLabel" destination="vlq-0g-YXa" id="Ygg-Ii-FwK"/>
                         <outlet property="voiceChange" destination="FyR-yn-uAn" id="Nk1-wu-3io"/>
                         <outlet property="voiceChangeLabel" destination="avO-PX-uYC" id="ViZ-tl-uk0"/>
                         <outlet property="voiceSwitch" destination="C9M-hu-14a" id="egt-gj-roT"/>

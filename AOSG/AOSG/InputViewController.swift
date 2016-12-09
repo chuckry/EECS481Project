@@ -111,14 +111,11 @@ class InputViewController: UIViewController, UITextFieldDelegate {
         mainViewController.destinationText = destination
         inputDestinationTextField?.text = nil
         if Speech.shared.voiceOn {
-            "Ok, please wait...".say {
-                self.horizontalPageVC.moveToMainScreen()
-                LocationService.sharedInstance.waitForLocationToBeAvailable(callback: self.mainViewController.initialLocationKnown)
-            }
-        } else {
-            self.horizontalPageVC.moveToMainScreen()
-            LocationService.sharedInstance.waitForLocationToBeAvailable(callback: self.mainViewController.initialLocationKnown)
+            "Ok, please wait...".say()
         }
+        self.horizontalPageVC.moveToMainScreen()
+        LocationService.sharedInstance.waitForLocationToBeAvailable(callback: self.mainViewController.initialLocationKnown)
+        
     }
     
     func disableUIElements() {
