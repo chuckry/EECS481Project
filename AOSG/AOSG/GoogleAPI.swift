@@ -326,9 +326,11 @@ class GoogleAPI: NSObject {
     let placesEndpoint = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
     // Querys the Google directions API to extract direction from an origin to a destination
-    func directionsFromAddress(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+    func directionsFromAddress(from: String, place_id: String?, address: String, callback: @escaping (NavigationPath?) -> Void) {
         
         // call the directions API, and create a Navigation path to send back.
+        let to = place_id != nil ? "place_id:\(place_id!)" : address
+
         let urlEncodedFrom = from.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let urlEncodedTo = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let fullURL = "\(directionsEndpoint)origin=\(urlEncodedFrom!)&destination=\(urlEncodedTo!)&key=\(API_KEY)"
@@ -336,6 +338,8 @@ class GoogleAPI: NSObject {
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"
         
+        print(fullURL)
+
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
             // Translate potential errors
@@ -493,10 +497,10 @@ class GoogleAPI: NSObject {
     /*
      *  Takes an input location and converts it to a formatted address via API call
      */
-    func addressFromKeywords(from: String, to: String, callback: @escaping (NavigationPath?) -> Void) {
+    func addressFromKeywords(from: CLLocation, to: String, callback: @escaping (NavigationPath?) -> Void) {
         let API_KEY = "AIzaSyBLbvnLoXYu1ypBpqrdp0lLu9K_t1R0mZQ"
         let address = to.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        let url = "\(placesEndpoint)key=\(API_KEY)&query=\(address!)"
+        let url = "\(placesEndpoint)key=\(API_KEY)&query=\(address!)&location=\(from.coordinate.latitude),\(from.coordinate.longitude)"
         let requestURL = URL(string: url)
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "GET"
@@ -509,10 +513,12 @@ class GoogleAPI: NSObject {
             }
             
             let json = JSON(data: data!)
+            let place = json["results"][0]["place_id"].string!
             let result = json["results"][0]["formatted_address"].string!
-            print("RESULT 2: \(result)")
+            print("RESULT: \(result)")
             
-            self.directionsFromAddress(from: from, to: result, callback: callback)
+            let fromStr = "\(from.coordinate.latitude),\(from.coordinate.longitude)"
+            self.directionsFromAddress(from: fromStr, place_id: place, address: result, callback: callback)
         }
         task.resume()
     }

@@ -159,7 +159,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         spinner.startAnimating()
         print("ASKING GOOGLE API")
         
-        self.googleAPI.addressFromKeywords(from: "\(location.coordinate.latitude),\(location.coordinate.longitude)", to: destinationAddress, callback: self.initializeRouteGuidance)
+        self.googleAPI.addressFromKeywords(from: location, to: destinationAddress, callback: self.initializeRouteGuidance)
     }
     
     // Should execute as a handler when the Google API responds with a route
