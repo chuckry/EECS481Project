@@ -49,6 +49,8 @@ class HorizontalPageViewController: UIPageViewController {
     }
     
     public func moveToMainScreen() {
+        let mainViewController = orderedViewControllers[1] as! MainViewController
+        mainViewController.spinner.startAnimating()
         setViewControllers([orderedViewControllers[1]], direction: .reverse, animated: true, completion: nil)
     }
     
