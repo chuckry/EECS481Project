@@ -305,7 +305,7 @@ struct GeocodingResponse {
         
         for (abbr, state) in statesDictionary {
             for (index, component) in wholeAddress.enumerated() {
-                if component.range(of: " \(state) ") != nil {
+                if component.contains(abbr) {
                     wholeAddress[index] = component.replacingOccurrences(of: abbr, with: state)
                 }
             }
