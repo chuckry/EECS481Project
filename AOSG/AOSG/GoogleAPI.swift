@@ -97,11 +97,11 @@ class NavigationPath {
         for step in path {
 			Stuff.things.stepLengths.append(step.totalDistance)
             if step.formattedNote != nil {
-				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
+				let text = step.formattedDescription + "\nNote: " + step.formattedNote! + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(Int(step.totalDistance/Double(pedometer.stepSize)))"
                 directions.append(text)
 				print(text)
 			} else {
-				let text = step.formattedDescription + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(step.totalDistance/Double(pedometer.stepSize))"
+				let text = step.formattedDescription + " \nDistance: \(step.totalDistance) Time: \(step.totalDuration), \nSteps: \(Int(step.totalDistance/Double(pedometer.stepSize)))"
 				directions.append(text)
 				print(text)
             }
