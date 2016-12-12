@@ -301,8 +301,6 @@ struct GeocodingResponse {
         }
         wholeAddress[streetIndex] = streetAddress.joined(separator: " ")
         
-        var token : [String] = wholeAddress[2].components(separatedBy:" ")
-        
         for (abbr, state) in statesDictionary {
             for (index, component) in wholeAddress.enumerated() {
                 if component.contains(abbr) {
