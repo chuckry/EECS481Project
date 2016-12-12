@@ -30,6 +30,7 @@
 		41B25D041DCD6ACB004D9FC0 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D011DCD6ACB004D9FC0 /* Slt.framework */; };
 		41B25D061DCD6CBA004D9FC0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */; };
 		41B25D081DCD6CC4004D9FC0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */; };
+		41C571D31DFEFDBD00EB1EBD /* hum2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 41C571D21DFEFDBD00EB1EBD /* hum2.mp3 */; };
 		41DC98B41DD429D5004D47D6 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 41DC98B31DD429D5004D47D6 /* beep.wav */; };
 		41E1D2A91DE344F900D84FCB /* hum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 41E1D2A71DE344F900D84FCB /* hum.mp3 */; };
 		41E1D2AA1DE344F900D84FCB /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1D2A81DE344F900D84FCB /* SoundManager.swift */; };
@@ -108,6 +109,7 @@
 		41B25D051DCD6CBA004D9FC0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		41B25D071DCD6CC4004D9FC0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		41B25D091DCD6D0E004D9FC0 /* OpenEarsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenEarsHeader.h; sourceTree = "<group>"; };
+		41C571D21DFEFDBD00EB1EBD /* hum2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hum2.mp3; sourceTree = "<group>"; };
 		41DC98B31DD429D5004D47D6 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		41E1D2A71DE344F900D84FCB /* hum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hum.mp3; sourceTree = "<group>"; };
 		41E1D2A81DE344F900D84FCB /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		41952C3A1DA81D56001B237A /* AOSG */ = {
 			isa = PBXGroup;
 			children = (
+				41C571D21DFEFDBD00EB1EBD /* hum2.mp3 */,
 				41E1D2A71DE344F900D84FCB /* hum.mp3 */,
 				41E1D2A81DE344F900D84FCB /* SoundManager.swift */,
 				41DC98B31DD429D5004D47D6 /* beep.wav */,
@@ -425,6 +428,7 @@
 				41952C411DA81D56001B237A /* Main.storyboard in Resources */,
 				415078AA1DDE9D8500853AA3 /* left2.png in Resources */,
 				41DC98B41DD429D5004D47D6 /* beep.wav in Resources */,
+				41C571D31DFEFDBD00EB1EBD /* hum2.mp3 in Resources */,
 				14D576521DDBDE26002E5609 /* logo.png in Resources */,
 				41B25D021DCD6ACB004D9FC0 /* AcousticModelEnglish.bundle in Resources */,
 				415078AE1DDE9DD200853AA3 /* down2.png in Resources */,
