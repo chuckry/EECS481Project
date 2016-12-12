@@ -93,9 +93,11 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
         Stuff.things.beepOn = currentSettings.beepOn
         beepSwitch.isOn = currentSettings.beepOn
         if beepSwitch.isOn {
-            beepSwitchLabel.text = "Beep: ON"
+            beepSwitchLabel.text = "Sound: ON"
+            Stuff.things.beepOn = true
         } else {
-            beepSwitchLabel.text = "Beep: OFF"
+            beepSwitchLabel.text = "Sound: OFF"
+            Stuff.things.beepOn = false
         }
 
     }
@@ -291,12 +293,16 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
         if beepSwitch.isOn {
             Stuff.things.beepOn = true;
             currentSettings.beepOn = true;
-            beepSwitchLabel.text = "Beep: ON"
+            beepSwitchLabel.text = "Sound: ON"
+            Stuff.things.beepOn = true
+            Stuff.things.routeManager.soundManager.audioPlayer.play()
         }
         else {
             Stuff.things.beepOn = false;
             currentSettings.beepOn = false;
-            beepSwitchLabel.text = "Beep: OFF"
+            beepSwitchLabel.text = "Sound: OFF"
+            Stuff.things.beepOn = false
+            Stuff.things.routeManager.soundManager.audioPlayer.stop()
         }
         currentSettings.beepOn = beepSwitch.isOn
         Stuff.things.beepOn = beepSwitch.isOn
@@ -507,14 +513,18 @@ class SettingsViewController: UIViewController, OEEventsObserverDelegate  {
         else if (settingToChange == "BEEP") {
             currentSettings.beepOn = !currentSettings.beepOn
             if (currentSettings.beepOn == true) {
-                beepSwitchLabel.text = "Beep: ON"
+                beepSwitchLabel.text = "Sound: ON"
                 beepSwitch.isOn = true
-                Speech.shared.say(utterance: "Beeping On")
+                Speech.shared.say(utterance: "Sound On")
+                Stuff.things.beepOn = true
+                Stuff.things.routeManager.soundManager.audioPlayer.play()
             }
             else {
-                beepSwitchLabel.text = "Beep: OFF"
+                beepSwitchLabel.text = "Sound: OFF"
                 beepSwitch.isOn = false
-                Speech.shared.say(utterance: "Beeping Off")
+                Speech.shared.say(utterance: "Sound Off")
+                Stuff.things.beepOn = false
+                Stuff.things.routeManager.soundManager.audioPlayer.stop()
             }
             Stuff.things.beepOn = beepSwitch.isOn
             settingToChange = ""

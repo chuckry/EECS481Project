@@ -36,7 +36,7 @@ class Speech: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
 	var askedForBeepAfterSpeech:Bool = true
 	
 	
-    public var speechRate : Float = 0.5
+    public var speechRate : Float = 0.6
     public var voiceOn : Bool = true
     public var volume : Float = 1
     public var voiceChanged : Bool = false

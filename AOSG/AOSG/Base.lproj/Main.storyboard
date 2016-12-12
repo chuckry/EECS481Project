@@ -748,7 +748,7 @@
                                 <rect key="frame" x="0.0" y="513" width="375" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Beep: ON/OFF" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pOl-EK-XW3">
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sound: ON/OFF" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pOl-EK-XW3">
                                         <rect key="frame" x="8" y="56" width="168" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.88235294119999996" green="0.90980392160000001" blue="0.99607843139999996" alpha="0.0" colorSpace="calibratedRGB"/>
