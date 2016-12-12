@@ -302,9 +302,14 @@ struct GeocodingResponse {
         wholeAddress[streetIndex] = streetAddress.joined(separator: " ")
         
         var token : [String] = wholeAddress[2].components(separatedBy:" ")
-        wholeAddress[2] = token[0]
-        wholeAddress[2] = statesDictionary[wholeAddress[2]]!
         
+        for (abbr, state) in statesDictionary {
+            for (index, component) in wholeAddress.enumerated() {
+                if component.range(of: " \(state) ") != nil {
+                    wholeAddress[index] = component.replacingOccurrences(of: abbr, with: state)
+                }
+            }
+        }
         return wholeAddress.joined(separator: " ")
     }
 }
